@@ -8,6 +8,7 @@ var DataStore = require("nedb");
 //adios
 
 //hijoputa
+//cabronazo
 
 
 
