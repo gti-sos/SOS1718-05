@@ -3,14 +3,12 @@ var bodyParser = require("body-parser");
 var DataStore = require("nedb");
 //julio y vicente pero no manu
 
+//hola
 
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> fbd49e15ff525e9f8f831c0229d043f70350f2d9
 var port = (process.env.PORT || 1607);
 var app = express();
 
