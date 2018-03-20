@@ -7,12 +7,12 @@ var DataStore = require("nedb");
 
 //adios
 
+//cabronazo
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 8fea060534c1a677eb04f76442f6545520c66518
+
+
 var port = (process.env.PORT || 1607);
 var app = express();
 
