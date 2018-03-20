@@ -13,6 +13,7 @@ var dbFileName = __dirname + "/best.db";
 
 var dbFileManu = __dirname+"/countries.db";
 
+
 var dbFileVicen = __dirname+"/world.db";
 
 
