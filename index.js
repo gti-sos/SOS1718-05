@@ -1,25 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var DataStore = require("nedb");
-//julio y vicente pero no manu
 
-//hola
-
-//adios
-
-//hijoputa
-//cabronazo
-
-
-//manolo el del bombón
-
-//muy bien
-
-
-
-
-
-//arsa
 var port = (process.env.PORT || 1607);
 var app = express();
 
