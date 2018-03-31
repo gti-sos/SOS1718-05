@@ -13,9 +13,9 @@ var world = require("./api-world-stats");
 
 //////////////////////////////////////////////////////////////////////RUTA BASE DE DATOS
 var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jpr";
-var dbFileManu = __dirname + "/countries.db";
-//var dbFileVicen = __dirname + "/world.db";     ///nedb
 var mdbVURL = "mongodb://vicgarmes:zxcvbnm123@ds155529.mlab.com:55529/sos1718-vgm-sandbox";
+var dbFileManu = __dirname + "/countries.db";
+
 ///////////////////////////////////////////////////////////////////////
 
 app.use(bodyParser.json());
@@ -52,8 +52,7 @@ console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
 });
 
 
-//
-/////////////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////////////CODIGOMANU
 
