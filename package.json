@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node index.js"
-    
+    "start": "node index.js"
   },
   "author": "julperrod1",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "ndb": "^0.2.4",
     "nedb": "^1.8.0"
   }
 }
