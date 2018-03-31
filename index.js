@@ -1,22 +1,19 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var DataStore = require("nedb");
-
+var DataStore = require("nedb");          //hay que comentralo
 
 var port = (process.env.PORT || 1607);
 var app = express();
 
 //////////////////////////////////////////////////////////////////////RUTA APIs
 var bestStats = require("./api-best-stats");
-//////////////////////////////////////////////----------------------------------------------------------------------------------------
 var world = require("./api-world-stats");
 
-//----------------------------------------------------------------------------------------------------
-
 //////////////////////////////////////////////////////////////////////RUTA BASE DE DATOS
-var dbFileName = __dirname + "/best.db";
+//var dbFileName = __dirname + "/best.db";
 var dbFileManu = __dirname + "/countries.db";
-var dbFileVicen = __dirname + "/world.db";
+//var dbFileVicen = __dirname + "/world.db";     ///nedb
+var mdbVURL = "mongodb://vicgarmes:zxcvbnm123@ds155529.mlab.com:55529/sos1718-vgm-sandbox";
 ///////////////////////////////////////////////////////////////////////
 
 app.use(bodyParser.json());
@@ -26,13 +23,14 @@ var API_BASE_PATH = "/api/v1/";
 
 
 /////////////////////////////////////////////////////////////////////BASE DE DATOS JULIO
-var db = new DataStore({
+/*var db = new DataStore({
 
     filename: dbFileName,
     autoload: true
 });
 
 bestStats.register(app, db);
+*/
 /////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////CODIGOMANU
@@ -202,15 +200,15 @@ app.put(API_BASE_PATH + "country-stats/:name", (req, res) => {
 
 /////////////////////////////////////////////////////////////////////////CÓDIGO VICENTE
 
-//base de datos
+/*                                 //base de datos para nedb
 var dbvicen = new DataStore({
     filename: dbFileVicen,
     autoload: true,
     corruptAlertThreshold: 1
 });
+*/
 
-
-
+/*                                                                       descomenta esto
 dbvicen.find({}, (err, contacts) => {
     if (err) {
         console.error("Error accesing DB");
@@ -230,11 +228,12 @@ world.register(app,dbvicen);
 
 //////////////////////////////////////////////////////////////////////
 
-
+*/
 app.listen(port, () => {
     console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
 }).on("error", (e) => {
     console.log("Server NOT READY: " + e);
 });
+
 
 console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
