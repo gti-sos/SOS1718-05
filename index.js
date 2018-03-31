@@ -1,6 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var DataStore = require("nedb");
+var MongoClient = require("mongodb").MongoClient;
 
 
 var port = (process.env.PORT || 1607);
@@ -11,7 +12,7 @@ var bestStats = require("./api-best-stats");
 //////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////RUTA BASE DE DATOS
-var dbFileName = __dirname + "/best.db";
+var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jpr";
 var dbFileManu = __dirname + "/countries.db";
 var dbFileVicen = __dirname + "/world.db";
 ///////////////////////////////////////////////////////////////////////
@@ -22,14 +23,35 @@ app.use("/", express.static(__dirname + "/public"));
 var API_BASE_PATH = "/api/v1/";
 
 
-/////////////////////////////////////////////////////////////////////BASE DE DATOS JULIO
-var db = new DataStore({
-
-    filename: dbFileName,
-    autoload: true
+/////////////////////////////////////////////////////////////////////APIS
+MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
+    
+    if(err){
+        console.error("Error accesing DB:" +err);
+        process.exit(1);
+    }
+       
+////////////////////////////////////////////////////////////API JULIO       
+        var DatabaseBest = mlabs.db("sos1718-jpr");
+        var dbBest = DatabaseBest.collection("best-stats");
+        
+        bestStats.register(app, dbBest);
+////////////////////////////////////////////////////////////
+    
+    
+    
+    app.listen(port, () => {
+    console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
+}).on("error", (e) => {
+    console.log("Server NOT READY: " + e);
 });
 
-bestStats.register(app, db);
+console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
+    
+});
+
+
+//
 /////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////CODIGOMANU
@@ -366,10 +388,4 @@ app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
 //////////////////////////////////////////////////////////////////////
 
 
-app.listen(port, () => {
-    console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
-}).on("error", (e) => {
-    console.log("Server NOT READY: " + e);
-});
 
-console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
