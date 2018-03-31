@@ -26,7 +26,7 @@ world.register= function (app,dbvicen){
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/loadInitialData");
 
-    dbvicen.find({}, function(err, records) {
+    dbvicen.find({}).toArray(function(err, records) {
         if (err) {
             console.error("Error accesing DB");
             process.exit(500);
@@ -49,7 +49,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats");
 
 
-    dbvicen.find({}, function(err, records) {
+    dbvicen.find({}).toArray(function(err, records) {
         if (err) {
             console.error("Error accesing DB");
             process.exit(500);
@@ -88,7 +88,7 @@ app.get(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/" + name);
 
 
-    dbvicen.find({}, (err, contacts) => {
+    dbvicen.find({}).toArray( (err, contacts) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatud(500);
