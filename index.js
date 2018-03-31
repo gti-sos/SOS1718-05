@@ -23,7 +23,7 @@ app.use("/", express.static(__dirname + "/public"));
 var API_BASE_PATH = "/api/v1/";
 
 
-/////////////////////////////////////////////////////////////////////APIS
+/////////////////////////////////////////////////////////////////////APIS 
 MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
     
     if(err){
@@ -31,16 +31,36 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         process.exit(1);
     }
        
+
 ////////////////////////////////////////////////////////////API JULIO       
         var DatabaseBest = mlabs.db("sos1718-jpr");
         var dbBest = DatabaseBest.collection("best-stats");
         
         bestStats.register(app, dbBest);
+
+    app.listen(port, () => {
+    console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
+}).on("error", (e) => {
+    console.log("Server NOT READY: " + e);
+});
+
+console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
+    
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+MongoClient.connect(mdbVURL,{native_parser: true},(err,mlabs)=>{
+    
+    if(err){
+        console.error("Error accesing DB:" +err);
+        process.exit(1);
+    }
+        
 ////////////////////////////////////////////////////////////API VICENTE
      var DatabaseWorld = mlabs.db("sos1718-vgm-sandbox");
         var dbWorld = DatabaseWorld.collection("best-sellers-start");
         
-        bestStats.register(app, dbWorld);
+        world.register(app, dbWorld);
     
     
     
@@ -53,9 +73,6 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
 console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
     
 });
-
-
-//
 /////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////CODIGOMANU
