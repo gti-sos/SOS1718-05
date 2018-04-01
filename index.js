@@ -38,9 +38,9 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
 ////////////////////////////////////////////////////////////API JULIO       
         var DatabaseBest = mlabs.db("sos1718-jpr");
         var dbBest = DatabaseBest.collection("best-stats");
+        var dbWorld = DatabaseBest.collection("best-sellers-stats");
         
-         var dbWorld = DatabaseBest.collection("best-sellers-stats");
-         world.register(app, dbWorld);
+        world.register(app, dbWorld);
         
         bestStats.register(app, dbBest);
 
@@ -55,6 +55,7 @@ console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////
 
