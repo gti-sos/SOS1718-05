@@ -13,8 +13,10 @@ var world = require("./api-world-stats");
 
 //////////////////////////////////////////////////////////////////////RUTA BASE DE DATOS
 var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jpr";
-var mdbVURL = "mongodb://vicgarmes:zxcvbnm123@ds155529.mlab.com:55529/sos1718-vgm-sandbox";
+
 var dbFileManu = __dirname + "/countries.db";
+var mdbVURL = "mongodb://vicgarmes:zxcvbnm123@ds155529.mlab.com:55529/sos1718-vgm-sandbox";
+
 
 ///////////////////////////////////////////////////////////////////////
 
@@ -37,7 +39,11 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         var dbBest = DatabaseBest.collection("best-stats");
         
         bestStats.register(app, dbBest);
-////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////API VICENTE
+     var DatabaseWorld = mlabs.db("sos1718-vgm-sandbox");
+        var dbWorld = DatabaseWorld.collection("best-sellers-start");
+        
+        bestStats.register(app, dbWorld);
     
     
     
@@ -217,7 +223,6 @@ app.put(API_BASE_PATH + "country-stats/:name", (req, res) => {
 
     res.sendStatus(200);
 });
-
 
 
 
