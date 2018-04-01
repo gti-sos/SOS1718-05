@@ -65,10 +65,25 @@ world.register= function (app,dbvicen){
 
 });
 ////dd
+app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
+        console.log(Date() + " - new GET /best-sellers-stats");
+        dbvicen.find({}).toArray((err, records) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+            }
+            if(records.length == 0){
+                res.sendStatus(404);
+            }else{
+            res.send(records.map(b => {delete b._id;
+            return b;}));
+            }
+        });
 
+    });
 
 ////////////////////////////////////////////////////////////////get grupal
-app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
+/*app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats");
 
 
@@ -85,7 +100,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 
 
 });
-
+*/
 ////////////////////////////////////////////////////////////////post grupal
 app.post(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - POST /best-sellers-stats");
@@ -108,24 +123,30 @@ app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     res.sendStatus(200);
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////77
+app.get(API_BASE_PATH + "best-sellers-stats/:album", (req, res) => {
+    var album = req.params.album;
+    console.log(Date() + " - GET /best-sellers-stats/" + album);
 
-app.get(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
-    var name = req.params.name;
-    console.log(Date() + " - GET /best-sellers-stats/" + name);
 
-
-    dbvicen.find({}).toArray( (err, contacts) => {
+    dbvicen.find({"album" : album}).toArray( (err, contacts) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatud(500);
             return;
         }
-        res.send(contacts.filter((c) => {
-            return (c.album == name);
-        })[0]);
-    });
+        if(contacts.length == 0){
+                res.sendStatus(404);
+            
+        }else{
+        res.send(contacts.map((c) => {
+            delete c._id;
+            return c;
+        }));}});
 
 });
+
+    
 
 
 
@@ -162,8 +183,8 @@ app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     console.log(Date() + " - PUT /best-sellers-stats" + name);
 
     if (name != contact.album) {
-        res.sendStatus(409);
-        console.warn(Date() + " - Hacking attempt!");
+        res.sendStatus(400); //debe contener el mismo id del recurso al que se especifica en la URL
+       // console.warn(Date() + " - Hacking attempt!");
     }
 
     dbvicen.update({ "album": contact.album }, contact, (err, numUpdated) => {
