@@ -53,19 +53,11 @@ var initialBests = [
 
 module.exports = bestStats;
 
-bestStats.register = function(app,db) {
+bestStats.register = function(app,db,url) {
 
 
-    /*app.get(API_BASE_PATH + "best-stats/?country=:aux", (req, res) => {
-        
-        
-        db.find({})
-        
-        
-        
-    });
-*/
-
+   
+    
 
 
 
@@ -212,4 +204,6 @@ bestStats.register = function(app,db) {
         res.sendStatus(200);
         }
     });
+
+    
 }

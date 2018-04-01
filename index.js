@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var url = require("url");
 var MongoClient = require("mongodb").MongoClient;
 
 
@@ -35,7 +36,7 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         
         
         world.register(app, dbWorld);
-        bestStats.register(app, dbBest);
+        bestStats.register(app, dbBest,url);
         countryApi.register(app, dbmanu);
     
     app.listen(port, () => {
