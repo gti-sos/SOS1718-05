@@ -10,7 +10,7 @@ var app = express();
 //////////////////////////////////////////////////////////////////////RUTA APIs
 var bestStats = require("./api-best-stats");
 var world = require("./api-world-stats");
-
+var countryApi = require("./api-country-stats");
 //////////////////////////////////////////////////////////////////////RUTA BASE DE DATOS
 var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jpr";
 
@@ -40,10 +40,17 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         var dbBest = DatabaseBest.collection("best-stats");
         var dbWorld = DatabaseBest.collection("best-sellers-stats");
         
+<<<<<<< HEAD
+        world.register(app, dbWorld);
+=======
+        var dbWorld = DatabaseBest.collection("best-sellers-stats");
+        var dbmanu = DatabaseBest.collection("country-stats");
         world.register(app, dbWorld);
         
+>>>>>>> 607d5eba0ba47ebf764a53c6c1c472b48a7fb3e6
+        
         bestStats.register(app, dbBest);
-
+        countryApi.register(app, dbmanu);
     app.listen(port, () => {
     console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
 }).on("error", (e) => {
@@ -55,6 +62,7 @@ console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 
 
 /////////////////////////////////////////////////////////////////////
@@ -225,3 +233,5 @@ app.put(API_BASE_PATH + "country-stats/:name", (req, res) => {
 
 
 
+=======
+>>>>>>> 607d5eba0ba47ebf764a53c6c1c472b48a7fb3e6
