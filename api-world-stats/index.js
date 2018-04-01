@@ -2,19 +2,19 @@ var world = {};
 var API_BASE_PATH = "/api/v1/";
 
 var initialdato = [{
-        "country": "US",
-        "year": 1982,
-        "album": "Thriller",
-        "artist": "Michael Jackson",
-        "sale": "65 millons"
+        "country":"US",
+        "year":1982,
+        "album":"Thriller",
+        "artist":"Michael Jackson",
+        "sale":"65 millons"
 
     },
     {
-        "country": "Australia",
-        "year": 1980,
-        "album": "Back in Black",
-        "artist": "AC/DC",
-        "sale": "50 millions"
+        "country":"Australia",
+        "year":1980,
+        "album":"Back in Black",
+        "artist":"AC/DC",
+        "sale":"50 millions"
     },
     {
         "country": "UK",
@@ -43,6 +43,7 @@ var initialdato = [{
 module.exports = world;
 
 world.register= function (app,dbvicen){
+    
     console.log("register..");
     
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
@@ -151,12 +152,14 @@ app.post(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     console.log(Date() + " - POST /best-sellers-stats/" + name);
     res.sendStatus(405);
 });
+//////////////////////////////////////////////////////////////////////////////////////
 
+  
 app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
     var contact = req.body;
 
-    console.log(Date() + " - PUT /best-sellers-stats/" + name);
+    console.log(Date() + " - PUT /best-sellers-stats" + name);
 
     if (name != contact.album) {
         res.sendStatus(409);
@@ -174,4 +177,6 @@ app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
 
     res.sendStatus(200);
 });
+
+
 }

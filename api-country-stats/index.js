@@ -219,7 +219,7 @@ countryApi.register = function(app,dbmanu){
         var rank = req.params.rank;
         var contact = req.body;
         
-        console.log(Date() + " - PUT /country-stats/"+name+ " rank:"+rank);
+        console.log(Date() + " - PUT /country-stats"+name+ " rank:"+rank);
         
         if(name != contact.country){
             res.sendStatus(409);
