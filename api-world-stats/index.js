@@ -76,7 +76,10 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
             console.error("Error accesing DB");
             process.exit(500);
         }
-        res.send(records);
+        res.send(records.map((c) => {
+            delete c._id;
+            return c;
+        }));
     });
 
 
