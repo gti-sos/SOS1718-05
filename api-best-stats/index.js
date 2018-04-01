@@ -54,6 +54,23 @@ var initialBests = [
 module.exports = bestStats;
 
 bestStats.register = function(app,db) {
+
+
+   /* app.get(API_BASE_PATH + "best-stats/?country=", (req, res) => {
+        
+        
+        
+        
+    });
+*/
+
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////LOAD INITIAL DATA
     app.get(API_BASE_PATH + "best-stats/loadInitialData", (req, res) => {
         console.log(Date() + " - new GET /best");
@@ -74,7 +91,6 @@ bestStats.register = function(app,db) {
     app.get(API_BASE_PATH + "best-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897869/collection/RVu1Gqot");
     });
-    ////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////CONJUNTO DE RECURSOS.
     app.get(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new GET /best");
@@ -92,9 +108,6 @@ bestStats.register = function(app,db) {
         });
 
     });
-    //////////////////////////////////////
-
-    /////////////////
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
