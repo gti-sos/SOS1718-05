@@ -81,9 +81,12 @@ bestStats.register = function(app,db) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
             }
+            if(bests.length == 0){
+                res.sendStatus(404);
+            }else{
             res.send(bests.map(b => {delete b._id;
             return b;}));
-
+            }
         });
 
     });
@@ -93,9 +96,25 @@ bestStats.register = function(app,db) {
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
-        db.insert(aux);
-        res.sendStatus(201);
+        
+        db.find({"country":aux.country,"year":aux.year}).toArray((err, bests) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+            }
+            if (bests.length == 0) {
+                db.insert(aux);
+                res.sendStatus(201);
+                
+            }else if(Object.keys(aux).length != 5){    
+            res.sendStatus(400);
+            
+            }else{
+                res.sendStatus(409);
+            }
 
+            
+        });
     });
 
     app.put(API_BASE_PATH + "best-stats", (req, res) => {
@@ -124,9 +143,15 @@ bestStats.register = function(app,db) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
             }
+            if(bests.length == 0){
+                res.sendStatus(404);
+            }else{
+            
             res.send(bests.map(b => {delete b._id;
             return b;})[0]);
-
+            
+            
+            }
         });
     });
 
@@ -153,9 +178,14 @@ bestStats.register = function(app,db) {
         var year = req.params.year;
         var best = req.body;
 
-        if ((year != best.year) && (country != best.country) ) {
-            res.sendStatus(409);
-        }
+        if ((year != best.year) || (country != best.country) ) {
+            res.sendStatus(400);
+        
+        }else if(Object.keys(best).length != 5){    
+            res.sendStatus(400);
+            
+        }else{
+        
 
         db.update({"country":best.country,"year": best.year}, best, (err, numUpdate) => {
             console.log("Updated" + numUpdate);
@@ -163,6 +193,6 @@ bestStats.register = function(app,db) {
         
         
         res.sendStatus(200);
-
+        }
     });
 }

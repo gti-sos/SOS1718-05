@@ -76,13 +76,10 @@ MongoClient.connect(mdbVURL,{native_parser: true},(err,mlabs)=>{
 console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
     
 });
-<<<<<<< HEAD
 
 
 
-=======
 /////////////////////////////////////////////////////////////////////
->>>>>>> 81448236526df88f7f7b5bf3579a760cb7ddd13f
 
 //////////////////////////////////////////////////////////////////////CODIGOMANU
 
