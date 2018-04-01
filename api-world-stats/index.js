@@ -2,11 +2,11 @@ var world = {};
 var API_BASE_PATH = "/api/v1/";
 
 var initialdato = [{
-        "country":"US",
-        "year":1982,
-        "album":"Thriller",
-        "artist":"Michael Jackson",
-        "sale":"65 millons"
+        "country": "US",
+        "year": 1982,
+        "album": "Thriller",
+        "artist": "Michael Jackson",
+        "sale": "65 millons"
 
     },
     {
@@ -43,7 +43,6 @@ var initialdato = [{
 module.exports = world;
 
 world.register= function (app,dbvicen){
-    
     console.log("register..");
     
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
@@ -64,7 +63,7 @@ world.register= function (app,dbvicen){
 
 
 });
-////dd
+
 
 
 ////////////////////////////////////////////////////////////////get grupal
@@ -77,10 +76,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
             console.error("Error accesing DB");
             process.exit(500);
         }
-        res.send(records.map((c) => {
-            delete c._id;
-            return c;
-        }));
+        res.send(records);
     });
 
 
@@ -126,9 +122,6 @@ app.get(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     });
 
 });
-
-
-
 
 app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
@@ -177,6 +170,5 @@ app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
 
     res.sendStatus(200);
 });
-
 
 }

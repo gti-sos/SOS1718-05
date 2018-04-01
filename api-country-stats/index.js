@@ -88,16 +88,20 @@ countryApi.register = function(app,dbmanu){
     app.get(API_BASE_PATH+"country-stats",(req,res)=>{
         console.log(Date() + " - GET /country-stats");
         dbmanu.find({}).toArray((err,records)=>{
+            
             if(err){
                 console.log("Error accesing DB");
                 res.sendStatus(500);
             }
-        res.send(records.map((r)=>{
-            delete r._id;
-            return r;
-        }));
+            else if (records.length == 0){
+                res.sendStatus(404);
+            }else{
+            res.send(records.map((r)=>{
+                delete r._id;
+                return r;
+            }));
             
-        });
+        }});
         
     });
     
@@ -108,9 +112,25 @@ countryApi.register = function(app,dbmanu){
         console.log(Date() + " - POST /country-stats");
         var contact = req.body;
         
-        dbmanu.insert(contact);
-        contact._id = 333333;
-        res.sendStatus(200);
+        dbmanu.find({"country": contact.country, "rank":contact.rank}).toArray((err, bests) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+                
+            }else if(Object.keys(contact).length != 5){    
+                res.sendStatus(400);
+            
+            }else if (bests.length == 0) {
+                dbmanu.insert(contact);
+                res.sendStatus(201);
+                
+            }else{
+                res.sendStatus(409);
+            }
+
+            
+        });
+        
     });
     
 ////PUT TOTAL, DA ERROR    
@@ -134,11 +154,14 @@ countryApi.register = function(app,dbmanu){
         console.log(Date() + " - GET /country-stats/"+name);
         
         
+        
         dbmanu.find({"country" : name}).toArray((err, contacts)=>{
             if(err){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
                 return;
+            }else if (contacts.length == 0){
+                res.sendStatus(404);
             }
         res.send(contacts.map((c)=>{
             delete c._id;
@@ -159,6 +182,8 @@ countryApi.register = function(app,dbmanu){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
                 return;
+            }else if (contacts.length == 0){
+                res.sendStatus(404);
             }
         res.send(contacts.map((c)=>{
             delete c._id;
@@ -213,11 +238,26 @@ countryApi.register = function(app,dbmanu){
         res.sendStatus(405);
     });
     
+    app.post(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
+        var name = req.params.name;
+        var rank= req.params.rank;
+        console.log(Date() + " - POST /country-stats/"+name + " rank: "+ rank);
+        res.sendStatus(405);
+    });
+    
 ////PUT INDIVIDUAL, ACTUALIZA EL ALBUM PARA UN PAÍS Y RANGO ESPECÍFICOS    
     app.put(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         var name = req.params.name;
         var rank = req.params.rank;
         var contact = req.body;
+        
+        
+        
+        
+        if(Object.keys(contact).length != 5){    
+            res.sendStatus(400);
+            
+            }
         
         console.log(Date() + " - PUT /country-stats"+name+ " rank:"+rank);
         
@@ -230,8 +270,10 @@ countryApi.register = function(app,dbmanu){
             console.warn(Date() + " - Hacking attempt!");
         }
         
+        
         dbmanu.update({"country" : contact.country, "rank": contact.rank}, contact, (err, numUpdated)=>{
-            if(err){
+            if(numUpdated == 0){res.sendStatud(400);}
+            else if(err){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
                 return;
