@@ -55,16 +55,6 @@ module.exports = bestStats;
 
 bestStats.register = function(app,db) {
 
-
-   
-    
-
-
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////LOAD INITIAL DATA
     app.get(API_BASE_PATH + "best-stats/loadInitialData", (req, res) => {
         console.log(Date() + " - new GET /best");
