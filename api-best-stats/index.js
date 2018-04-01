@@ -56,8 +56,10 @@ module.exports = bestStats;
 bestStats.register = function(app,db) {
 
 
-   /* app.get(API_BASE_PATH + "best-stats/?country=", (req, res) => {
+    /*app.get(API_BASE_PATH + "best-stats/?country=:aux", (req, res) => {
         
+        
+        db.find({})
         
         
         
