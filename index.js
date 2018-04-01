@@ -15,7 +15,7 @@ var world = require("./api-world-stats");
 var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jpr";
 
 var dbFileManu = __dirname + "/countries.db";
-var mdbVURL = "mongodb://vicgarmes:zxcvbnm123@ds155529.mlab.com:55529/sos1718-vgm-sandbox";
+
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -39,6 +39,9 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         var DatabaseBest = mlabs.db("sos1718-jpr");
         var dbBest = DatabaseBest.collection("best-stats");
         
+         var dbWorld = DatabaseBest.collection("best-sellers-stats");
+         world.register(app, dbWorld);
+        
         bestStats.register(app, dbBest);
 
     app.listen(port, () => {
@@ -52,32 +55,6 @@ console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-MongoClient.connect(mdbVURL,{native_parser: true},(err,mlabs)=>{
-    
-    if(err){
-        console.error("Error accesing DB:" +err);
-        process.exit(1);
-    }
-        
-////////////////////////////////////////////////////////////API VICENTE
-     var DatabaseWorld = mlabs.db("sos1718-vgm-sandbox");
-        var dbWorld = DatabaseWorld.collection("best-sellers-start");
-        
-        world.register(app, dbWorld);
-    
-    
-    
-    app.listen(port, () => {
-    console.log("server ready TRUE!"); //Se ejecuta el servidor al aparecer el mensaje.
-}).on("error", (e) => {
-    console.log("Server NOT READY: " + e);
-});
-
-console.log("server ready FALSE!"); //Aqui todavia no se ha ejecutadao.
-    
-});
-
-
 
 /////////////////////////////////////////////////////////////////////
 
