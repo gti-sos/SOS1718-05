@@ -35,7 +35,7 @@ MongoClient.connect(mdbURL,{native_parser: true},(err,mlabs)=>{
         
         
         world.register(app, dbWorld);
-        bestStats.register(app, dbBest,url);
+        bestStats.register(app, dbBest);
         countryApi.register(app, dbmanu);
     
     app.listen(port, () => {
