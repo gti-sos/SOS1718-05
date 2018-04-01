@@ -53,7 +53,7 @@ var initialBests = [
 
 module.exports = bestStats;
 
-bestStats.register = function(app,db,url) {
+bestStats.register = function(app,db) {
 
 
    
