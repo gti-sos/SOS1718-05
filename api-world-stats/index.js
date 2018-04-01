@@ -6,7 +6,7 @@ var initialdato = [{
         "year": 1982,
         "album": "Thriller",
         "artist": "Michael Jackson",
-        "sale": "50 millons"
+        "sale": "65 millons"
 
     },
     {
@@ -14,8 +14,30 @@ var initialdato = [{
         "year": 1980,
         "album": "Back in Black",
         "artist": "AC/DC",
+        "sale": "50 millions"
+    },
+    {
+        "country": "UK",
+        "year": 1973,
+        "album": "The Dark Side of the Moon",
+        "artist": "Pink Floyd",
         "sale": "45 millions"
-    }
+    },
+    {
+        "country": "US",
+        "year": 1992,
+        "album": "The Bodyguard",
+        "artist": "Whitney Houston",
+        "sale": "45 millions"
+    },
+    {
+        "country": "US",
+        "year": 1976,
+        "album": "Their Greatests Hits",
+        "artist": "Eagles",
+        "sale": "42 millions"
+    },
+    
 ];
 
 module.exports = world;
