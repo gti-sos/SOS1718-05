@@ -63,7 +63,7 @@ countryApi.register = function(app,dbmanu){
     
 //////////////////DOCUMENTS
     app.get(API_BASE_PATH + "country-stats/docs",(req,res)=>{
-        res.redirect("https://documenter.getpostman.com/collection/view/3898111-70ae5076-1a9f-43d0-a8ff-89c226667345");
+        res.redirect("https://documenter.getpostman.com/view/3898111/collection/RVu1HqeJ");
     });    
     
     
@@ -269,12 +269,12 @@ countryApi.register = function(app,dbmanu){
         console.log(Date() + " - PUT /country-stats"+name+ " rank:"+rank);
         
         if(name != contact.country){
-            res.sendStatus(409);
+            res.sendStatus(400); 
             console.warn(Date() + " - Hacking attempt!");
         }
         if(rank != contact.rank){
-            res.sendStatus(409);
-            console.warn(Date() + " - Hacking attempt!");
+            res.sendStatus(400);
+            console.warn(Date() + " - oh no Hacking attempt!");
         }
         
         
