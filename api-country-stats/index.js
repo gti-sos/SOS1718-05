@@ -63,7 +63,7 @@ countryApi.register = function(app,dbmanu){
     
 //////////////////DOCUMENTS
     app.get(API_BASE_PATH + "country-stats/docs",(req,res)=>{
-        res.redirect("");
+        res.redirect("https://documenter.getpostman.com/collection/view/3898111-70ae5076-1a9f-43d0-a8ff-89c226667345");
     });    
     
     
