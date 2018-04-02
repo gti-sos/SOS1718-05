@@ -181,7 +181,7 @@ countryApi.register = function(app,dbmanu){
     app.get(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         var name = req.params.name;
         var rank = req.params.rank;
-        console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
+      //  console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
         
         
         dbmanu.find({"country" : name, "rank" : rank }).toArray((err, contacts)=>{

@@ -65,6 +65,8 @@ world.register= function (app,dbvicen){
 });
 
 ////dd
+
+    
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         console.log(Date() + " - new GET /best-sellers-stats");
         dbvicen.find({}).toArray((err, records) => {
@@ -100,14 +102,38 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 });
 */
 ////////////////////////////////////////////////////////////////post grupal
-app.post(API_BASE_PATH + "best-sellers-stats", (req, res) => {
+/*app.post(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - POST /best-sellers-stats");
     var contact = req.body;
 
     dbvicen.insert(contact);
     res.sendStatus(201);
 });
+*/
+app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
+        console.log(Date() + " - POST /best-sellers-stats");
+        var contact = req.body;
+        
+        dbvicen.find({"country": contact.country, "year":contact.year}).toArray((err, records) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+                
+            }else if(Object.keys(contact).length != 5){    
+                res.sendStatus(400);
+            
+            }else if (records.length == 0) {
+                dbvicen.insert(contact);
+                res.sendStatus(201);
+                
+            }else{
+                res.sendStatus(409);
+            }
 
+            
+        });
+        
+    });
 
 app.put(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - PUT /best-sellers-stats");
@@ -121,13 +147,39 @@ app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     res.sendStatus(200);
 });
 
-//////////////////////////////////////////////////////////////////////////////////////////////77
-app.get(API_BASE_PATH + "best-sellers-stats/:album", (req, res) => {
+////////////////////////////////////////////////////////////////////////////////////////////// HECHO
+app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
+        var country = req.params.country;
+        var anyo = req.params.year;
+        var year = parseInt(anyo,0);
+        console.log(Date() + " - GET /best-sellers-stats/"+country + " rank:"+ anyo);
+        
+        
+        dbvicen.find({"country" : country, "year" : year }).toArray((err, contacts)=>{
+            if(err){
+                console.error("Error accesing DB");
+                res.sendStatud(500);
+                return;
+            
+            } 
+        if(contacts.length == 0){
+                res.sendStatus(404);
+            
+        }
+        res.send(contacts.map((c)=>{
+            delete c._id;
+            return c;
+        })[0]);});
+        
+    });
+
+/*app.get(API_BASE_PATH + "best-sellers-stats/:album/:country", (req, res) => {
     var album = req.params.album;
+    var country = req.params.country;
     console.log(Date() + " - GET /best-sellers-stats/" + album);
 
 
-    dbvicen.find({"album" : album}).toArray( (err, contacts) => {
+    dbvicen.find({"album":album, "country":country}).toArray( (err, contacts) => {
         if (err) {
             console.error("Error accesing DB");
             res.sendStatud(500);
@@ -140,11 +192,13 @@ app.get(API_BASE_PATH + "best-sellers-stats/:album", (req, res) => {
         res.send(contacts.map((c) => {
             delete c._id;
             return c;
-        }));}});
+        })[0]);
+            
+        }});
 
 });
-
-
+*/
+/*
 app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
     console.log(Date() + " - DELETE /best-sellers-stats/" + name);
@@ -161,15 +215,73 @@ app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     res.sendStatus(200);
 
 });
-
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////hecho
+ app.delete(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
+        var country = req.params.country;
+        var anyo = req.params.year;
+         var year = parseInt(anyo,0);
+        console.log(Date() + " - DELETE /country-stats/"+country);
+        
+        dbvicen.remove({"country" : country, "year" : year }, function(err, num) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log(num);
+        
+        });
+        
+    res.sendStatus(200);
+       
+    });
 app.post(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
     console.log(Date() + " - POST /best-sellers-stats/" + name);
     res.sendStatus(405);
 });
 //////////////////////////////////////////////////////////////////////////////////////
-
-  
+ app.put(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
+        var country = req.params.country;
+        var anyo = req.params.year;
+        var year = parseInt(anyo,0);
+        var contact = req.body;
+        
+        
+        
+        
+        if(Object.keys(contact).length != 5){    
+            res.sendStatus(400);
+            
+            }
+        
+        console.log(Date() + " - PUT /country-stats"+country+ " rank:"+year);
+        
+        if(country != contact.country){
+            res.sendStatus(400);
+            console.warn(Date() + " - Hacking attempt!");
+        }
+        if(year != contact.year){
+            res.sendStatus(400);
+            console.warn(Date() + " - Hacking attempt!");
+        }
+        if(contact){
+            
+        }
+        
+        dbvicen.update({"country" : contact.country, "year": contact.year}, contact, (err, numUpdated)=>{
+            if(numUpdated == 0){res.sendStatud(400);}
+            else if(err){
+                console.error("Error accesing DB");
+                res.sendStatud(500);
+                return;
+            }
+            console.log("Updated" + numUpdated);
+        });
+        
+        res.sendStatus(200);
+    });
+ /*
 app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
     var contact = req.body;
@@ -192,5 +304,5 @@ app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
 
     res.sendStatus(200);
 });
-
+*/
 }
