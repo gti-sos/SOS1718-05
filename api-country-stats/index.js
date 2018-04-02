@@ -60,6 +60,13 @@ module.exports = countryApi;
 countryApi.register = function(app,dbmanu){
     console.log("Resgistering roots for country-stats api");
     
+    
+//////////////////DOCUMENTS
+    app.get(API_BASE_PATH + "country-stats/docs",(req,res)=>{
+        res.redirect("https://documenter.getpostman.com/view/3897869/collection/RVu1Gqot");
+    });    
+    
+    
 //////////////////LOAD INITIAL DATA///////////////////////////////
     
     app.get(API_BASE_PATH+"country-stats/loadInitialData",(req,res)=>{
