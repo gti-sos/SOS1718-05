@@ -87,7 +87,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 
 
     });
-
+//
 ////////////////////////////////////////////////////////////////get grupal
 /*app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats");
