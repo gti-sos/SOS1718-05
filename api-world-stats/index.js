@@ -55,6 +55,7 @@ world.register= function (app,dbvicen){
         }
         if (records.length == 0) {
             dbvicen.insert(initialdato);
+            res.sendStatus(201);
             console.log("DB initialized with " + initialdato.length + "contacts");
 
         }
