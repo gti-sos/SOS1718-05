@@ -235,7 +235,7 @@ app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     res.sendStatus(200);
        
     });
-app.post(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
+app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
     var name = req.params.name;
     console.log(Date() + " - POST /best-sellers-stats/" + name);
     res.sendStatus(405);
