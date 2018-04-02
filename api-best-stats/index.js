@@ -78,10 +78,9 @@ bestStats.register = function(app,db) {
     /////////////////////////////////////////////////////CONJUNTO DE RECURSOS.
     app.get(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new GET /best");
-        var country = req.query.country;
-        var year = parseInt(req.query.year,0);
+       
         
-        db.find({"country":country,"year":year}).toArray((err, bests) => {
+        db.find({}).toArray((err, bests) => {
             if (err) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
