@@ -65,7 +65,7 @@ world.register= function (app,dbvicen){
 });
 
 ////dd
-app.get(API_BASE_PATH + "best-stats/docs",(req,res)=>{
+app.get(API_BASE_PATH + "best-sellers-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
     });
     
