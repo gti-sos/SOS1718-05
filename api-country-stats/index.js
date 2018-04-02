@@ -94,6 +94,7 @@ countryApi.register = function(app,dbmanu){
 ////////////////////GET RECURSO PRINCIPAL////////////////////
     app.get(API_BASE_PATH+"country-stats",(req,res)=>{
         console.log(Date() + " - GET /country-stats");
+        
         dbmanu.find({}).toArray((err,records)=>{
             
             if(err){
