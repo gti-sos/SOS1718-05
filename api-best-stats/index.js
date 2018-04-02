@@ -5,43 +5,43 @@ var initialBests = [
         {
         "country":"Spain",
         "year":2017,
-        "selling-album":"Prometo - Pablo Alboran",
-        "radio-play":"Shape Of You - Ed Sheeran",
-        "selling-song":"Despacito - Luis Fonsi & Daddy Yankee"
+        "selling-album":"Prometo",
+        "radio-play":"Shape Of You",
+        "selling-song":"Despacito"
         
             
         },
         {
            "country":"Spain",
         "year":2016  ,
-        "selling-album":"Bailar el viento - Manuel Carrasco",
-        "radio-play":"Cheap Thrills - Sia & Sean Paul",
-        "selling-song":"Duele el corazón - Enrique Iglesias & Wisin"
+        "selling-album":"Bailar el viento",
+        "radio-play":"Cheap Thrills",
+        "selling-song":"Duele el corazón"
         },
          {
         "country":"Spain",
         "year":2015,
-        "selling-album":"Sirope - Alejandro Sanz",
-        "radio-play":"Thinking Out Loud  - Ed Sheeran",
-        "selling-song":"El perdón - Nicky Jam & Enrique Iglesias"
+        "selling-album":"Sirope",
+        "radio-play":"Thinking Out Loud",
+        "selling-song":"El perdón"
         
             
         },
          {
         "country":"Spain",
         "year":2014,
-        "selling-album":"Terral - Pablo Alboran",
-        "radio-play":"Bailando - Enriqu Iglesias",
-        "selling-song":"Happy - Pharrell Williams"
+        "selling-album":"Terral",
+        "radio-play":"Bailando",
+        "selling-song":"Happy"
         
             
         },
          {
         "country":"Spain",
         "year":2013,
-        "selling-album":"Tanto - Pablo Alboran",
-        "radio-play":"Cero - Dani Martin",
-        "selling-song":"Locked out of heaven - Bruno Mars"
+        "selling-album":"Tanto",
+        "radio-play":"Cero",
+        "selling-song":"Locked out of heaven"
         
             
         }
@@ -54,6 +54,30 @@ var initialBests = [
 module.exports = bestStats;
 
 bestStats.register = function(app,db) {
+
+////////////////////////////////////////////////////////////////////////AUTENTICACION
+    app.get(API_BASE_PATH + "secure/best-stats", (req, res) => {
+         console.log(Date() + " - new GET /best");
+         var apikey = req.query.apikey;
+         if(apikey == "SOS1718-05"){
+            db.find({}).toArray((err, bests) => {
+                if (err) {
+                    console.log("Error accesing DB");
+                    res.sendStatus(500);
+                }
+                if(bests.length == 0){
+                    res.sendStatus(404);
+                }else{
+                    res.send(bests.map(b => {delete b._id;
+                    return b;}));
+                }
+            });
+        }else{
+            res.sendStatus(401)
+        }
+    });
+
+
 
 //////////////////////////////////////////////////////////////////////LOAD INITIAL DATA
     app.get(API_BASE_PATH + "best-stats/loadInitialData", (req, res) => {
@@ -76,11 +100,29 @@ bestStats.register = function(app,db) {
         res.redirect("https://documenter.getpostman.com/view/3897869/collection/RVu1Gqot");
     });
     /////////////////////////////////////////////////////CONJUNTO DE RECURSOS.
+    
+    ////////////////////////////////////////////////////////GET GENERAL BUSQUEDA Y PAGINACION
     app.get(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new GET /best");
-       
+        var query = req.query;
+        var limit = 0;
+        var offset = 0;
+        var dbq = {};
+        Object.keys(query).forEach(p =>{
+            if(p =="limit"){
+                limit = JSON.parse(query[p]);
+            }else if(p == "offset"){
+                offset = JSON.parse(query[p]);
+            }else{
+                try{
+                    dbq[p] = JSON.parse(query[p]);
+                }catch(e){
+                    dbq[p] = query[p];
+                }
+            }  
+        });
         
-        db.find({}).toArray((err, bests) => {
+        db.find(dbq).limit(limit).skip(offset).toArray((err, bests) => {
             if (err) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
@@ -94,6 +136,7 @@ bestStats.register = function(app,db) {
         });
 
     });
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
