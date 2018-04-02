@@ -63,9 +63,7 @@ world.register= function (app,dbvicen){
 
 
 });
-<<<<<<< HEAD
 
-=======
 ////dd
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         console.log(Date() + " - new GET /best-sellers-stats");
@@ -81,7 +79,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
             return b;}));
             }
         });
->>>>>>> 9fd87f381b48d5edb51aa9e83e30d7cb84043cc5
+
 
     });
 
@@ -146,14 +144,7 @@ app.get(API_BASE_PATH + "best-sellers-stats/:album", (req, res) => {
 
 });
 
-<<<<<<< HEAD
-=======
-    
 
-
-
-
->>>>>>> 9fd87f381b48d5edb51aa9e83e30d7cb84043cc5
 app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     var name = req.params.name;
     console.log(Date() + " - DELETE /best-sellers-stats/" + name);
