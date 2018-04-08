@@ -104,9 +104,25 @@ bestStats.register = function(app,db) {
     ////////////////////////////////////////////////////////GET GENERAL BUSQUEDA Y PAGINACION
     app.get(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new GET /best");
-       
+        var query = req.query;
+        var limit = 0;
+        var offset = 0;
+        var dbq = {};
+        Object.keys(query).forEach(p =>{
+            if(p =="limit"){
+                limit = JSON.parse(query[p]);
+            }else if(p == "offset"){
+                offset = JSON.parse(query[p]);
+            }else{
+                try{
+                    dbq[p] = JSON.parse(query[p]);
+                }catch(e){
+                    dbq[p] = query[p];
+                }
+            }  
+        });
         
-        db.find({}).toArray((err, bests) => {
+        db.find(dbq).skip(offset).limit(limit).toArray((err, bests) => {
             if (err) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
