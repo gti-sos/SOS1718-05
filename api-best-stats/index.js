@@ -104,7 +104,7 @@ bestStats.register = function(app,db) {
     ////////////////////////////////////////////////////////GET GENERAL BUSQUEDA Y PAGINACION
     app.get(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new GET /best");
-        
+       
         
         db.find({}).toArray((err, bests) => {
             if (err) {
