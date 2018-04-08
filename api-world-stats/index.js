@@ -45,6 +45,8 @@ module.exports = world;
 world.register= function (app,dbvicen){
     console.log("register..");
     
+   
+                                        //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/loadInitialData");
 
@@ -65,11 +67,15 @@ world.register= function (app,dbvicen){
 
 });
 
-////dd
+                            //GET, POST, DELETE, PUT(erroneo) para el caso general//
+                            ///////////////////////////////////////////////////////
+  
+     //Enlace donde se encuentra la colección de postman                
 app.get(API_BASE_PATH + "best-sellers-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
     });
     
+    //GET al recurso inicial.....nos devuelve todos los recursos    
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         console.log(Date() + " - new GET /best-sellers-stats");
         dbvicen.find({}).toArray((err, records) => {
@@ -87,32 +93,10 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 
 
     });
-//
-////////////////////////////////////////////////////////////////get grupal
-/*app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-    console.log(Date() + " - GET /best-sellers-stats");
 
 
-    dbvicen.find({}).toArray(function(err, records) {
-        if (err) {
-            console.error("Error accesing DB");
-            process.exit(500);
-        }
-        res.send(records);
-    });
 
-
-});
-*/
-////////////////////////////////////////////////////////////////post grupal
-/*app.post(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-    console.log(Date() + " - POST /best-sellers-stats");
-    var contact = req.body;
-
-    dbvicen.insert(contact);
-    res.sendStatus(201);
-});
-*/
+    //Post al recurso inicial (crea un recurso concreto)
 app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
         console.log(Date() + " - POST /best-sellers-stats");
         var contact = req.body;
@@ -137,20 +121,24 @@ app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
         });
         
     });
-
+    
+    //PUT al recurso inicial (erroneo, no se puede actualizar aqui)
 app.put(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - PUT /best-sellers-stats");
     res.sendStatus(405);
 });
 
-
+    //DELETE al recurso inicial (eliminamos toda la lista)
 app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     console.log(Date() + " - DELETE /best-sellers-stats");
     dbvicen.remove({}, { multi: true });
     res.sendStatus(200);
 });
 
-////////////////////////////////////////////////////////////////////////////////////////////// HECHO
+                            //GET, POST (erroneo), DELETE, PUT para un recurso en concreto//
+                            ///////////////////////////////////////////////////////
+
+    //GET a un recurso concreto.
 app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
         var country = req.params.country;
         var anyo = req.params.year;
@@ -176,50 +164,8 @@ app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
         
     });
 
-/*app.get(API_BASE_PATH + "best-sellers-stats/:album/:country", (req, res) => {
-    var album = req.params.album;
-    var country = req.params.country;
-    console.log(Date() + " - GET /best-sellers-stats/" + album);
 
-
-    dbvicen.find({"album":album, "country":country}).toArray( (err, contacts) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatud(500);
-            return;
-        }
-        if(contacts.length == 0){
-                res.sendStatus(404);
-            
-        }else{
-        res.send(contacts.map((c) => {
-            delete c._id;
-            return c;
-        })[0]);
-            
-        }});
-
-});
-*/
-/*
-app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
-    var name = req.params.name;
-    console.log(Date() + " - DELETE /best-sellers-stats/" + name);
-
-    dbvicen.remove({ album: name }, function(err, num) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log(num);
-
-    });
-
-    res.sendStatus(200);
-
-});
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////////////hecho
+    //DELETE A UN RECURSO EN CONCRETO
  app.delete(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
         var country = req.params.country;
         var anyo = req.params.year;
@@ -238,12 +184,15 @@ app.delete(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
     res.sendStatus(200);
        
     });
+    
+    //POST A UN RECURSO CONCRETO (ERROR)
 app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
     var name = req.params.name;
     console.log(Date() + " - POST /best-sellers-stats/" + name);
     res.sendStatus(405);
 });
-//////////////////////////////////////////////////////////////////////////////////////
+
+    //PUT A UN RECURSO CONCRETO
  app.put(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
         var country = req.params.country;
         var anyo = req.params.year;
@@ -284,28 +233,5 @@ app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
         
         res.sendStatus(200);
     });
- /*
-app.put(API_BASE_PATH + "best-sellers-stats/:name", (req, res) => {
-    var name = req.params.name;
-    var contact = req.body;
 
-    console.log(Date() + " - PUT /best-sellers-stats" + name);
-
-    if (name != contact.album) {
-        res.sendStatus(400); //debe contener el mismo id del recurso al que se especifica en la URL
-       // console.warn(Date() + " - Hacking attempt!");
-    }
-
-    dbvicen.update({ "album": contact.album }, contact, (err, numUpdated) => {
-        if (err) {
-            console.error("Error accesing DB");
-            res.sendStatud(500);
-            return;
-        }
-        console.log("Updated" + numUpdated);
-    });
-
-    res.sendStatus(200);
-});
-*/
 }
