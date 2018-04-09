@@ -46,6 +46,7 @@ world.register= function (app,dbvicen){
     console.log("register..");
     
    
+
                                         //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/loadInitialData");
@@ -75,7 +76,7 @@ app.get(API_BASE_PATH + "best-sellers-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
     });
     
-    //GET al recurso inicial.....nos devuelve todos los recursos    
+  /*  //GET al recurso inicial.....nos devuelve todos los recursos    
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         console.log(Date() + " - new GET /best-sellers-stats");
         dbvicen.find({}).toArray((err, records) => {
@@ -93,8 +94,42 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 
 
     });
+*/
+app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
+        console.log(Date() + " - new GET /best");
+        var query = req.query;
+        var limit = 0;
+        var offset = 0;
+        var dbq = {};
+        Object.keys(query).forEach(p =>{
+            if(p =="limit"){
+                limit = JSON.parse(query[p]);
+            }else if(p == "offset"){
+                offset = JSON.parse(query[p]);
+            }else{
+                try{
+                    dbq[p] = JSON.parse(query[p]);
+                }catch(e){
+                    dbq[p] = query[p];
+                }
+            }  
+        });
+        
+		
+        dbvicen.find(dbq).limit(limit).skip(offset).toArray((err, bests) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+            }
+            if(bests.length == 0){
+                res.sendStatus(404);
+            }else{
+            res.send(bests.map(b => {delete b._id;
+            return b;}));
+            }
+        });
 
-
+    });
 
     //Post al recurso inicial (crea un recurso concreto)
 app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
