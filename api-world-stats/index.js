@@ -1,7 +1,7 @@
 var world = {};
 var API_BASE_PATH = "/api/v1/";
 
-var initialdato = [{
+var initialdato = [{   //Recursos iniciales
         "country": "US",
         "year": 1982,
         "album": "Thriller",
@@ -50,15 +50,15 @@ world.register= function (app,dbvicen){
                                         //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/loadInitialData");
-
-    dbvicen.find({}).toArray(function(err, records) {
+                                                    ////////////////////////////////////////////////////////////////////????????? es asi o que?
+    dbvicen.find({}).toArray(function(err, records) {//cojo toda la colleción de mi db(ya que {},está vacio)
         if (err) {
             console.error("Error accesing DB");
             process.exit(500);
         }
-        if (records.length == 0) {
-            dbvicen.insert(initialdato);
-            res.sendStatus(201);
+        if (records.length == 0) { // si records esta vacio, entonces CREATED.
+            dbvicen.insert(initialdato);//insertamos en la db todos los recuros iniciales.
+            res.sendStatus(201);//CREATED
             console.log("DB initialized with " + initialdato.length + "contacts");
 
         }
@@ -95,40 +95,50 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
 
     });
 */
+//GET GENERAL. DEVUELVE TODOS LOS RECURSOS. BUSQUEDA. PAGINACIÓN.
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-        console.log(Date() + " - new GET /best");
-        var query = req.query;
-        var limit = 0;
+        console.log(Date() + " - new GET /best-sellers-stats");
+        var query = req.query;  //lo que escribimos detras de la "?" se almacena en esta variable: ?country=UK&year=1976
+        var limit = 0;          
         var offset = 0;
-        var dbq = {};
-        Object.keys(query).forEach(p =>{
-            if(p =="limit"){
-                limit = JSON.parse(query[p]);
-            }else if(p == "offset"){
-                offset = JSON.parse(query[p]);
-            }else{
-                try{
-                    dbq[p] = JSON.parse(query[p]);
+        var dbq = {}; //objeto vacio
+        Object.keys(query).forEach(p =>{ //cojo las claves de query(como un map....key-value) y recorro p.                                  
+            if(p =="limit"){ //si la clave es = a limit.                                                                             CLAVE  VALOR(string)
+                limit = JSON.parse(query[p]); //transformo el valor de dicha clave en un integer y se lo asocio a la var limit..-> "limit":"1976"
+            }else if(p == "offset"){//si la clave es igual a offset.                                     .                           hay que pasarlo a int  
+                offset = JSON.parse(query[p]);//trasnformo el valor en integer y asocio a la var offset.
+            }else{ //en el resto de casos. ej: {"country":"UK", "year":"1987"}
+                try{                            /////////////////////////////
+                    dbq[p] = JSON.parse(query[p]); //JSON.parse: analiza una cadena de texto como JSON, transformando el valor producido por el análisis.
                 }catch(e){
                     dbq[p] = query[p];
-                }
+                }            ////query[p]--> coge el valor de la clave, como un map
             }  
         });
-        
-		
-        dbvicen.find(dbq).limit(limit).skip(offset).toArray((err, bests) => {
+                //try-catch: lanza y coge las excepciones....?
+		        //La función de límit() en MongoDB se usa para especificar el número máximo de resultados que se devolverán.
+		        //La función skip() decide donde empezar.      
+		        console.log(dbq);  //PRUEBAS         // muestra lo que se le ha añadido al objeto dbq.
+		        console.log(offset);                 //muestra lo que he almacenado en la var offset.
+		        console.log(limit);                 //muestra lo que hay en la var limit.
+        dbvicen.find(dbq).limit(limit).skip(offset).toArray((err, records) => {
+            //recuperamos los datos de la var dbq:
+            //si solo hemos puesto: ?limit=x&offset=x....-> el find()[VACIO] coge toda la colección de mongodb(dbvicen) y limita.
+            //si hemos puesto: ?country=UK&year=1976...-> el find(dbq) coge la coleccion que contiene dbq y busca los que coincidan.
+            //si hemos puesto: ?country=UK&year=1976&limit=x&offset=x -> busca y limita. busca los que coincidan con dbq y limita los seleccionados.
             if (err) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
             }
-            if(bests.length == 0){
+            if(records.length == 0){
                 res.sendStatus(404);
             }else{
-            res.send(bests.map(b => {delete b._id;
+            res.send(records.map(b => {delete b._id; //visto en las practicas.....ELIMINAMOS EL ID.
             return b;}));
             }
         });
-
+                    //console.log(dbq);     //PRUEBAS
+                    //console.log(offset);
     });
 
     //Post al recurso inicial (crea un recurso concreto)
@@ -141,58 +151,58 @@ app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
                 console.log("Error accesing DB");
                 res.sendStatus(500);
                 
-            }else if(Object.keys(contact).length != 5){    
-                res.sendStatus(400);
+            }else if(Object.keys(contact).length != 5){ //si el recurso creado no contiene TODOS los atributos de un recurso tipo: //BAD REQUEST   
+                res.sendStatus(400);//BAD REQUEST
             
-            }else if (records.length == 0) {
-                dbvicen.insert(contact);
-                res.sendStatus(201);
+            }else if (records.length == 0) {//si records está vacio, es porque no existe ningún recurso así, entonces podemos crearlo.
+                dbvicen.insert(contact); //inserto en la db el nuevo contacto.
+                res.sendStatus(201); //CREATED
                 
             }else{
-                res.sendStatus(409);
+                res.sendStatus(409); //CONFLICT
             }
 
-            
         });
         
     });
     
     //PUT al recurso inicial (erroneo, no se puede actualizar aqui)
-app.put(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-    console.log(Date() + " - PUT /best-sellers-stats");
-    res.sendStatus(405);
+app.put(API_BASE_PATH + "best-sellers-stats", (req, res) => { //al hacer un put en esta dir.
+    console.log(Date() + " - PUT /best-sellers-stats");       //debe de saltar Method not allowed
+    res.sendStatus(405);//method not allowed.                        ///TABLA AZUL///
 });
 
     //DELETE al recurso inicial (eliminamos toda la lista)
-app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-    console.log(Date() + " - DELETE /best-sellers-stats");
+app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => { //al hacer un get a esta dir.
+    console.log(Date() + " - DELETE /best-sellers-stats");////////////////////////////////////////////////////////////////////////////////////////////
     dbvicen.remove({}, { multi: true });
-    res.sendStatus(200);
+    res.sendStatus(200); //todo ok.
 });
 
                             //GET, POST (erroneo), DELETE, PUT para un recurso en concreto//
-                            ///////////////////////////////////////////////////////
+                            ///////////////////////////////////////////////////////////////
 
     //GET a un recurso concreto.
-app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
-        var country = req.params.country;
-        var anyo = req.params.year;
-        var year = parseInt(anyo,0);
-        console.log(Date() + " - GET /best-sellers-stats/"+country + " rank:"+ anyo);
+app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{ //a la dir, le añado los valores de las claves country y year.
+        var country = req.params.country; //Lo que escribo en la dir, lo inserto en la var country. 
+        var anyo = req.params.year; // Lo que escribo en la dir, lo inserto en la var anyo.
+        var year = parseInt(anyo,0); // pasamos a int.
+        console.log(Date() + " - GET /best-sellers-stats/"+country + " year:"+ anyo);
+        //console.log(country);
+        //console.log(year);      //PRUEBAS
         
-        
-        dbvicen.find({"country" : country, "year" : year }).toArray((err, contacts)=>{
-            if(err){
-                console.error("Error accesing DB");
-                res.sendStatud(500);
+        dbvicen.find({"country" : country, "year" : year }).toArray((err, contacts)=>{ //busco aquellos recursos que coincidan tanto el pais como el año.
+            if(err){                                                                  //bucos en mi db los campos que coincidan con las var country & year
+                console.error("Error accesing DB");                                   
+                res.sendStatud(500); 
                 return;
             
             } 
-        if(contacts.length == 0){
+        if(contacts.length == 0){ //si contacts esta vacio, es decir, si no existe ningun recurso que se esta buscando, entonces salta NOT FOUND.
                 res.sendStatus(404);
             
         }
-        res.send(contacts.map((c)=>{
+        res.send(contacts.map((c)=>{ // los recursos que se encuentran en contacts, le hago un map(transformar) y les elimino el atributo id.
             delete c._id;
             return c;
         })[0]);});
@@ -202,11 +212,11 @@ app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
 
     //DELETE A UN RECURSO EN CONCRETO
  app.delete(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
-        var country = req.params.country;
-        var anyo = req.params.year;
+        var country = req.params.country; //Lo que escribo en la dir, lo inserto en la var country. 
+        var anyo = req.params.year;// Lo que escribo en la dir, lo inserto en la var anyo.
          var year = parseInt(anyo,0);
         console.log(Date() + " - DELETE /country-stats/"+country);
-        
+        //elimino de la db los recursos que coincidan con el country & year de la dir
         dbvicen.remove({"country" : country, "year" : year }, function(err, num) {
         if (err) {
             console.error(err);
@@ -216,57 +226,55 @@ app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
         
         });
         
-    res.sendStatus(200);
+    res.sendStatus(200); //todo ok
        
     });
     
     //POST A UN RECURSO CONCRETO (ERROR)
 app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
-    var name = req.params.name;
-    console.log(Date() + " - POST /best-sellers-stats/" + name);
-    res.sendStatus(405);
+    var name = req.params.name; 
+    console.log(Date() + " - POST /best-sellers-stats/" + name); //si haces un post a un recurso concreto salta Method Nor Allowed
+    res.sendStatus(405);                                                                        ///TABLA AZUL///
 });
 
     //PUT A UN RECURSO CONCRETO
  app.put(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
-        var country = req.params.country;
-        var anyo = req.params.year;
-        var year = parseInt(anyo,0);
-        var contact = req.body;
-        
-        
-        
-        
-        if(Object.keys(contact).length != 5){    
-            res.sendStatus(400);
+        var country = req.params.country; // Lo que escribo en la dir, lo inserto en la var country.
+        var anyo = req.params.year; // Lo que escribo en la dir, lo inserto en la var anyo.
+        var year = parseInt(anyo,0); // transformo a int.
+        var contact = req.body; // crea la var contact con el recurso que coincida con las var de entrada.
+        //console.log(contact);----------------------------->muestra el recurso completo que coinciden con los params de entrada.
+        if(Object.keys(contact).length != 5){ //si el el recurso que se encuentra en contacts, no contiene TODOS sus atributos: BAD REQUEST 
+            res.sendStatus(400);//BAD REQUEST 
             
             }
         
-        console.log(Date() + " - PUT /country-stats"+country+ " rank:"+year);
+        console.log(Date() + " - PUT /country-stats"+country+ " year:"+year);
         
-        if(country != contact.country){
-            res.sendStatus(400);
+        if(country != contact.country){ //si la var country(sacada de la dir), no es igual al country del recurso: //BAD REQUEST
+            res.sendStatus(400);//BAD REQUEST
             console.warn(Date() + " - Hacking attempt!");
         }
-        if(year != contact.year){
-            res.sendStatus(400);
+        if(year != contact.year){ //si la var year(sacada de la dir), no es igual al year del recurso: //BAD REQUEST
+            res.sendStatus(400);//BAD REQUEST
             console.warn(Date() + " - Hacking attempt!");
         }
         if(contact){
-            
+            //pruebas
         }
-        
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //update(), actualiza un único recurso.
         dbvicen.update({"country" : contact.country, "year": contact.year}, contact, (err, numUpdated)=>{
-            if(numUpdated == 0){res.sendStatud(400);}
+            if(numUpdated == 0){res.sendStatud(400);}//BAD REQUEST
             else if(err){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
                 return;
             }
-            console.log("Updated" + numUpdated);
+            console.log("Updated" + numUpdated);//NOSE QUE HACE EL NUMUPDATED
         });
         
-        res.sendStatus(200);
+        res.sendStatus(200); //todo ok
     });
 
 }
