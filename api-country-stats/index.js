@@ -94,8 +94,24 @@ countryApi.register = function(app,dbmanu){
 ////////////////////GET RECURSO PRINCIPAL////////////////////
     app.get(API_BASE_PATH+"country-stats",(req,res)=>{
         console.log(Date() + " - GET /country-stats");
-        
-        dbmanu.find({}).toArray((err,records)=>{
+        var query = req.query;
+        var limit = 0;
+        var offset = 0;
+        var dbq = {};
+        Object.keys(query).forEach(p =>{
+            if(p =="limit"){
+                limit = JSON.parse(query[p]);
+            }else if(p == "offset"){
+                offset = JSON.parse(query[p]);
+            }else{
+                try{
+                    dbq[p] = JSON.parse(query[p]);
+                }catch(e){
+                    dbq[p] = query[p];
+                }
+            }  
+        });
+        dbmanu.find(dbq).skip(offset).limit(limit).toArray((err,records)=>{
             
             if(err){
                 console.log("Error accesing DB");
@@ -182,7 +198,7 @@ countryApi.register = function(app,dbmanu){
     app.get(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         var name = req.params.name;
         var rank = req.params.rank;
-      //  console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
+        console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
         
         
         dbmanu.find({"country" : name, "rank" : rank }).toArray((err, contacts)=>{
