@@ -4,7 +4,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
     
     
     $scope.deleteBest = function(country,year){    
-            console.log(year.toString())
+            
             $http.delete(bests+"/"+country+"/"+year.toString()).then(function(response){
                    $scope.status = "Status "+response.status;
                     getBest();

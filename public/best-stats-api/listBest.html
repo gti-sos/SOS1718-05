@@ -21,12 +21,13 @@
         </tr>
         
         <tr ng-repeat="best in bests">
-            <td><a href="/#!/best-stats/{{best.country}}/{{best.year}}">{{best.country}}</a></td>
+            <td>{{best.country}}</td>
             <td>{{best.year}}</td>
             <td>{{best.album}}</td>
             <td>{{best.radio}}</td>
             <td>{{best.song}}</td>
             <td><button class="btn btn-danger" ng-click="deleteBest(best.country,best.year)">Delete</button></td>
+            <td><a href="/#!/best-stats/{{best.country}}/{{best.year}}"><button class="btn btn-secundary" >Update</button></a></td>
            
         </tr>
        
