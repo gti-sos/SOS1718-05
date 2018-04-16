@@ -5,43 +5,43 @@ var initialBests = [
         {
         "country":"Spain",
         "year":2017,
-        "selling-album":"Prometo",
-        "radio-play":"Shape Of You",
-        "selling-song":"Despacito"
+        "album":"Prometo",
+        "radio":"Shape Of You",
+        "song":"Despacito"
         
             
         },
         {
            "country":"Spain",
         "year":2016  ,
-        "selling-album":"Bailar el viento",
-        "radio-play":"Cheap Thrills",
-        "selling-song":"Duele el corazón"
+        "album":"Bailar el viento",
+        "radio":"Cheap Thrills",
+        "song":"Duele el corazón"
         },
          {
         "country":"Spain",
         "year":2015,
-        "selling-album":"Sirope",
-        "radio-play":"Thinking Out Loud",
-        "selling-song":"El perdón"
+        "album":"Sirope",
+        "radio":"Thinking Out Loud",
+        "song":"El perdón"
         
             
         },
          {
         "country":"Spain",
         "year":2014,
-        "selling-album":"Terral",
-        "radio-play":"Bailando",
-        "selling-song":"Happy"
+        "album":"Terral",
+        "radio":"Bailando",
+        "song":"Happy"
         
             
         },
          {
         "country":"Spain",
         "year":2013,
-        "selling-album":"Tanto",
-        "radio-play":"Cero",
-        "selling-song":"Locked out of heaven"
+        "album":"Tanto",
+        "radio":"Cero",
+        "song":"Locked out of heaven"
         
             
         }
@@ -108,6 +108,7 @@ bestStats.register = function(app,db) {
         var limit = 0;
         var offset = 0;
         var dbq = {};
+        console.log("A");//Pruebas
         Object.keys(query).forEach(p =>{
             if(p =="limit"){
                 limit = JSON.parse(query[p]);
@@ -120,6 +121,8 @@ bestStats.register = function(app,db) {
                     dbq[p] = query[p];
                 }
             }  
+        
+            
         });
         
         db.find(dbq).skip(offset).limit(limit).toArray((err, bests) => {
@@ -133,14 +136,17 @@ bestStats.register = function(app,db) {
             res.send(bests.map(b => {delete b._id;
             return b;}));
             }
+        
+            console.log("D");//Pruebas
         });
-
+    console.log("C");//Pruebas
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
         
+        console.log("H");//Pruebas
         db.find({"country":aux.country,"year":aux.year}).toArray((err, bests) => {
             if (err) {
                 console.log("Error accesing DB");
@@ -157,8 +163,12 @@ bestStats.register = function(app,db) {
                 res.sendStatus(409);
             }
 
-            
+       //G     
+        
+            console.log("G");//pruebas
         });
+    //F
+        console.log("F");//Pruebas
     });
 
     app.put(API_BASE_PATH + "best-stats", (req, res) => {

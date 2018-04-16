@@ -1,0 +1,40 @@
+<h1>Best Songs</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Year</th>
+            <th>Album</th>
+            <th>Radio</th>
+            <th>Song</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input class="form-control" ng-model="newBest.country"/></td>
+            <td><input class="form-control" ng-model="newBest.year"/></td>
+            <td><input class="form-control" ng-model="newBest.album"/></td>
+            <td><input class="form-control" ng-model="newBest.radio"/></td>
+            <td><input class="form-control" ng-model="newBest.song"/></td>
+            <td><button class="btn btn-primary" ng-click="addBest()">Add</button>
+            </td>
+        </tr>
+        
+        <tr ng-repeat="best in bests">
+            <td><a href="/#!/best-stats/{{best.country}}/{{best.year}}">{{best.country}}</a></td>
+            <td>{{best.year}}</td>
+            <td>{{best.album}}</td>
+            <td>{{best.radio}}</td>
+            <td>{{best.song}}</td>
+            <td><button class="btn btn-danger" ng-click="deleteBest(best.country,best.year)">Delete</button></td>
+           
+        </tr>
+       
+    </tbody>
+</table>
+<hr/>
+<div>
+    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
+</div>
+
+<div>{{status}}</div>

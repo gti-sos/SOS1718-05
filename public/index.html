@@ -1,22 +1,19 @@
-<html>
+<!DOCTYPE html>
+<html ng-app="MusicApp">
     <head>
-        <title>My team</title>
+        <title>Music api</title>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+        <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src=/bower_components/angular-route/angular-route.min.js></script>
+        <script src="MusicApp.js"></script>
+        <script src="best-stats-api/listBestCtrl.js"></script>
+        <script src="best-stats-api/editBestCtrl.js"></script>
+        
+        
     </head>
     <body>
-       <h1> ## SOS1718-05</h1>
-
-<h2>- *Team*</h2>
- <p> <a href="https://github.com/julperrod1">[Julio Perea Rodriguez]</a> </p>
- <p> <a href="https://github.com/ManuelBareaGallego">[Manuel Barea Gallego]</a> </p>
- <p> <a href="https://github.com/vicgarmes">[Vicente García Mestre]</a> </p>
-<h2>- **Project description**:</h2>  <p>Our objective is the gathering of data regarding music sales and popularity all over the world in order to study it.</p>
-<h2>- **Repository**:</h2> <a href="https://github.com/gti-sos/SOS1718-05">[SOS1617/SOS1718-00]</a> 
-<h2>- **URL**:</h2>   <a href="https://sos1718-05.herokuapp.com">[Heroku]</a> 
-<h2>- **APIs**:</h2>   
-                       <p> <a href="http://sos1718-05.herokuapp.com/api/v1/country-stats/docs">[country-stats] - (developed by Manuel Barea Gallego)</a> </p>
-                       <p> <a href="http://sos1718-05.herokuapp.com/api/v1/best-stats/docs">[best-stats] - (developed by Julio Perea Rodriguez)</a> </p>
-                       <p> <a href="http://sos1718-05.herokuapp.com/api/v1/best-sellers-stats/docs">[best-sellers-stats] - (developed by Vicente García Mestre)</a> </p>
-                        
+        <div ng-view>
+        </div>
     </body>
 </html>
-
