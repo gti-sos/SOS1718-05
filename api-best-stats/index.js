@@ -107,10 +107,17 @@ bestStats.register = function(app,db) {
         var query = req.query;
         var limit = 0;
         var offset = 0;
+        var cota ={};
         var dbq = {};
         console.log("A");//Pruebas
         Object.keys(query).forEach(p =>{
-            if(p =="limit"){
+            if(p=="from"){
+                cota["$gt"]=JSON.parse(query[p]);
+            }else if(p=="to"){
+                cota["$lt"]=JSON.parse(query[p]);
+               dbq["year"]=cota;
+            }
+            else if(p =="limit"){
                 limit = JSON.parse(query[p]);
             }else if(p == "offset"){
                 offset = JSON.parse(query[p]);
@@ -121,7 +128,7 @@ bestStats.register = function(app,db) {
                     dbq[p] = query[p];
                 }
             }  
-        
+            
             
         });
         

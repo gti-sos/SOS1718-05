@@ -30,12 +30,30 @@
             <td><a href="/#!/best-stats/{{best.country}}/{{best.year}}"><button class="btn btn-secundary" >Update</button></a></td>
            
         </tr>
-       
+       <tr >
+            <td>From: <input class="form-control" ng-model="from"/></td>
+            <td>To: <input class="form-control" ng-model="to"/> </td>
+            <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Buscar</button></td>
+            <td></td>
+            <td></td>
+            <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+            
+           
+        </tr>
     </tbody>
 </table>
 <hr/>
 <div>
     <a href="/"><button class="btn btn-secundary">Inicio</button></a>
-</div>
+      Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
+      
+      
+      
+      
+      
+      <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
+      <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
+      
 
+</div>
 <div>{{status}}</div>
