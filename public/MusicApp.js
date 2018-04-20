@@ -13,11 +13,22 @@ angular.module("MusicApp",["ngRoute"]).config(function($routeProvider){
 //////Cambios manu
     
     .when("/country-stats",{
-        templateUrl: "country-stats/listBest.html",
+        templateUrl: "country-stats-api/listCountry.html",
         controller: "ListCountryCtrl"
     })
     .when("/country-stats/:country/:rank",{
-        templateUrl: "country-stats/editBest.html",
+        templateUrl: "country-stats-api/editCountry.html",
         controller: "EditCountryCtrl"
+    })
+    
+//////////
+    .when("/best-sellers-stats",{
+        templateUrl: "world-stats-api/listWorld.html",
+        controller: "ListWorldCtrl"
+    })
+    .when("/best-sellers-stats/:country/:year",{
+        templateUrl: "world-stats-api/editWorld.html",
+        controller: "EditWorldCtrl"
     });
+    
 });
