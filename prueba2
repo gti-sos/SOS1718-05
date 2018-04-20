@@ -1,3 +1,5 @@
+//codigo julio cuando funciona
+
 var bestStats = {};
 var API_BASE_PATH = "/api/v1/";
 var initialBests = [
@@ -107,17 +109,9 @@ bestStats.register = function(app,db) {
         var query = req.query;
         var limit = 0;
         var offset = 0;
-        var cota ={};
         var dbq = {};
-        console.log("A");//Pruebas
         Object.keys(query).forEach(p =>{
-            if(p=="from"){
-                cota["$gt"]=JSON.parse(query[p]);
-            }else if(p=="to"){
-                cota["$lt"]=JSON.parse(query[p]);
-               dbq["year"]=cota;
-            }
-            else if(p =="limit"){
+            if(p =="limit"){
                 limit = JSON.parse(query[p]);
             }else if(p == "offset"){
                 offset = JSON.parse(query[p]);
@@ -128,8 +122,6 @@ bestStats.register = function(app,db) {
                     dbq[p] = query[p];
                 }
             }  
-            
-            
         });
         
         db.find(dbq).skip(offset).limit(limit).toArray((err, bests) => {
@@ -143,17 +135,14 @@ bestStats.register = function(app,db) {
             res.send(bests.map(b => {delete b._id;
             return b;}));
             }
-        
-            console.log("D");//Pruebas
         });
-    console.log("C");//Pruebas
+
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
         
-        console.log("H");//Pruebas
         db.find({"country":aux.country,"year":aux.year}).toArray((err, bests) => {
             if (err) {
                 console.log("Error accesing DB");
@@ -170,40 +159,8 @@ bestStats.register = function(app,db) {
                 res.sendStatus(409);
             }
 
-                res.sendStatus(500);
-            }
-            if (bests.length == 0) {
-                db.insert(aux);
-                res.sendStatus(201);
-                
-            }else if(Object.keys(aux).length != 5){    
-            res.sendStatus(400);
             
-            }else{
-                res.sendStatus(409);
-            }
-
-       //G     
-        
-            console.log("G");//pruebas
         });
-            if (bests.length == 0) {
-                db.insert(aux);
-                res.sendStatus(201);
-                
-            }else if(Object.keys(aux).length != 5){    
-            res.sendStatus(400);
-            
-            }else{
-                res.sendStatus(409);
-            }
-
-       //G     
-        
-            console.log("G");//pruebas
-        });
-    //F
-        console.log("F");//Pruebas
     });
 
     app.put(API_BASE_PATH + "best-stats", (req, res) => {
