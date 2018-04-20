@@ -5,43 +5,43 @@ var initialBests = [
         {
         "country":"Spain",
         "year":2017,
-        "album":"Prometo",
-        "radio":"Shape Of You",
-        "song":"Despacito"
+        "selling-album":"Prometo",
+        "radio-play":"Shape Of You",
+        "selling-song":"Despacito"
         
             
         },
         {
            "country":"Spain",
         "year":2016  ,
-        "album":"Bailar el viento",
-        "radio":"Cheap Thrills",
-        "song":"Duele el corazón"
+        "selling-album":"Bailar el viento",
+        "radio-play":"Cheap Thrills",
+        "selling-song":"Duele el corazón"
         },
          {
         "country":"Spain",
         "year":2015,
-        "album":"Sirope",
-        "radio":"Thinking Out Loud",
-        "song":"El perdón"
+        "selling-album":"Sirope",
+        "radio-play":"Thinking Out Loud",
+        "selling-song":"El perdón"
         
             
         },
          {
         "country":"Spain",
         "year":2014,
-        "album":"Terral",
-        "radio":"Bailando",
-        "song":"Happy"
+        "selling-album":"Terral",
+        "radio-play":"Bailando",
+        "selling-song":"Happy"
         
             
         },
          {
         "country":"Spain",
         "year":2013,
-        "album":"Tanto",
-        "radio":"Cero",
-        "song":"Locked out of heaven"
+        "selling-album":"Tanto",
+        "radio-play":"Cero",
+        "selling-song":"Locked out of heaven"
         
             
         }
@@ -159,6 +159,34 @@ bestStats.register = function(app,db) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
             }
+            if (bests.length == 0) {
+                db.insert(aux);
+                res.sendStatus(201);
+                
+            }else if(Object.keys(aux).length != 5){    
+            res.sendStatus(400);
+            
+            }else{
+                res.sendStatus(409);
+            }
+
+                res.sendStatus(500);
+            }
+            if (bests.length == 0) {
+                db.insert(aux);
+                res.sendStatus(201);
+                
+            }else if(Object.keys(aux).length != 5){    
+            res.sendStatus(400);
+            
+            }else{
+                res.sendStatus(409);
+            }
+
+       //G     
+        
+            console.log("G");//pruebas
+        });
             if (bests.length == 0) {
                 db.insert(aux);
                 res.sendStatus(201);

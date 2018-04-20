@@ -9,5 +9,15 @@ angular.module("MusicApp",["ngRoute"]).config(function($routeProvider){
     .when("/best-stats/:country/:year",{
         templateUrl: "best-stats-api/editBest.html",
         controller: "EditBestCtrl"
+    })
+//////Cambios manu
+    
+    .when("/country-stats",{
+        templateUrl: "country-stats/listBest.html",
+        controller: "ListCountryCtrl"
+    })
+    .when("/country-stats/:country/:rank",{
+        templateUrl: "country-stats/editBest.html",
+        controller: "EditCountryCtrl"
     });
 });

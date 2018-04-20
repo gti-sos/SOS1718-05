@@ -65,7 +65,27 @@ countryApi.register = function(app,dbmanu){
     app.get(API_BASE_PATH + "country-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3898111/collection/RVu1HqeJ");
     });    
-    
+//////////////////IDENTIFICACION
+app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
+         console.log(Date() + " - new GET /country-stats");
+         var apikey = req.query.apikey;
+         if(apikey == "SOS1718-05"){
+            dbmanu.find({}).toArray((err, records) => {
+                if (err) {
+                    console.log("Error accesing DB");
+                    res.sendStatus(500);
+                }
+                if(records.length == 0){
+                    res.sendStatus(404);
+                }else{
+                    res.send(records.map(b => {delete b._id;
+                    return b;}));
+                }
+            });
+        }else{
+            res.sendStatus(401)
+        }
+    });
     
 //////////////////LOAD INITIAL DATA///////////////////////////////
     
