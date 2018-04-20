@@ -1,0 +1,34 @@
+
+<h1>Edit best selling songs in the world</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Year</th>
+            <th>Album</th>
+            <th>Artist</th>
+            <th>Sale</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+           
+            <td>{{UpdatedWorld.country}}</td>
+            <td>{{UpdatedWorld.year}}</td>
+            <td><input class="form-control" ng-model="UpdatedWorld.album"/></td>
+            <td><input class="form-control" ng-model="UpdatedWorld.artist"/></td>
+            <td><input class="form-control" ng-model="UpdatedWorld.sale"/></td>
+            <td><button class="btn btn-primary" ng-click="UpdateWorld()">Update</button>
+            </td>
+        </tr>
+       
+        
+    </tbody>
+</table>
+<hr/>
+<div>
+    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
+
+    <a href="/#!/best-sellers-stats"><button class="btn btn-danger">Back</button></a>
+</div>
+<div>{{status}}{{hola}}</div>

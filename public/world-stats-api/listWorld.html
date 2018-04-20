@@ -1,0 +1,61 @@
+<!---LA VISTA--->
+<h1>Most sold songs</h1>
+<table class="table"> <!---para cambiar la vista--->
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Year</th>
+            <th>Album</th>
+            <th>Artist</th>
+            <th>Sale</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input class="form-control" ng-model="newWorld.country"/></td>
+            <td><input class="form-control" ng-model="newWorld.year"/></td>
+            <td><input class="form-control" ng-model="newWorld.album"/></td>
+            <td><input class="form-control" ng-model="newWorld.artist"/></td>
+            <td><input class="form-control" ng-model="newWorld.sale"/></td>
+            <td><button class="btn btn-primary" ng-click="addWorld()">Add</button>
+            </td>
+        </tr>
+        
+        <tr ng-repeat="best in bests">  <!---ng-repeat...por cada elemento de un array puede generAR un elemento dentro de la vista--->
+        <!---vamos iterando el array y crea el objeto--->
+            <td>{{world.country}}</td> <!---con {{ }} lo que hago es poner el dato--->
+            <td>{{world.year}}</td>
+            <td>{{world.album}}</td>
+            <td>{{world.artist}}</td>
+            <td>{{world.sale}}</td>
+            <td><button class="btn btn-danger" ng-click="deleteWorld(world.country,world.year)">Delete</button></td>
+            <td><a href="/#!/best-stats/{{best.country}}/{{best.year}}"><button class="btn btn-secundary" >Update</button></a></td>
+           
+        </tr>
+       <tr >
+            <td>From: <input class="form-control" ng-model="from"/></td>
+            <td>To: <input class="form-control" ng-model="to"/> </td>
+            <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Buscar</button></td>
+            <td></td>
+            <td></td>
+            <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+            
+           
+        </tr>
+    </tbody>
+</table>
+<hr/>
+<div>
+    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
+      Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
+      
+      
+      
+      
+      
+      <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
+      <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
+      
+
+</div>
+<div>{{status}}</div>
