@@ -171,7 +171,7 @@ bestStats.register = function(app,db) {
         db.remove({}, { multi: true });
         res.sendStatus(200);
     });
-//
+
     ///////////////////////////////////////////////////////UN SOLO RECURSO.    
 
     app.get(API_BASE_PATH + "best-stats/:country/:year", (req, res) => {
