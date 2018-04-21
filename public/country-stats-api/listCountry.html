@@ -28,7 +28,7 @@
             <td>{{country.rank}}</td>
             
             <td><button class="btn btn-danger" ng-click="deleteRankInCountry(country.country,country.rank)">Delete</button></td>
-            <td><button class="btn btn-danger" ng-click="deleteCountry(country.country)">Delete</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteCountry(country.country)">Delete country stats</button></td>
             
             <td><a href="/#!/country-stats/{{country.country}}/{{country.rank}}"><button class="btn btn-secundary" >Update</button></a></td>
            
@@ -40,6 +40,8 @@
             <td></td>
             <td></td>
             <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+            
+            <td><button class="btn btn-secundary" ng-click="loadInitialData()">Load Initial Data</button></td>
             
            
         </tr>
@@ -59,4 +61,7 @@
       
 
 </div>
+      <p align="center"> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button type="button" class="btn btn-warning" ng-click="get()">Back</button></p>
 <div>{{status}}</div>
+        
+    Tips:

@@ -81,6 +81,19 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
            }
             $scope.newAlbum={};    
     }
+    
+    //////////////////////////////////////////LOAD INITIAL DATA
+    
+    $scope.loadInitialData = function(){
+        $http.get("/api/v1/country-stats/loadInitialdata").then(function(response){
+                   
+                   $scope.status = "Status "+response.status;
+                   $scope.get();
+                
+            });
+    }
+    
+    
     //////////////////////////////////////////////////////////////////////////////////////////////GET
     $scope.get = function (){    
             
