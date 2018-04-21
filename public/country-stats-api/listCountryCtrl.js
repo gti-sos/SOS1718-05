@@ -79,7 +79,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
            }else{
                 $scope.status = "Status 400. El objeto debe contener todos los parametros."  
            }
-            $scope.newBest={};    
+            $scope.newAlbum={};    
     }
     //////////////////////////////////////////////////////////////////////////////////////////////GET
     $scope.get = function (){    

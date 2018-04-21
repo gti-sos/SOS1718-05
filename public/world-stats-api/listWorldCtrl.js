@@ -44,7 +44,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
               
             }
     
-    $scope.deleteBest = function(country,year){    
+    $scope.deleteWorld = function(country,year){    
             
             $http.delete(worldStats+"/"+country+"/"+year.toString()).then(function(response){
                    $scope.status = "Status "+response.status;
@@ -53,9 +53,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                
             }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
-    $scope.addBest = function(){    
+    $scope.addWorld = function(){    
         var world = {};
-        Object.keys($scope.newBest).forEach(p =>{
+        Object.keys($scope.newWorld).forEach(p =>{
             
                 try{
                     world[p] = JSON.parse($scope.newWorld[p]);
