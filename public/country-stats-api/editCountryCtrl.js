@@ -12,16 +12,19 @@ angular.module("MusicApp").controller("EditCountryCtrl",["$scope","$http","$rout
 ///Se toma cada uno de los parámetros de entrada del recurso nuevo y los añade a un objeto nuevo countryStat, la actualización del primero.            
         $scope.UpdateCountry = function(){    
             var countryStat = {};
+                
             Object.keys($scope.UpdatedCountry).forEach(p =>{
             
                 try{
                     countryStat[p] = JSON.parse($scope.UpdatedCountry[p]);
+                    $scope.status = "añade"+ countryStat[p]
                 }catch(e){
                     countryStat[p] = $scope.UpdatedCountry[p];
+                    $scope.status = "añade"+ countryStat[p]
                 }
             });
-            
-            console.log(countryStat);
+            $scope.status = "new"+ countryStat;
+            console.log(countryStat.country);
             
 ///Restricción que da error si hay un parámetro vacío dentro dela nueva variable que creamos
             Object.keys(countryStat).forEach(p =>{

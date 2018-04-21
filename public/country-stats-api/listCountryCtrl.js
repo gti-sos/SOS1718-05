@@ -35,6 +35,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
                    $scope.get();
                 
             });
+            $scope.get(); 
               
             }
     
@@ -98,6 +99,15 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
     $scope.get = function (){    
             
             $http.get(countryStats+"?limit="+limit+"&offset="+offset).then(function(response){
+                   $scope.countryStats=response.data; 
+                });
+            }
+            
+            
+            
+    $scope.getCompleto = function (){    
+            console.log("mostrar api completa")
+            $http.get(countryStats).then(function(response){
                    $scope.countryStats=response.data; 
                 });
             }

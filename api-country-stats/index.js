@@ -19,39 +19,44 @@ module.exports = countryApi;
 var initialdata= [
         { 
             "country" : "Germany",
-            "year" : "2002" ,
+            "rank" : 1,
             "title" : "Mensch",
-            "certification" : "21xGold",
-            "rank" : "1"
+            "year" : 2002 ,
+            "certification" : "21xGold"
+            
             
         },
         { 
             "country" : "France",
-            "year" : "1982" ,
+            "rank" : 2,
             "title" : "Thriller",
-            "certification" : "Diamond",
-            "rank" : "2"
+            "year" : 1982 ,
+            "certification" : "Diamond"
+            
         },
         { 
             "country" : "Germany",
-            "year" : "1989" ,
+            "rank" : 2,
             "title" : "...But Seriously",
-            "certification" : "6xPlatinum",
-            "rank" : "2"
+            "year" : 1989 ,
+            "certification" : "6xPlatinum"
+            
         },
         { 
             "country" : "France",
-            "year" : "1995" ,
+            "rank" : 1,
             "title" : "D'eux",
-            "certification" : "Diamond",
-            "rank" : "1"
+            "year" : 1995 ,
+            "certification" : "Diamond"
+            
         },
         { 
             "country" : "Canada",
-            "year" : "1982" ,
+            "rank" : 1,
             "title" : "Thriller",
-            "certification" : "2xDiamond",
-            "rank" : "1"
+            "year" : 1982 ,
+            "certification" : "2xDiamond"
+            
         }
     ];
     
@@ -218,10 +223,11 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
     app.get(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         var name = req.params.name;
         var rank = req.params.rank;
+        var rankStr = parseInt(rank, 0);
         console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
         
         
-        dbmanu.find({"country" : name, "rank" : rank }).toArray((err, contacts)=>{
+        dbmanu.find({"country" : name, "rank" : rankStr }).toArray((err, contacts)=>{
             if(err){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
@@ -259,9 +265,10 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
     app.delete(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         var name = req.params.name;
         var rank = req.params.rank;
+        var rankStr = parseInt(rank, 0);
         console.log(Date() + " - DELETE /country-stats/"+name);
         
-        dbmanu.remove({"country" : name, "rank" : rank }, function(err, num) {
+        dbmanu.remove({"country" : name, "rank" : rankStr }, function(err, num) {
         if (err) {
             console.error(err);
             return;
@@ -290,32 +297,24 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
     });
     
 ////PUT INDIVIDUAL, ACTUALIZA EL ALBUM PARA UN PAÍS Y RANGO ESPECÍFICOS    
-    app.put(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
-        var name = req.params.name;
+    app.put(API_BASE_PATH + "best-stats/:country/:rank", (req, res) => {
+        
+        var country = req.params.country;
         var rank = req.params.rank;
-        var contact = req.body;
+        var rankStr = parseInt(rank, 0);
+        var newalbum = req.body;
+        console.log(Date() + " - new PUT /country-stats" +country + " rank: "+ rank);
+
+        if ((rankStr != newalbum.rank) || (country != newalbum.country) ) {
+            res.sendStatus(400);
         
-        
-        
-        
-        if(Object.keys(contact).length != 5){    
+        }else if(Object.keys(newalbum).length != 5){    
             res.sendStatus(400);
             
-            }
+        }else{
         
-        console.log(Date() + " - PUT /country-stats"+name+ " rank:"+rank);
-        
-        if(name != contact.country){
-            res.sendStatus(400); 
-            console.warn(Date() + " - Hacking attempt!");
-        }
-        if(rank != contact.rank){
-            res.sendStatus(400);
-            console.warn(Date() + " - oh no Hacking attempt!");
-        }
-        
-        
-        dbmanu.update({"country" : contact.country, "rank": contact.rank}, contact, (err, numUpdated)=>{
+
+        dbmanu.update({"country" : newalbum.country, "rank": newalbum.rank}, newalbum, (err, numUpdated)=>{
             if(numUpdated == 0){res.sendStatud(400);}
             else if(err){
                 console.error("Error accesing DB");
@@ -324,9 +323,9 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
             }
             console.log("Updated" + numUpdated);
         });
-        
-        res.sendStatus(200);
+        }
     });
 
 
 };
+

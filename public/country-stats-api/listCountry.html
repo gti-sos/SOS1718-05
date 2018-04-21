@@ -1,31 +1,34 @@
-<h1>Most Popular Albums per Country</h1>
+<h1 align="center">Most Popular Albums per Country</h1>
 <table class="table">
     <thead>
         <tr>
             <th>Country</th>
-            <th>Year</th>
-            <th>Title</th>
-            <th>Certification</th>
             <th>Rank</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Certification</th>
+            
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><input class="form-control" ng-model="newCountry.country"/></td>
-            <td><input class="form-control" ng-model="newCountry.year"/></td>
-            <td><input class="form-control" ng-model="newCountry.title"/></td>
-            <td><input class="form-control" ng-model="newCountry.certification"/></td>
             <td><input class="form-control" ng-model="newCountry.rank"/></td>
+            <td><input class="form-control" ng-model="newCountry.title"/></td>
+            <td><input class="form-control" ng-model="newCountry.year"/></td>
+            <td><input class="form-control" ng-model="newCountry.certification"/></td>
             <td><button class="btn btn-primary" ng-click="addCountry()">Add</button>
+            <td><button class="btn btn-primary" ng-click="loadInitialData()">Load Initial Data</button></td>
             </td>
         </tr>
         
         <tr ng-repeat="country in countryStats"> 
             <td>{{country.country}}</td>
-            <td>{{country.year}}</td>
-            <td>{{country.title}}</td>
-            <td>{{country.certification}}</td>
             <td>{{country.rank}}</td>
+            <td>{{country.title}}</td>
+            <td>{{country.year}}</td>
+            <td>{{country.certification}}</td>
+            
             
             <td><button class="btn btn-danger" ng-click="deleteRankInCountry(country.country,country.rank)">Delete</button></td>
             <td><button class="btn btn-danger" ng-click="deleteCountry(country.country)">Delete country stats</button></td>
@@ -41,7 +44,6 @@
             <td></td>
             <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
             
-            <td><button class="btn btn-secundary" ng-click="loadInitialData()">Load Initial Data</button></td>
             
            
         </tr>
@@ -54,8 +56,6 @@
       
       
       
-      
-      
       <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
       <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
       
@@ -64,4 +64,13 @@
       <p align="center"> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button type="button" class="btn btn-warning" ng-click="get()">Back</button></p>
 <div>{{status}}</div>
         
-    Tips:
+        
+<div>
+</div>       
+    <p>Tips:</p>
+    <p>    - Country and Rank identify each item.</p>
+    <p>    - No attribute should be blank when you "Add" a new item.</p>
+    <p>    - "Load Initial Data" creates 5 preset items when the api is empty.</p>
+    <p>    - You can "Update" an item but never change its Rank or Country.</p>
+    <p>    - "Delete Country Stats" removes all items that belong to said country from the api.</p>
+     
