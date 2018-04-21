@@ -1,8 +1,8 @@
 <!---LA VISTA--->
-<h1>Best selling songs</h1>
+ <h1><p align="center">Best selling songs</p></h1>
 <table class="table"> <!---para cambiar la vista--->
     <thead>
-        <tr>
+        <tr> <!---permite colocar el titulo de cada atributo--->
             <th>Country</th>
             <th>Year</th>
             <th>Album</th>
@@ -11,7 +11,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr> <!---permite introducir valores a los atributos anterios--->
             <td><input class="form-control" ng-model="newWorld.country"/></td>
             <td><input class="form-control" ng-model="newWorld.year"/></td>
             <td><input class="form-control" ng-model="newWorld.album"/></td>
@@ -20,7 +20,8 @@
             <td><button class="btn btn-primary" ng-click="addWorld()">Add</button>
             </td>
         </tr>
-        
+       
+        <!---INTRODUCIMOS CADA VALOR ESCRITO EN SU CAMPO CORRESPONDIENTE--->
         <tr ng-repeat="world in worldStats">  <!---ng-repeat...por cada elemento de un array puede generAR un elemento dentro de la vista--->
         <!---vamos iterando el array y crea el objeto--->
             <td>{{world.country}}</td> <!---con {{ }} lo que hago es poner el dato--->
@@ -28,7 +29,10 @@
             <td>{{world.album}}</td>
             <td>{{world.artist}}</td>
             <td>{{world.sale}}</td>
+            
+            <!---botón de eliminar, enlazado con la funcion deleteWorld,pasandole como atributos los campos country y year--->
             <td><button class="btn btn-danger" ng-click="deleteWorld(world.country,world.year)">Delete</button></td>
+            <!---botón de update(put), en mi dirección de la api, pasandole los camps country and year--->
             <td><a href="/#!/best-sellers-stats/{{world.country}}/{{world.year}}"><button class="btn btn-secundary" >Update</button></a></td>
            
         </tr>
@@ -38,24 +42,27 @@
             <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Buscar</button></td>
             <td></td>
             <td></td>
+            <!---botón que invoca a la funcion deleteAll--->
             <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
-            
+            <!---class= btn btn danger... nos indica el color en rojo--->
            
         </tr>
     </tbody>
 </table>
 <hr/>
 <div>
-    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
+
       Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
       
       
       
       
-      
+      <!---botón que invoca a la funcion getSiguiente y getAnterior----PAGINACION--->
       <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
       <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
       
 
 </div>
+    
+    <p align="center"> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button type="button" class="btn btn-warning" ng-click="get()">Back</button></p>
 <div>{{status}}</div>

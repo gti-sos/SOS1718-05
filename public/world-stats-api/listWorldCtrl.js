@@ -1,19 +1,18 @@
 //CONTROLADOR
-//objetos de angular: -skope permite acceder al modelo, metiendo datos o leyendo datos. -http hacemos conecciones http,peticiones http con mi backend
-//variable con la direccion de mi api
 //a partir del parametro de la url envia una peticion http get y lo mete en scope
 //es el objeto que me llega (un array)
 
 /*global angular*/
+//objetos de angular: -skope permite acceder al modelo, metiendo datos o leyendo datos. -http hacemos conecciones http,peticiones http con mi backend
 angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function($scope,$http){
-    var worldStats="/api/v1/best-sellers-stats";
-    var limit=2;
-    var offset=0;
+    var worldStats="/api/v1/best-sellers-stats"; //variable con la direccion de mi api
+    var limit=3; //la cantidad que cojo
+    var offset=0; //donde empiezo
     
      
      $scope.seguro = function(apikey){
          $scope.status = "";
-         if(apikey=="SOS1718-05"){
+         if(apikey=="vicente"){
              $http.get("/api/v1/secure/best.sellers-stats?apikey="+apikey).then(function(response){
                  $scope.worldStats=response.data;
                  console.log(response.data);
@@ -78,35 +77,42 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
            }
             $scope.newWorld={};    
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////GET
+    //funcion que muestra el contenido de la api
+    //scope.get nos permite leer los datos  
     $scope.get = function (){    
             
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data; 
                 });
             }
-     ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
-    $scope.getSiguiente = function (){    
-            offset=offset+2;
-            $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
+    //funcion que mustra la api al completo
+     $scope.getCompleto = function (){    
+            
+            $http.get(worldStats).then(function(response){
                    $scope.worldStats=response.data; 
                 });
             }
-            
+   //función para avanzar de página:
+    $scope.getSiguiente = function (){    
+            offset=offset+3;
+              //a partir del parametro de la url envia una peticion http get y lo mete en scope
+            $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
+                   $scope.worldStats=response.data;  //es el objeto que me llega (un array)
+                });
+            }
+    
+    //funcion para volver a pag anterior:  
     $scope.getAnterior = function (){    
             
-            if(offset>=2){
-            offset=offset-2;
+            if(offset>=3){//si el punto de partida no es 0, y es mayor que 3, significa que no esta en la primera página
+            offset=offset-3; // asique disminuimos el offset en -3, para acceder a la página anterior.
             }
+            //a partir del parametro de la url envia una peticion http get y lo mete en scope
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
-                   $scope.worldStats=response.data; 
+                   $scope.worldStats=response.data; //es el objeto que me llega (un array)
                 });
             }
             $scope.get();
-           
-           
-           
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////       
             }]);
             
             
