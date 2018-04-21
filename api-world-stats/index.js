@@ -76,6 +76,28 @@ app.get(API_BASE_PATH + "best-sellers-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
     });
     
+    //////////////////IDENTIFICACION
+app.get(API_BASE_PATH + "secure/best-sellers-stats", (req, res) => {
+         console.log(Date() + " - new GET /best-sellers-stats");
+         var apikey = req.query.apikey;
+         if(apikey == "SOS1718-05"){
+            dbvicen.find({}).toArray((err, records) => {
+                if (err) {
+                    console.log("Error accesing DB");
+                    res.sendStatus(500);
+                }
+                if(records.length == 0){
+                    res.sendStatus(404);
+                }else{
+                    res.send(records.map(b => {delete b._id;
+                    return b;}));
+                }
+            });
+        }else{
+            res.sendStatus(401)
+        }
+    });
+    
   /*  //GET al recurso inicial.....nos devuelve todos los recursos    
 app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         console.log(Date() + " - new GET /best-sellers-stats");

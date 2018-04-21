@@ -12,8 +12,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      
      $scope.seguro = function(apikey){
          $scope.status = "";
-         if(apikey=="vicente"){
-             $http.get("/api/v1/secure/best.sellers-stats?apikey="+apikey).then(function(response){
+         if(apikey=="SOS1718-05"){
+             console.log("todo bien")
+             $http.get("/api/v1/secure/best-sellers-stats?apikey="+apikey).then(function(response){
                  $scope.worldStats=response.data;
                  console.log(response.data);
              })
@@ -31,7 +32,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         })
     }
     
-    
+    //eliminamos todos los objetos que se encuentran en la direccion de la api
     $scope.deleteAll = function(){    
             
             $http.delete(worldStats).then(function(response){
@@ -42,7 +43,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             });
               
             }
-    
+    //elimina un objeto concreto
     $scope.deleteWorld = function(country,year){    
             
             $http.delete(worldStats+"/"+country+"/"+year.toString()).then(function(response){
@@ -51,9 +52,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             });
                
             }
-    ////////////////////////////////////////////////////////////////////////////////////////////////POST
+    //añadimos un recurso nuevo
     $scope.addWorld = function(){    
-        var world = {};
+        var world = {};//array vacio inicialmente
         Object.keys($scope.newWorld).forEach(p =>{
             
                 try{
@@ -63,19 +64,25 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                 }
         });
            ($scope.worldStats).forEach(p =>{
+               //si p.country(pregunta en worldStats(direccion api)) es = a lo que acabo de escribir en el array world
+               //entonces fallo
                 if((p.country==world.country) && (p.year==world.year)){
                     $scope.status = "Status 409. Ya existe un objeto con la misma clave (Pais y año)."     
                 }});
+                //si cumple con el tamaño de un recurso
              if(Object.keys(world).length == 5){
+                 //conectamos con la dir de la api(worldStats) con http y creamos el recurso (world) con post
                 $http.post(worldStats, world).then(function(response){
                    
                   $scope.estado= "Status "+response.status;
                     $scope.get();
                 })
            }else{
+               //si no contiene el tamaño del recurso estandr
                 $scope.status = "Status 400. El objeto debe contener todos los parametros."  
            }
-            $scope.newWorld={};    
+            $scope.newWorld={};
+            //me permite acceder al modelo,
     }
     //funcion que muestra el contenido de la api
     //scope.get nos permite leer los datos  
