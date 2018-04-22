@@ -117,9 +117,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             
              //////////////////////////////////////////LOAD INITIAL DATA
-    
+    //
     $scope.loadInitialData = function(){
-        $http.get("/api/v1/best-sellers-stats/loadInitialdata").then(function(response){
+        $http.get("/api/v1/best-sellers-stats/loadInitialData").then(function(response){
                    
                    $scope.status = "Status "+response.status;
                    $scope.get();
