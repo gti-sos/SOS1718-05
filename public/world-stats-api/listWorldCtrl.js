@@ -113,6 +113,19 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                 });
             }
             $scope.get();
+            
+            
+            
+             //////////////////////////////////////////LOAD INITIAL DATA
+    
+    $scope.loadInitialData = function(){
+        $http.get("/api/v1/best-sellers-stats/loadInitialdata").then(function(response){
+                   
+                   $scope.status = "Status "+response.status;
+                   $scope.get();
+                
+            });
+    }
             }]);
             
             
