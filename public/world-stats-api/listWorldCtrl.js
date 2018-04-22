@@ -12,8 +12,8 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      
      $scope.seguro = function(apikey){
          $scope.status = "";
-         if(apikey=="vicente"){
-             $http.get("/api/v1/secure/best.sellers-stats?apikey="+apikey).then(function(response){
+         if(apikey=="SOS1718-05"){
+             $http.get("/api/v1/secure/best-sellers-stats?apikey="+apikey).then(function(response){
                  $scope.worldStats=response.data;
                  console.log(response.data);
              })
@@ -25,12 +25,12 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      }
      
      
-     $scope.Busqueda = function(from,to){
+   
+    $scope.Busqueda = function(from,to){
         $http.get(worldStats+"?from="+JSON.parse(from)+"&to="+JSON.parse(to)).then(function(response){
-            $scope.worldStats=response.data;
+            $scope.bests=response.data;
         })
     }
-    
     
     $scope.deleteAll = function(){    
             
