@@ -64,7 +64,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
              if(Object.keys($scope.newBest).length == 5){
                 $http.post(bests, best).then(function(response){
                    
-                  $scope.estado= "Status "+response.status;
+                  $scope.status= "Status "+response.status;
                     $scope.get();
                 })
            }else{
