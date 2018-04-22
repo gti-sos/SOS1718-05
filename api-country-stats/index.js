@@ -188,6 +188,12 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
         res.sendStatus(405);
     });
     
+    app.put(API_BASE_PATH+"country-stats/:name",(req,res)=>{
+        var country = req.params.name;
+        console.log(Date() + " - PUT /country-stats/" + country);
+        res.sendStatus(405);
+    });
+    
 ////DELETE TOTAL, BORRA TODOS LOS RECURSOS    
     app.delete(API_BASE_PATH+"country-stats",(req,res)=>{
         console.log(Date() + " - DELETE /country-stats");
@@ -227,7 +233,7 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
         console.log(Date() + " - GET /country-stats/"+name + " rank:"+ rank);
         
         
-        dbmanu.find({"country" : name, "rank" : rankStr }).toArray((err, contacts)=>{
+        dbmanu.find({"country" : name, "rank" : rankStr}).toArray((err, contacts)=>{
             if(err){
                 console.error("Error accesing DB");
                 res.sendStatud(500);
@@ -294,27 +300,28 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
         var rank= req.params.rank;
         console.log(Date() + " - POST /country-stats/"+name + " rank: "+ rank);
         res.sendStatus(405);
-    });
+    }); 
     
 ////PUT INDIVIDUAL, ACTUALIZA EL ALBUM PARA UN PAÍS Y RANGO ESPECÍFICOS    
-    app.put(API_BASE_PATH + "best-stats/:country/:rank", (req, res) => {
+     app.put(API_BASE_PATH+"country-stats/:name/:rank",(req,res)=>{
         
-        var country = req.params.country;
+        var country = req.params.name;
         var rank = req.params.rank;
-        var rankStr = parseInt(rank, 0);
-        var newalbum = req.body;
-        console.log(Date() + " - new PUT /country-stats" +country + " rank: "+ rank);
-
-        if ((rankStr != newalbum.rank) || (country != newalbum.country) ) {
-            res.sendStatus(400);
+        var album = req.body;
+        console.log(Date() + " - new PUT /country-stats/ " + country + " rank: " + rank );
         
-        }else if(Object.keys(newalbum).length != 5){    
-            res.sendStatus(400);
-            
-        }else{
         
-
-        dbmanu.update({"country" : newalbum.country, "rank": newalbum.rank}, newalbum, (err, numUpdated)=>{
+        if(country != album.country){
+            res.sendStatus(400); 
+            console.warn(Date() + " - Hacking attempt!");
+        }
+        if(rank != album.rank){
+            res.sendStatus(400);
+            console.warn(Date() + " - oh no Hacking attempt!");
+        }
+        
+        
+        dbmanu.update({"country" : album.country, "rank": album.rank}, album, (err, numUpdated)=>{
             if(numUpdated == 0){res.sendStatud(400);}
             else if(err){
                 console.error("Error accesing DB");
@@ -323,8 +330,9 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
             }
             console.log("Updated" + numUpdated);
         });
-        }
-    });
+        
+        res.sendStatus(200);
+});
 
 
 };
