@@ -57,6 +57,45 @@ var initialdata= [
             "year" : 1982 ,
             "certification" : "2xDiamond"
             
+        },
+        { 
+            "country" : "Austria",
+            "rank" : 3,
+            "title" : "Farbenspiel",
+            "year" : 2013 ,
+            "certification" : "18x Platinum"
+            
+        },
+        { 
+            "country" : "Austria",
+            "rank" : 4,
+            "title" : "Geld oder Leben!",
+            "year" : 1985 ,
+            "certification" : "5x Platinum"
+            
+        },
+        { 
+            "country" : "Canada",
+            "rank" : 2,
+            "title" : "Como on over",
+            "year" : 1997 ,
+            "certification" : "Diamond"
+            
+        },
+        { 
+            "country" : "Canada",
+            "rank" : 4,
+            "title" : "Let's Talk About Love",
+            "year" : 1997 ,
+            "certification" : "Diamond"
+            
+        },{ 
+            "country" : "Canada",
+            "rank" : 5,
+            "title" : "The Bodyguard Soundtrack",
+            "year" : 1992 ,
+            "certification" : "Diamond"
+            
         }
     ];
     
@@ -122,9 +161,16 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
         var query = req.query;
         var limit = 0;
         var offset = 0;
+        var cota ={};
         var dbq = {};
         Object.keys(query).forEach(p =>{
-            if(p =="limit"){
+            if(p=="from"){
+                cota["$gt"]=JSON.parse(query[p]);
+            }else if(p=="to"){
+                cota["$lt"]=JSON.parse(query[p]);
+               dbq["rank"]=cota;
+            }
+            else if(p =="limit"){
                 limit = JSON.parse(query[p]);
             }else if(p == "offset"){
                 offset = JSON.parse(query[p]);
@@ -135,6 +181,8 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
                     dbq[p] = query[p];
                 }
             }  
+            
+            
         });
         dbmanu.find(dbq).skip(offset).limit(limit).toArray((err,records)=>{
             
