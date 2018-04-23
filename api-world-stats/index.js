@@ -46,11 +46,11 @@ world.register= function (app,dbvicen){
     console.log("register..");
     
    
-
+ /*  
                                         //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.
     app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
     console.log(Date() + " - GET /best-sellers-stats/loadInitialData");
-                                                    ////////////////////////////////////////////////////////////////////????????? es asi o que?
+                                                 ////////////////////////////////////////////////////////////////////????????? es asi o que?
     dbvicen.find({}).toArray(function(err, records) {//cojo toda la colleción de mi db(ya que {},está vacio)
         if (err) {
             console.error("Error accesing DB");
@@ -66,7 +66,27 @@ world.register= function (app,dbvicen){
     });
 
 
-});
+}); */
+ app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
+        console.log(Date() + " - new GET /best-sellers-stats/loadInitialData");
+        
+        dbvicen.find({}).toArray((err, world) => {
+            if (err) {
+                console.log("Error accesing DB");
+                res.sendStatus(500);
+            }
+            if (world.length == 0) {
+                dbvicen.insert(initialdato);
+            }
+
+            res.sendStatus(201);
+        });
+
+    });
+
+
+
+
 
                             //GET, POST, DELETE, PUT(erroneo) para el caso general//
                             ///////////////////////////////////////////////////////

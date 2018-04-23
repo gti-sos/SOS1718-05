@@ -6,7 +6,7 @@
 //objetos de angular: -skope permite acceder al modelo, metiendo datos o leyendo datos. -http hacemos conecciones http,peticiones http con mi backend
 angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function($scope,$http){
     var worldStats="/api/v1/best-sellers-stats"; //variable con la direccion de mi api
-    var limit=3; //la cantidad que cojo
+    var limit=10; //la cantidad que cojo
     var offset=0; //donde empiezo
     
      
@@ -18,7 +18,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                  console.log(response.data);
              })
          }else{
-             $scope.status = "Status 401. Contraseña incorrecta."
+             $scope.status = "Status: Contraseña incorrecta."; //Status 401
          }
         
          
@@ -36,7 +36,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             $http.delete(worldStats).then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Eliminado todos los recursos correctamente"; //response.status
                    $scope.get();
                 
             });
@@ -46,13 +46,13 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     $scope.deleteWorld = function(country,year){    
             
             $http.delete(worldStats+"/"+country+"/"+year.toString()).then(function(response){
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Eliminado el recurso correctamente.";
                     $scope.get();
             });
                
             }
             //
-    ////////////////////////////////////////////////////////////////////////////////////////////////POST
+    //Añadir un recurso
     $scope.addWorld = function(){    
         var world = {};
         Object.keys($scope.newWorld).forEach(p =>{
@@ -65,16 +65,16 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         });
            ($scope.worldStats).forEach(p =>{
                 if((p.country==world.country) && (p.year==world.year)){
-                    $scope.status = "Status 409. Ya existe un objeto con la misma clave (Pais y año)."     
+                    $scope.status = "Status: Ya existe un objeto con la misma clave (Pais y año)." //status 409
                 }});
              if(Object.keys(world).length == 5){
                 $http.post(worldStats, world).then(function(response){
                    
-                  $scope.estado= "Status "+response.status;
+                  $scope.status= "Status: Añadido un nuevo recurso correctamente ";
                     $scope.get();
                 })
            }else{
-                $scope.status = "Status 400. El objeto debe contener todos los parametros."  
+                $scope.status = "Status: El objeto debe contener todos los parametros."  // status 400 
            }
             $scope.newWorld={};    
     }
@@ -84,6 +84,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data; 
+            }, function errorVacio(response) {
+             console.log("Empty");
+                $scope.worldStats = [];
                 });
             }
     //funcion que mustra la api al completo
@@ -95,7 +98,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             }
    //función para avanzar de página:
     $scope.getSiguiente = function (){    
-            offset=offset+3;
+            offset=offset+10;
               //a partir del parametro de la url envia una peticion http get y lo mete en scope
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data;  //es el objeto que me llega (un array)
@@ -104,9 +107,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     
     //funcion para volver a pag anterior:  
     $scope.getAnterior = function (){    
-            
-            if(offset>=3){//si el punto de partida no es 0, y es mayor que 3, significa que no esta en la primera página
-            offset=offset-3; // asique disminuimos el offset en -3, para acceder a la página anterior.
+            //
+            if(offset>=10){//si el punto de partida no es 0, y es mayor que 3, significa que no esta en la primera página
+            offset=offset-10; // asique disminuimos el offset en -3, para acceder a la página anterior.
             }
             //a partir del parametro de la url envia una peticion http get y lo mete en scope
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
@@ -117,12 +120,12 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             
             
-             //////////////////////////////////////////LOAD INITIAL DATA
+             //LOAD INITIAL DATA
     //
     $scope.loadInitialData = function(){
         $http.get("/api/v1/best-sellers-stats/loadInitialData").then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Se han creado todos los recursos iniciales.";
                    $scope.get();
                 
             });
