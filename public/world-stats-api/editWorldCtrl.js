@@ -31,7 +31,7 @@ angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeP
             ///Restricción que da error si hay un parámetro vacío dentro dela nueva variable que creamos
             Object.keys(worldStat).forEach(p =>{
                 if(worldStat[p]==""){
-                  $scope.status = "Status 400. El objeto debe contener todos los parametros."       
+                  $scope.status = "Status: El objeto debe contener todos los parametros."    //status 409   
                     put=false;    
                 }
             })
@@ -39,7 +39,7 @@ angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeP
             //Se hace un put en la base de datos con el nuevo objeto, es decir, editamos la base de datos  
             console.log(put)
                if(put){$http.put(world, worldStat).then(function(response){
-                   $scope.status= "Status "+response.status;
+                   $scope.status= "Status se ha modificado correctamente ";
                     $location.path("/best-sellers-stats");
                 
             })

@@ -18,7 +18,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                  console.log(response.data);
              })
          }else{
-             $scope.status = "Status 401. Contraseña incorrecta."
+             $scope.status = "Status: Contraseña incorrecta."; //Status 401
          }
         
          
@@ -36,7 +36,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             $http.delete(worldStats).then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Eliminado todos los recursos correctamente"; //response.status
                    $scope.get();
                 
             });
@@ -46,13 +46,13 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     $scope.deleteWorld = function(country,year){    
             
             $http.delete(worldStats+"/"+country+"/"+year.toString()).then(function(response){
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Eliminado el recurso correctamente.";
                     $scope.get();
             });
                
             }
             //
-    ////////////////////////////////////////////////////////////////////////////////////////////////POST
+    //Añadir un recurso
     $scope.addWorld = function(){    
         var world = {};
         Object.keys($scope.newWorld).forEach(p =>{
@@ -65,16 +65,16 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         });
            ($scope.worldStats).forEach(p =>{
                 if((p.country==world.country) && (p.year==world.year)){
-                    $scope.status = "Status 409. Ya existe un objeto con la misma clave (Pais y año)."     
+                    $scope.status = "Status: Ya existe un objeto con la misma clave (Pais y año)." //status 409
                 }});
              if(Object.keys(world).length == 5){
                 $http.post(worldStats, world).then(function(response){
                    
-                  $scope.status= "Status "+response.status;
+                  $scope.status= "Status: Añadido un nuevo recurso correctamente ";
                     $scope.get();
                 })
            }else{
-                $scope.status = "Status 400. El objeto debe contener todos los parametros."  
+                $scope.status = "Status: El objeto debe contener todos los parametros."  // status 400 
            }
             $scope.newWorld={};    
     }
@@ -117,12 +117,12 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             
             
-             //////////////////////////////////////////LOAD INITIAL DATA
+             //LOAD INITIAL DATA
     //
     $scope.loadInitialData = function(){
         $http.get("/api/v1/best-sellers-stats/loadInitialData").then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status: Se han creado todos los recursos iniciales.";
                    $scope.get();
                 
             });
