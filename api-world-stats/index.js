@@ -129,7 +129,7 @@ var initialdato = [{   //Recursos iniciales
         "sale":"32 millions"
     }
    
-    
+    //
 ];
 
 module.exports = world;
