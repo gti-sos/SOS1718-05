@@ -1,5 +1,5 @@
-<h1>Best Songs</h1>
-<table class="table">
+<h1><p align="center"> Best Songs</h1>
+<table class="table table bg-dark text-white">
     <thead>
         <tr>
             <th>Country</th>
@@ -9,7 +9,7 @@
             <th>Song</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody >
         <tr>
             <td><input class="form-control" ng-model="newBest.country"/></td>
             <td><input class="form-control" ng-model="newBest.year"/></td>
@@ -37,6 +37,7 @@
             <td></td>
             <td></td>
             <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+            <td><button class="btn btn-secundary" ng-click="inicializar()">Inicializar</button></td>
             
            
         </tr>
@@ -44,16 +45,14 @@
 </table>
 <hr/>
 <div>
-    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
-      Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
-      
-      
-      
-      
-      
-      <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
-      <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
-      
-
+  
+      Contraseña: <input class="form-control col-md-2"  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
+     
+</div>
+<div>
+    <p align="center"> 
+    <button class="btn btn-secundary" ng-click="getAnterior()"> < </button> 
+    <a href="/"><button class="btn btn-warning">Inicio</button></a>
+    <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
 </div>
 <div>{{status}}</div>
