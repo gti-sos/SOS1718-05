@@ -1,7 +1,7 @@
 /*global angular*/
 angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function($scope,$http){
     var bests="/api/v1/best-stats";
-    var limit=2;
+    var limit=10;
     var offset=0;
     
      
@@ -81,7 +81,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             }
      ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
     $scope.getSiguiente = function (){    
-            offset=offset+2;
+            offset=offset+10;
             $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.bests=response.data; 
                 });
@@ -89,8 +89,8 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             
     $scope.getAnterior = function (){    
             
-            if(offset>=2){
-            offset=offset-2;
+            if(offset>=10){
+            offset=offset-10;
             }
             $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.bests=response.data; 
