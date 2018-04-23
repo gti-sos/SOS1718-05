@@ -6,7 +6,7 @@
 //objetos de angular: -skope permite acceder al modelo, metiendo datos o leyendo datos. -http hacemos conecciones http,peticiones http con mi backend
 angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function($scope,$http){
     var worldStats="/api/v1/best-sellers-stats"; //variable con la direccion de mi api
-    var limit=3; //la cantidad que cojo
+    var limit=10; //la cantidad que cojo
     var offset=0; //donde empiezo
     
      
