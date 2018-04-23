@@ -13,7 +13,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
                  console.log(response.data);
              })
          }else{
-             $scope.status = "Status 401. Contraseña incorrecta."
+             $scope.status = "Error: Contraseña incorrecta."
          }
         
          
@@ -31,20 +31,25 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             
             $http.delete(bests).then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Se elimiaron los objetos con exito.";
                    $scope.get();
                 
             });
-              
-            }
+    }
     
     $scope.deleteBest = function(country,year){    
             
             $http.delete(bests+"/"+country+"/"+year.toString()).then(function(response){
-                   $scope.status = "Status "+response.status;
-                    $scope.get();
-            });
-               
+                   
+                   if(($scope.bests).length==1){
+                       $scope.status = "Se ha eliminado el objeto con exito.";
+                       $scope.getAnterior();
+                   }else{
+                   
+                   $scope.status = "Se ha eliminado el objeto con exito.";
+                   $scope.get(); 
+            }});
+              
             }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
     $scope.addBest = function(){    
@@ -59,16 +64,16 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
         });
            ($scope.bests).forEach(p =>{
                 if((p.country==best.country) && (p.year==best.year)){
-                    $scope.status = "Status 409. Ya existe un objeto con la misma clave (Pais y ranking)."     
+                    $scope.status = "Error: Ya existe un objeto con la misma clave (Pais y ranking)."     
                 }});
              if(Object.keys($scope.newBest).length == 5){
                 $http.post(bests, best).then(function(response){
                    
-                  $scope.status= "Status "+response.status;
+                  $scope.status= "Se ha creado el objeto con exito";
                     $scope.get();
                 })
            }else{
-                $scope.status = "Status 400. El objeto debe contener todos los parametros."  
+                $scope.status = "Error: El objeto debe contener todos los parametros."  
            }
             $scope.newBest={};    
     }
@@ -76,15 +81,26 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
     $scope.get = function (){    
             
             $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
-                   $scope.bests=response.data; 
+                   $scope.bests=response.data;
+                   console.log(response.status);
+                }, function Error(response){
+                    $scope.bests=[];
                 });
             }
      ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
     $scope.getSiguiente = function (){    
-            offset=offset+10;
+            
             $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
+                  if((response.data).length==10){
+                      offset=offset+10;
+                  } 
+                $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.bests=response.data; 
+                   
                 });
+                
+            });
+            
             }
             
     $scope.getAnterior = function (){    
@@ -98,7 +114,13 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             }
             $scope.get();
            
-           
+    $scope.inicializar = function(){
+        $http.get(bests+"/loadInitialData").then(function(response){
+             $scope.get();
+        })
+    
+       
+    }       
            
     ///////////////////////////////////////////////////////////////////////////////////////////////////////       
             }]);

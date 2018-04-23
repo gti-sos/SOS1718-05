@@ -21,14 +21,16 @@ angular.module("MusicApp").controller("EditBestCtrl",["$scope","$http","$routePa
             console.log(bestStat);
             Object.keys(bestStat).forEach(p =>{
                 if(bestStat[p]==""){
-                  $scope.status = "Status 400. El objeto debe contener todos los parametros."       
+                  $scope.status = "Error: El objeto debe contener todos los parametros."       
                     put=false;    
                 }
             })
             console.log(put)
                if(put){$http.put(best, bestStat).then(function(response){
                    $scope.status= "Status "+response.status;
+                    
                     $location.path("/best-stats");
+                    
                 
             })
                }

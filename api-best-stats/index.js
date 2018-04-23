@@ -138,7 +138,9 @@ bestStats.register = function(app,db) {
                 res.sendStatus(500);
             }
             if(bests.length == 0){
+            
                 res.sendStatus(404);
+                
             }else{
             res.send(bests.map(b => {delete b._id;
             return b;}));
