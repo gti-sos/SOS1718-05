@@ -56,15 +56,9 @@
 
       Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
       
-      
-      
-      
-      <!---botón que invoca a la funcion getSiguiente y getAnterior----PAGINACION--->
-      <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
-      <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
-      
 
 </div>
-    
+    <!---botón que invoca a la funcion getSiguiente y getAnterior----PAGINACION--->
+     
     <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
 <div>{{status}}</div>

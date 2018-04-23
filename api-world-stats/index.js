@@ -42,15 +42,92 @@ var initialdato = [{   //Recursos iniciales
         "year":1977,
         "album":"Rumours",
         "artist":"Fleetwood Mac",
-        "sale":"40 millones"
+        "sale":"40 millions"
     },
     {
         "country":"UK",
         "year":1977,
         "album":"Saturday Night Fever",
         "artist":"Bee Gees ",
-        "sale":"40 millones"
+        "sale":"40 millions"
     },
+    {
+        "country":"UK",
+        "year":1986,
+        "album":"El fantasma de la ópera",
+        "artist":"Andrew Lloyd Webber",
+        "sale":"40 millions"
+    },
+    {
+        "country":"Canada",
+        "year":1997,
+        "album":"Come on Over",
+        "artist":"Shania Twain",
+        "sale":"40 millions"
+    },
+    {
+        "country":"US",
+        "year":	1999,
+        "album":"Baby One More Time",
+        "artist":"Britney Spears",
+        "sale":"40 millions"
+    },
+    {
+        "country":"US",
+        "year":2000,
+        "album":"Oops!... I Did It Again",
+        "artist":"Britney Spears",
+        "sale":"38 millions"
+    },
+    {
+        "country":"US",
+        "year":	1971,
+        "album":"Led Zeppelin IV",
+        "artist":"Led Zeppelin",
+        "sale":"27 millions"
+    },
+    {
+        "country":"US",
+        "year":2001,
+        "album":"Britney",
+        "artist":"Britney Spears",
+        "sale":"35 millions"
+    },
+    {
+        "country":"US",
+        "year":1977,
+        "album":"Bat Out of Hell",
+        "artist":"Meat Loaf",
+        "sale":"34 millions"
+    },
+    {
+        "country":"US",
+        "year":1979,
+        "album":"The Wall",
+        "artist":"Pink Floyd",
+        "sale":"33 millions"
+    },
+    {
+        "country":"Canada",
+        "year":	1995,
+        "album":"Jagged Little Pill",
+        "artist":"Alanis Morissette",
+        "sale":"33 millions"
+    },
+    {
+        "country":"Canada",
+        "year":2002,
+        "album":"Let Go",
+        "artist":"Avril Lavigne",
+        "sale":"32 millions"
+    },
+    {
+        "country":"US",
+        "year":1967,
+        "album":"Sgt. Pepper's Lonely Hearts Club Band",
+        "artist":"The Beatles",
+        "sale":"32 millions"
+    }
    
     
 ];
