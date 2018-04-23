@@ -84,6 +84,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data; 
+            }, function errorVacio(response) {
+             console.log("Empty");
+                $scope.worldStats = [];
                 });
             }
     //funcion que mustra la api al completo
