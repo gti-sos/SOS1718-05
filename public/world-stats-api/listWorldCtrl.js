@@ -70,7 +70,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
              if(Object.keys(world).length == 5){
                 $http.post(worldStats, world).then(function(response){
                    
-                  $scope.estado= "Status "+response.status;
+                  $scope.status= "Status "+response.status;
                     $scope.get();
                 })
            }else{
