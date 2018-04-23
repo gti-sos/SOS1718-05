@@ -37,6 +37,21 @@ var initialdato = [{   //Recursos iniciales
         "artist": "Eagles",
         "sale": "42 millions"
     },
+    {
+        "country":"UK",
+        "year":1977,
+        "album":"Rumours",
+        "artist":"Fleetwood Mac",
+        "sale":"40 millones"
+    },
+    {
+        "country":"UK",
+        "year":1977,
+        "album":"Saturday Night Fever",
+        "artist":"Bee Gees ",
+        "sale":"40 millones"
+    },
+   
     
 ];
 
@@ -67,8 +82,8 @@ world.register= function (app,dbvicen){
 
 
 }); */
- app.get(API_BASE_PATH + "best-sellers-stats/loadInitialData", (req, res) => {
-        console.log(Date() + " - new GET /best-sellers-stats/loadInitialData");
+ app.get(API_BASE_PATH + "world-stats/loadInitialData", (req, res) => {
+        console.log(Date() + " - new GET /world-stats/loadInitialData");
         
         dbvicen.find({}).toArray((err, world) => {
             if (err) {
@@ -92,13 +107,13 @@ world.register= function (app,dbvicen){
                             ///////////////////////////////////////////////////////
   
      //Enlace donde se encuentra la colección de postman                
-app.get(API_BASE_PATH + "best-sellers-stats/docs",(req,res)=>{
+app.get(API_BASE_PATH + "world-stats/docs",(req,res)=>{
         res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
     });
     
     //////////////////IDENTIFICACION
-app.get(API_BASE_PATH + "secure/best-sellers-stats", (req, res) => {
-         console.log(Date() + " - new GET /best-sellers-stats");
+app.get(API_BASE_PATH + "secure/world-stats", (req, res) => {
+         console.log(Date() + " - new GET /world-stats");
          var apikey = req.query.apikey;
          if(apikey == "SOS1718-05"){
             dbvicen.find({}).toArray((err, records) => {
@@ -138,8 +153,8 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     });
 */
 //GET GENERAL. DEVUELVE TODOS LOS RECURSOS. BUSQUEDA. PAGINACIÓN.
-app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
-        console.log(Date() + " - new GET /best-sellers-stats");
+app.get(API_BASE_PATH + "world-stats", (req, res) => {
+        console.log(Date() + " - new GET /world-stats");
         var query = req.query;  //lo que escribimos detras de la "?" se almacena en esta variable: ?country=UK&year=1976
         var limit = 0;          
         var offset = 0;
@@ -191,8 +206,8 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
     });
 
     //Post al recurso inicial (crea un recurso concreto)
-app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
-        console.log(Date() + " - POST /best-sellers-stats");
+app.post(API_BASE_PATH+"world-stats",(req,res)=>{
+        console.log(Date() + " - POST /world-stats");
         var contact = req.body;
         
         dbvicen.find({"country": contact.country, "year":contact.year}).toArray((err, records) => {
@@ -216,14 +231,14 @@ app.post(API_BASE_PATH+"best-sellers-stats",(req,res)=>{
     });
     
     //PUT al recurso inicial (erroneo, no se puede actualizar aqui)
-app.put(API_BASE_PATH + "best-sellers-stats", (req, res) => { //al hacer un put en esta dir.
-    console.log(Date() + " - PUT /best-sellers-stats");       //debe de saltar Method not allowed
+app.put(API_BASE_PATH + "world-stats", (req, res) => { //al hacer un put en esta dir.
+    console.log(Date() + " - PUT /world-stats");       //debe de saltar Method not allowed
     res.sendStatus(405);//method not allowed.                        ///TABLA AZUL///
 });
 
     //DELETE al recurso inicial (eliminamos toda la lista)
-app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => { //al hacer un get a esta dir.
-    console.log(Date() + " - DELETE /best-sellers-stats");////////////////////////////////////////////////////////////////////////////////////////////
+app.delete(API_BASE_PATH + "world-stats", (req, res) => { //al hacer un get a esta dir.
+    console.log(Date() + " - DELETE /world-stats");////////////////////////////////////////////////////////////////////////////////////////////
     dbvicen.remove({}, { multi: true });
     res.sendStatus(200); //todo ok.
 });
@@ -232,11 +247,11 @@ app.delete(API_BASE_PATH + "best-sellers-stats", (req, res) => { //al hacer un g
                             ///////////////////////////////////////////////////////////////
 
     //GET a un recurso concreto.
-app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{ //a la dir, le añado los valores de las claves country y year.
+app.get(API_BASE_PATH+"world-stats/:country/:year",(req,res)=>{ //a la dir, le añado los valores de las claves country y year.
         var country = req.params.country; //Lo que escribo en la dir, lo inserto en la var country. 
         var anyo = req.params.year; // Lo que escribo en la dir, lo inserto en la var anyo.
         var year = parseInt(anyo,0); // pasamos a int.
-        console.log(Date() + " - GET /best-sellers-stats/"+country + " year:"+ anyo);
+        console.log(Date() + " - GET /world-stats/"+country + " year:"+ anyo);
         //console.log(country);
         //console.log(year);      //PRUEBAS
         
@@ -260,11 +275,11 @@ app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{ //a la di
 
 
     //DELETE A UN RECURSO EN CONCRETO
- app.delete(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
+ app.delete(API_BASE_PATH+"world-stats/:country/:year",(req,res)=>{
         var country = req.params.country; //Lo que escribo en la dir, lo inserto en la var country. 
         var anyo = req.params.year;// Lo que escribo en la dir, lo inserto en la var anyo.
          var year = parseInt(anyo,0);
-        console.log(Date() + " - DELETE /country-stats/"+country);
+        console.log(Date() + " - DELETE /world-stats/"+country);
         //elimino de la db los recursos que coincidan con el country & year de la dir
         dbvicen.remove({"country" : country, "year" : year }, function(err, num) {
         if (err) {
@@ -280,14 +295,14 @@ app.get(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{ //a la di
     });
     
     //POST A UN RECURSO CONCRETO (ERROR)
-app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
+app.post(API_BASE_PATH + "world-stats/:country/:year", (req, res) => {
     var name = req.params.name; 
-    console.log(Date() + " - POST /best-sellers-stats/" + name); //si haces un post a un recurso concreto salta Method Nor Allowed
+    console.log(Date() + " - POST /world-stats/" + name); //si haces un post a un recurso concreto salta Method Nor Allowed
     res.sendStatus(405);                                                                        ///TABLA AZUL///
 });
 
     //PUT A UN RECURSO CONCRETO
- app.put(API_BASE_PATH+"best-sellers-stats/:country/:year",(req,res)=>{
+ app.put(API_BASE_PATH+"world-stats/:country/:year",(req,res)=>{
         var country = req.params.country; // Lo que escribo en la dir, lo inserto en la var country.
         var anyo = req.params.year; // Lo que escribo en la dir, lo inserto en la var anyo.
         var year = parseInt(anyo,0); // transformo a int.
@@ -298,7 +313,7 @@ app.post(API_BASE_PATH + "best-sellers-stats/:country/:year", (req, res) => {
             
             }
         
-        console.log(Date() + " - PUT /country-stats"+country+ " year:"+year);
+        console.log(Date() + " - PUT /world-stats"+country+ " year:"+year);
         
         if(country != contact.country){ //si la var country(sacada de la dir), no es igual al country del recurso: //BAD REQUEST
             res.sendStatus(400);//BAD REQUEST

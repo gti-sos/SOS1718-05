@@ -22,11 +22,11 @@ angular.module("MusicApp",["ngRoute"]).config(function($routeProvider){
     })
     
 //////////
-    .when("/best-sellers-stats",{
+    .when("/world-stats",{
         templateUrl: "world-stats-api/listWorld.html",
         controller: "ListWorldCtrl"
     })
-    .when("/best-sellers-stats/:country/:year",{
+    .when("/world-stats/:country/:year",{
         templateUrl: "world-stats-api/editWorld.html",
         controller: "EditWorldCtrl"
     });

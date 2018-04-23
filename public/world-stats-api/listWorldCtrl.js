@@ -5,7 +5,7 @@
 /*global angular*/
 //objetos de angular: -skope permite acceder al modelo, metiendo datos o leyendo datos. -http hacemos conecciones http,peticiones http con mi backend
 angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function($scope,$http){
-    var worldStats="/api/v1/best-sellers-stats"; //variable con la direccion de mi api
+    var worldStats="/api/v1/world-stats"; //variable con la direccion de mi api
     var limit=10; //la cantidad que cojo
     var offset=0; //donde empiezo
     
@@ -13,7 +13,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      $scope.seguro = function(apikey){
          $scope.status = "";
          if(apikey=="SOS1718-05"){
-             $http.get("/api/v1/secure/best-sellers-stats?apikey="+apikey).then(function(response){
+             $http.get("/api/v1/secure/world-stats?apikey="+apikey).then(function(response){
                  $scope.worldStats=response.data;
                  console.log(response.data);
              })
@@ -123,7 +123,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
              //LOAD INITIAL DATA
     //
     $scope.loadInitialData = function(){
-        $http.get("/api/v1/best-sellers-stats/loadInitialData").then(function(response){
+        $http.get("/api/v1/world-stats/loadInitialData").then(function(response){
                    
                    $scope.status = "Status: Se han creado todos los recursos iniciales.";
                    $scope.get();

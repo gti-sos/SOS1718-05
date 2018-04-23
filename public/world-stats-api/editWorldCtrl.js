@@ -5,7 +5,7 @@
 /*global angular*/
                                                 
 angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeParams","$location",function($scope,$http,$routeParams,$location){
-    var world="/api/v1/best-sellers-stats/"+$routeParams.country+"/"+$routeParams.year; //variable con la direccion de mi api
+    var world="/api/v1/world-stats/"+$routeParams.country+"/"+$routeParams.year; //variable con la direccion de mi api
     
     ///La variable put se pone a true para señalar que lo que vamos a hacer es actualizar la base de datos, es decir, hacer un put    
     var put = true;
@@ -40,7 +40,7 @@ angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeP
             console.log(put)
                if(put){$http.put(world, worldStat).then(function(response){
                    $scope.status= "Status se ha modificado correctamente ";
-                    $location.path("/best-sellers-stats");
+                    $location.path("/world-stats");
                 
             })
                }
