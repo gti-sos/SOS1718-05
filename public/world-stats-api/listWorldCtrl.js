@@ -95,7 +95,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             }
    //función para avanzar de página:
     $scope.getSiguiente = function (){    
-            offset=offset+3;
+            offset=offset+10;
               //a partir del parametro de la url envia una peticion http get y lo mete en scope
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data;  //es el objeto que me llega (un array)
@@ -104,9 +104,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     
     //funcion para volver a pag anterior:  
     $scope.getAnterior = function (){    
-            
-            if(offset>=3){//si el punto de partida no es 0, y es mayor que 3, significa que no esta en la primera página
-            offset=offset-3; // asique disminuimos el offset en -3, para acceder a la página anterior.
+            //
+            if(offset>=10){//si el punto de partida no es 0, y es mayor que 3, significa que no esta en la primera página
+            offset=offset-10; // asique disminuimos el offset en -3, para acceder a la página anterior.
             }
             //a partir del parametro de la url envia una peticion http get y lo mete en scope
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
