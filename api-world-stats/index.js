@@ -124,11 +124,17 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
         var limit = 0;          
         var offset = 0;
         var dbq = {}; //objeto vacio
+        var vista ={};
         Object.keys(query).forEach(p =>{ //cojo las claves de query(como un map....key-value) y recorro p.                                  
             if(p =="limit"){ //si la clave es = a limit.                                                                             CLAVE  VALOR(string)
                 limit = JSON.parse(query[p]); //transformo el valor de dicha clave en un integer y se lo asocio a la var limit..-> "limit":"1976"
             }else if(p == "offset"){//si la clave es igual a offset.                                     .                           hay que pasarlo a int  
                 offset = JSON.parse(query[p]);//trasnformo el valor en integer y asocio a la var offset.
+            }else if(p=="from"){
+                vista["$gt"]=JSON.parse(query[p]); //selecciona aquellos documentos donde el valor del field es mayor.
+            }else if(p=="to"){
+                vista["$lt"]=JSON.parse(query[p]);//$lt selects the documents where the value of the field is less than.
+               dbq["year"]=vista;
             }else{ //en el resto de casos. ej: {"country":"UK", "year":"1987"}
                 try{                            /////////////////////////////
                     dbq[p] = JSON.parse(query[p]); //JSON.parse: analiza una cadena de texto como JSON, transformando el valor producido por el análisis.
@@ -137,6 +143,7 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
                 }            ////query[p]--> coge el valor de la clave, como un map
             }  
         });
+        
                 //try-catch: lanza y coge las excepciones....?
 		        //La función de límit() en MongoDB se usa para especificar el número máximo de resultados que se devolverán.
 		        //La función skip() decide donde empezar.      

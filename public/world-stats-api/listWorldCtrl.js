@@ -28,7 +28,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
    
     $scope.Busqueda = function(from,to){
         $http.get(worldStats+"?from="+JSON.parse(from)+"&to="+JSON.parse(to)).then(function(response){
-            $scope.bests=response.data;
+            $scope.worldStats=response.data;
         })
     }
     
@@ -51,6 +51,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             });
                
             }
+            //
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
     $scope.addWorld = function(){    
         var world = {};
