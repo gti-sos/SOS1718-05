@@ -64,7 +64,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
         });
            ($scope.bests).forEach(p =>{
                 if((p.country==best.country) && (p.year==best.year)){
-                    $scope.status = "Error: Ya existe un objeto con la misma clave (Pais y ranking)."     
+                    $scope.status = "Error: Ya existe un objeto con la misma clave (Pais y año)."     
                 }});
              if(Object.keys($scope.newBest).length == 5){
                 $http.post(bests, best).then(function(response){
