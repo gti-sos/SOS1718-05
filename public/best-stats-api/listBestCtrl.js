@@ -117,6 +117,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
     $scope.inicializar = function(){
         $http.get(bests+"/loadInitialData").then(function(response){
              $scope.get();
+             $scope.status = "Se han creado todos los objetos con exito."
         })
     
        
