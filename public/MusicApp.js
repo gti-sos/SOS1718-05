@@ -1,8 +1,10 @@
 /*global angular*/
 angular.module("MusicApp",["ngRoute"]).config(function($routeProvider){
-    $routeProvider.when("/",{
+    $routeProvider
+    .when("/",{
         templateUrl:"inicio.html"
-    }).when("/best-stats",{
+    })
+    .when("/best-stats",{
         templateUrl: "best-stats-api/listBest.html",
         controller: "ListBestCtrl"
     })
