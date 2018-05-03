@@ -1,3 +1,6 @@
+var fs= require("fs")
+var path = require("path")
+
 //un test puede estar compuesto por varias comprobaciones.
 describe("Data is loaded", function(){ //compruebo que los datos se cargan
     //por cada comprobación ponemos it.
@@ -11,6 +14,13 @@ describe("Data is loaded", function(){ //compruebo que los datos se cargan
             .then(function(worldStats){//aqui me devuelve un objeto worldStats que es un array con todos los recursos
              console.log("porque sale vacio??");
              console.log(worldStats);
+             browser
+                .takeScreenshot()
+                .then(function (png){
+                     var stream = fs.createWriteStream(path.join(process.cwd(),'test/outputv','T01-world.png'));
+                     stream.write(new Buffer(png,'base64'));
+                     stream.end();
+                });
                 expect(worldStats.length).toBeGreaterThan(6);
             });        
             
