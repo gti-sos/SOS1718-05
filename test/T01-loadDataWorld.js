@@ -4,7 +4,7 @@ var path = require("path")
 //un test puede estar compuesto por varias comprobaciones.
 describe("Data is loaded", function(){ //compruebo que los datos se cargan
     //por cada comprobación ponemos it.
-    it("tiene que mostrar mas de 6",function(){//should show 5 best
+    it("tiene que mostrar mas de 6",function(){
      
                                 //coloco la dirección del cloud9
         browser.get('https://sos1718vgm-sos171805vgm.c9users.io/#!/world-stats'). //mepermite acceder al navegador donde esta el desplegado
