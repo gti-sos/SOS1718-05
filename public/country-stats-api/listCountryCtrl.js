@@ -88,7 +88,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
     $scope.loadInitialData = function(){
                 $http.delete(countryStats)
                 $http.get("/api/v1/country-stats/loadInitialdata").then(function(response){
-                $scope.status = "Status 201. Successfully loaded 10 preset Items.";
+                $scope.status = "Status 201. Successfully loaded 20 preset Items.";
                 $scope.get();
                 
             });

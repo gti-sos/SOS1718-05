@@ -77,7 +77,7 @@ var initialdata= [
         { 
             "country" : "Canada",
             "rank" : 2,
-            "title" : "Como on over",
+            "title" : "Come on over",
             "year" : 1997 ,
             "certification" : "Diamond"
             
@@ -95,6 +95,76 @@ var initialdata= [
             "title" : "The Bodyguard Soundtrack",
             "year" : 1992 ,
             "certification" : "Diamond"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 1,
+            "title" : "Gold: Greatest Hits",
+            "year" : 1992 ,
+            "certification" : "10xPlatinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 2,
+            "title" : "	Brothers in Arms",
+            "year" : 1985 ,
+            "certification" : "6xPlatinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 3,
+            "title" : "Romanza",
+            "year" : 1997 ,
+            "certification" : "7xPlatinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 4,
+            "title" : "	Thriller",
+            "year" : 1982 ,
+            "certification" : "6× Platinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 5,
+            "title" : "	Let's Talk About Love",
+            "year" : 1997 ,
+            "certification" : "6xPlatinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 6,
+            "title" : "Greatest Hits",
+            "year" : 1981 ,
+            "certification" : "5× Platinum"
+            
+        },{ 
+            "country" : "Switzerland",
+            "rank" : 10,
+            "title" : "Dangerous",
+            "year" : 1991 ,
+            "certification" : "7xPlatinum"
+            
+        },{ 
+            "country" : "Spain",
+            "rank" : 1,
+            "title" : "Mas",
+            "year" : 1997 ,
+            "certification" : "	22xPlatinum"
+            
+        },{ 
+            "country" : "Spain",
+            "rank" : 2,
+            "title" : "Laura Pausini",
+            "year" : 1994 ,
+            "certification" : "11× Platinum"
+            
+        },{ 
+            "country" : "Spain",
+            "rank" : 3,
+            "title" : "Descanso Dominical",
+            "year" : 1988 ,
+            "certification" : "13xPlatinum"
             
         }
     ];
