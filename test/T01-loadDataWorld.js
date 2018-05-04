@@ -17,7 +17,7 @@ describe("Data is loaded", function(){ //compruebo que los datos se cargan
              browser
                 .takeScreenshot()
                 .then(function (png){
-                     var stream = fs.createWriteStream(path.join(process.cwd(),'test','outputv','T01-world.png'));
+                     var stream = fs.createWriteStream(path.join(process.cwd(),'test','output','T01-world.png'));
                      stream.write(new Buffer(png,'base64'));
                      stream.end();
                 });
