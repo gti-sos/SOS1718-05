@@ -19,7 +19,7 @@ var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jp
 app.use(bodyParser.json());
 app.use("/", express.static(__dirname + "/public"));
 
-var API_BASE_PATH = "/api/v1/";
+var API_BASE_PATH = "/api/v1/"; 
 
 
 /////////////////////////////////////////////////////////////////////APIS 

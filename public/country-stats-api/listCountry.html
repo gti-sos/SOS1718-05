@@ -1,6 +1,14 @@
-<h1 align="center">Most Popular Albums per Country</h1>
-<div align="center">{{status}}</div>
-<table class="table">
+<h1><p align="center">Most Popular Albums per Country</p></h1>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Country stats</li>
+  </ol>
+</nav>
+
+<div align="center">{{status}}{{Hola}}</div>
+<table class="table bg-dark text-white">
     <thead>
         <tr>
             <th>Country</th>
@@ -11,14 +19,14 @@
             
         </tr>
     </thead>
-    <tbody>
+    <tbody> 
         <tr>
             <td><input class="form-control" ng-model="newCountry.country"/></td>
             <td><input class="form-control" ng-model="newCountry.rank"/></td>
             <td><input class="form-control" ng-model="newCountry.title"/></td>
             <td><input class="form-control" ng-model="newCountry.year"/></td>
             <td><input class="form-control" ng-model="newCountry.certification"/></td>
-            <td><button class="btn btn-primary" ng-click="addCountry()">Add</button>
+            <td><button class="btn btn-primary" ng-click="addCountry()">Add Item</button>
             <td><button class="btn btn-primary" ng-click="loadInitialData()">Load Initial Data</button></td>
             </td>
         </tr>
@@ -31,8 +39,8 @@
             <td>{{country.certification}}</td>
             
             
-            <td><button class="btn btn-danger" ng-click="deleteRankInCountry(country.country,country.rank)">Delete</button></td>
-            <td><button class="btn btn-danger" ng-click="deleteCountry(country.country)">Delete country stats</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteRankInCountry(country.country,country.rank)">Delete Item</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteCountry(country.country)">Delete Country Stats</button></td>
             
             <td><a href="/#!/country-stats/{{country.country}}/{{country.rank}}"><button class="btn btn-secundary" >Update</button></a></td>
            
@@ -40,10 +48,10 @@
        <tr >
             <td>From: <input class="form-control" ng-model="from"/></td>
             <td>To: <input class="form-control" ng-model="to"/> </td>
-            <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Buscar</button></td>
+            <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Search</button></td>
             <td></td>
             <td></td>
-            <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All</button></td>
+            <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All Items</button></td>
             
             
            
@@ -53,17 +61,13 @@
 <hr/>
 <div>
     
-      Contraseña: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Aceptar </button>
+      Password: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Ok </button>
       
-      
-      
-      <button class="btn btn-secundary" ng-click="getAnterior()"> < </button>
-      <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
       
 
 </div>
     
-    <p align="center"> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button type="button" class="btn btn-warning" ng-click="get()">Back</button></p>
+     <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
 
         
         
@@ -71,7 +75,7 @@
     <p>Tips:</p>
     <p>    - Country and Rank identify each item.</p>
     <p>    - No attribute should be blank when you "Add" a new item.</p>
-    <p>    - "Load Initial Data" creates 10 preset items when the api is empty.</p>
+    <p>    - "Load Initial Data" restarts the database with 10 preset items.</p>
     <p>    - You can "Update" an item but never change its Rank or Country.</p>
     <p>    - "Delete Country Stats" removes all items that belong to said country from the api.</p>
      

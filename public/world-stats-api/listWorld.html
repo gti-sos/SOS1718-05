@@ -1,5 +1,13 @@
 <!---LA VISTA--->
- <h1><p align="center">Best selling songs</p></h1>
+<h1><p align="center">Best selling songs</p></h1>
+ 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">World stats</li>
+  </ol>
+</nav> 
+ 
 <table class="table bg-dark text-white"> <!---para cambiar la vista--->
     <thead>
         <tr> <!---permite colocar el titulo de cada atributo--->
@@ -47,7 +55,7 @@
             <td><button class="btn btn-secundary" ng-click="loadInitialData()">Load Initial Data</button></td>
             
             <!---class= btn btn danger... nos indica el color en rojo--->
-           
+            
         </tr>
     </tbody>
 </table>
@@ -60,5 +68,5 @@
 </div>
     <!---botón que invoca a la funcion getSiguiente y getAnterior----PAGINACION--->
      
-    <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
+    <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
 <div>{{status}}</div>

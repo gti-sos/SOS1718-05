@@ -138,7 +138,7 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
     
         dbmanu.find({}).toArray((err, records)=> {
         if (err) {
-            console.error("Error accesing DB");
+            console.log("Error accesing DB");
             process.exit(0);
             }
         if (records.length == 0){
@@ -146,6 +146,8 @@ app.get(API_BASE_PATH + "secure/country-stats", (req, res) => {
             console.log("DB initialized with "+ initialdata.length+ "contacts");
             
             
+        } else {
+            console.log("Cant load initial data when the database isnt empty");
         }
     res.send(initialdata);
     });

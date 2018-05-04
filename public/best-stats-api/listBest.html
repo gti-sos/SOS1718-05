@@ -1,4 +1,12 @@
 <h1><p align="center"> Best Songs</h1>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Best stats</li>
+  </ol> 
+</nav> 
+
 <table class="table table bg-dark text-white">
     <thead>
         <tr>
@@ -52,7 +60,6 @@
 <div>
     <p align="center"> 
     <button class="btn btn-secundary" ng-click="getAnterior()"> < </button> 
-    <a href="/"><button class="btn btn-warning">Inicio</button></a>
     <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button>
 </div>
 <div>{{status}}</div>

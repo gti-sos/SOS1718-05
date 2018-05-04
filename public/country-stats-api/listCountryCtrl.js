@@ -1,7 +1,7 @@
 /*global angular*/
 angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",function($scope,$http){
     var countryStats="/api/v1/country-stats";
-    var limit=2;
+    var limit=10;
     var offset=0;
     
      
@@ -13,7 +13,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
                  console.log(response.data);
              })
          }else{
-             $scope.status = "Status 401. Contraseña incorrecta."
+             $scope.status = "Status 401. Wrong password."
          }
         
          
@@ -31,7 +31,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
             
             $http.delete(countryStats).then(function(response){
                    
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status 200. All items were deleted";
                    $scope.get();
                 
             });
@@ -42,16 +42,16 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
     $scope.deleteRankInCountry = function(country,rank){    
             
             $http.delete(countryStats+"/"+country+"/"+rank).then(function(response){
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status 200. Item  (" + country + ", " + rank + ") was successfully deleted.";
                     $scope.get();
             });
                
-            }
-            
+            } 
+             
     $scope.deleteCountry = function(country){    
             
             $http.delete(countryStats+"/"+country).then(function(response){
-                   $scope.status = "Status "+response.status;
+                   $scope.status = "Status 200. All " + country + " items were successfully deleted.";
                     $scope.get();
             });
                
@@ -69,16 +69,16 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
         });
            ($scope.countryStats).forEach(p =>{
                 if((p.country==newAlbum.country) && (p.rank==newAlbum.rank)){
-                    $scope.status = "Status 409. Ya existe un objeto con la misma clave (Pais y año)."     
+                    $scope.status = "Status 409. Another item already exists with the same keys (" + newAlbum.country + ", " + newAlbum.rank + ")."     
                 }});
              if(Object.keys(newAlbum).length == 5){
                 $http.post(countryStats, newAlbum).then(function(response){
                    
-                  $scope.estado= "Status "+response.status;
+                  $scope.status= "Status 201. New item created  (" + newAlbum.country + ", " + newAlbum.rank + ").";
                     $scope.get();
                 })
            }else{
-                $scope.status = "Status 400. El objeto debe contener todos los parametros."  
+                $scope.status = "Status 400. New items cant have blank parameters."  
            }
             $scope.newAlbum={};    
     }
@@ -86,12 +86,13 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
     //////////////////////////////////////////LOAD INITIAL DATA
     
     $scope.loadInitialData = function(){
-        $http.get("/api/v1/country-stats/loadInitialdata").then(function(response){
-                   
-                   $scope.status = "Status "+response.status;
-                   $scope.get();
+                $http.delete(countryStats)
+                $http.get("/api/v1/country-stats/loadInitialdata").then(function(response){
+                $scope.status = "Status 201. Successfully loaded 10 preset Items.";
+                $scope.get();
                 
             });
+            
     }
     
     
@@ -104,7 +105,6 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
             }
             
             
-            
     $scope.getCompleto = function (){    
             console.log("mostrar api completa")
             $http.get(countryStats).then(function(response){
@@ -113,7 +113,7 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
             }
      ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
     $scope.getSiguiente = function (){    
-            offset=offset+2;
+            offset=offset+10;
             $http.get(countryStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.countryStats=response.data; 
                 });
@@ -121,8 +121,8 @@ angular.module("MusicApp").controller("ListCountryCtrl",["$scope","$http",functi
             
     $scope.getAnterior = function (){    
             
-            if(offset>=2){
-            offset=offset-2;
+            if(offset>=10){
+            offset=offset-10;
             }
             $http.get(countryStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.countryStats=response.data; 
