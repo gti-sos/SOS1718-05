@@ -107,17 +107,18 @@ angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", functi
             }, function errorCallback(response) {
                 console.log(response.status)
                 switch (response.status) {
-                    case 409:
-                        $scope.error = "Error: el recurso ya existe.";
-                        break;
                     case 400:
-                        $scope.error = "Error: debes introducir todos los parametros";
+                        $scope.status = "Error: debes introducir todos los parametros";
                         break;
+                    case 409:
+                        $scope.status = "Error: el recurso ya existe.";
+                        break;
+                    
                     default:
-                        $scope.error = "Error: algo no esta funcionando bien.";
+                        $scope.status = "Error: algo no esta funcionando bien.";
                 }
             });
-     }
+     } 
        
     $scope.inicializar = function() {
         $http.get(bests + "/loadInitialData").then(function(response) {
