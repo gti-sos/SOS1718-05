@@ -1,12 +1,16 @@
 /*global angular*/
 /*global Highcharts*/
 /*global google*/
+/*global tauCharts*/
+
+
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
 
     var data = [];
+
 
     $http.get("/api/v1/country-stats/analytics")
         .then(function(response) {
@@ -109,42 +113,59 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             });
 
 
-            
+
         })
-        
-        
+
+
     ////////////////////    
-    google.charts.load('current', {
-        'packages': ['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'mapCountries'
-    });
-    google.charts.setOnLoadCallback(drawRegionsMap);
 
-    function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
-            ['Germany', 200],
-            ['United States', 300],
-            ['Brazil', 400],
-            ['Canada', 500],
-            ['France', 600],
-            ['RU', 700]
-        ]);
+    $http.get("/api/v1/country-stats/analytics2")
+        .then(function(response) {
+            google.charts.load('current', {
+                'packages': ['geochart'],
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
 
-        var options = {};
+            function drawRegionsMap() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Country', 'Popularity'],
+                    [response.data[0].country, response.data[0].popularity],
+                    [response.data[1].country, response.data[1].popularity],
+                    [response.data[2].country, response.data[2].popularity],
+                    [response.data[3].country, response.data[3].popularity],
+                    [response.data[4].country, response.data[4].popularity],
+                    [response.data[5].country, response.data[5].popularity]
+                ]);
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                var options = {};
 
-        chart.draw(data, options);
-    }
+                var chart = new google.visualization.GeoChart(document.getElementById('mapCountries'));
 
-////////////////////////
+                chart.draw(data, options);
+            }
 
 
+        })
+
+    $http.get("/api/v1/country-stats/analytics3")
+        .then(function(response) {
+            var datasource = response.data;
+            var chart = new tauCharts.Chart({
+                data: datasource,
+                type: 'line',
+                x: 'date',
+                y: 'count',
+                color: 'type' // there will be two lines with different colors on the chart
+            }); 
+            
+            chart.renderTo('#line');
 
 
+        })
+
+
+
+    ////////////////////////
 
 
     $scope.seguro = function(apikey) {
