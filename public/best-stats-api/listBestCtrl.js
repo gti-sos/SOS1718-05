@@ -28,7 +28,10 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
                    
                 });
                 
-            });
+            }, function Error(response){
+                    $scope.bests=[];
+                });
+            
             
             }
             
@@ -39,7 +42,9 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             }
             $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.bests=response.data; 
-            });
+            },  function Error(response){
+                    $scope.bests=[];
+                });
     }
            
      $scope.seguro = function(apikey){
@@ -80,9 +85,10 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
                    
                    if(($scope.bests).length==1){
                        $scope.status = "Se ha eliminado el objeto con exito.";
-                       $scope.getAnterior();
-                   }else{
+                     
+                    $scope.getAnterior();
                    
+                   }else{
                    $scope.status = "Se ha eliminado el objeto con exito.";
                    get(); 
             }});
