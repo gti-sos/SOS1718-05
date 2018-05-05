@@ -1,6 +1,9 @@
 /*global angular*/
 /*global Highcharts*/
 /*global google*/
+/*global tauCharts*/
+
+
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
@@ -122,12 +125,10 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 'packages': ['geochart'],
             });
             google.charts.setOnLoadCallback(drawRegionsMap);
-            console.log(response.data[0].toSource())
-            console.log(response.data[1].toSource())
-            console.log(response.data[2].toSource())
-            function drawRegionsMap() { 
+
+            function drawRegionsMap() {
                 var data = google.visualization.arrayToDataTable([
-                    ['Country', 'Popularity'], 
+                    ['Country', 'Popularity'],
                     [response.data[0].country, response.data[0].popularity],
                     [response.data[1].country, response.data[1].popularity],
                     [response.data[2].country, response.data[2].popularity],
@@ -140,13 +141,27 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
                 var chart = new google.visualization.GeoChart(document.getElementById('mapCountries'));
 
-                chart.draw(data, options); 
+                chart.draw(data, options);
             }
 
 
         })
- 
-    
+
+    $http.get("/api/v1/country-stats/analytics3")
+        .then(function(response) {
+            var datasource = response.data;
+            var chart = new tauCharts.Chart({
+                data: datasource,
+                type: 'line',
+                x: 'date',
+                y: 'count',
+                color: 'type' // there will be two lines with different colors on the chart
+            }); 
+            
+            chart.renderTo('#line');
+
+
+        })
 
 
 

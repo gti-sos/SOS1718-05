@@ -85,7 +85,7 @@ var initialdata = [{
         "country": "Canada",
         "rank": 4,
         "title": "Let's Talk About Love",
-        "year": 1997,
+        "year": 1998,
         "certification": "Diamond"
 
     }, {
@@ -104,7 +104,7 @@ var initialdata = [{
 
     }, {
         "country": "Switzerland",
-        "rank": 2,
+        "rank": 2, 
         "title": "Brothers in Arms",
         "year": 1985,
         "certification": "6xPlatinum"
@@ -113,7 +113,7 @@ var initialdata = [{
         "country": "Switzerland",
         "rank": 3,
         "title": "Romanza",
-        "year": 1997,
+        "year": 1996,
         "certification": "7xPlatinum"
 
     }, {
@@ -284,7 +284,31 @@ countryApi.register = function(app, dbmanu) {
 
     });
 
+    ////////////////////GET ANALYTICS 3 TAUCHARTS
+    
+     app.get(API_BASE_PATH + "country-stats/analytics3", (req, res) => {
+        
+        console.log(Date() + " - GET /country-stats/analytics3");
+        var graphData = [];
+        
+        dbmanu.find({}).toArray((err, records) => {
+            if (err || records.length == 0) {
+                console.error("Error accesing DB");
+                return;
+            }
+            else
+            
+            for (var i = 0; i < records.length; i++) {
+                var item = records[i];
+                    graphData.push({ "date": item.year, "type": item.country, "count": item.rank });
+                
+            }
+            console.log(graphData.toString());
+            res.send(graphData);
+        });
 
+    });
+    
 
 
 
