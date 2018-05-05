@@ -184,7 +184,7 @@ bestStats.register = function(app,db) {
 
         console.log(Date() + " - POST /best-stats");
         var best = req.body;
-
+       
         db.find({ "country": best.country, "year": parseInt(best.year,0 )}).toArray((err, stats) => {
 
             if (err) {
@@ -192,14 +192,14 @@ bestStats.register = function(app,db) {
                 res.sendStatus(500);
                 return;
             }
-
-
-            if (Object.keys(best).length !== 5) {
+             if (Object.keys(best).length!=5) {
 
                 console.warn("Stat does not have the expected fields");
                 res.sendStatus(400);
 
             }
+
+            
             else if (stats.length !== 0) {
 
                 res.sendStatus(409);

@@ -118,6 +118,8 @@ angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", functi
                         $scope.status = "Error: algo no esta funcionando bien.";
                 }
             });
+     
+         $scope.newBest={};
      } 
        
     $scope.inicializar = function() {
