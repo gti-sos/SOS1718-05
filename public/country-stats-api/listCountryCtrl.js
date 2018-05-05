@@ -140,7 +140,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
                 var chart = new google.visualization.GeoChart(document.getElementById('mapCountries'));
 
-                chart.draw(data, options);
+                chart.draw(data, options); 
             }
 
 
