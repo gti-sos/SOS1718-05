@@ -3,51 +3,11 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
-
-    $http.get("/api/v1/country-stats")
+    
+    var data = [];
+    
+    $http.get("/api/v1/country-stats/analytics")
         .then(function(response) {
-
-            var graphData = [];
-            var finalData = [];
-            var countries = [];
-
-            for (var i = 0; i < response.data.length; i++) {
-                var item = response.data[i];
-                if (item in graphData) {
-                    console.log("ocupado");
-                } 
-                else {
-                    graphData.push({ "x": item.year, "country": item.country, "name": item.title, "z": 1, "y": item.rank });
-                }
-            }
-
-
-            for (var i = 0; i < graphData.length - 1; i++) {
-
-                var title = graphData[i].name;
-                var country = graphData[i].country;
-                var year = graphData[i].x;
-                var popularity = graphData[i].z; 
-                var Avgrank = graphData[i].y; 
-                var sumRank = graphData[i].y;
- 
-                for (var j = i + 1; j < graphData.length; j++) {
-                    if (graphData[j].name == title) {
-                        popularity++;
-                        sumRank = sumRank + graphData[j].y; 
-                        Avgrank = parseInt(sumRank) / parseInt(popularity);
- 
-                    }
-                }
-                if (countries.includes(title)) {}
-                else {
-                    finalData.push({ "x": title, "country": country, "name": title, "z": popularity, "y": Avgrank });
-                    countries.push(title)
-                }
-
-            }
-            console.log(finalData.toString());
-
 
             Highcharts.chart('analytics', {
 
@@ -121,7 +81,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 tooltip: {
                     useHTML: true,
                     headerFormat: '<table>',
-                    pointFormat: '<tr><th colspan="2"><h3>{point.title}</h3></th></tr>' +
+                    pointFormat: '<tr><th colspan="2"><h3>{point.name}</h3></th></tr>' +
                         '<tr><th>Year of release:</th><td>{point.x}g</td></tr>' +
                         '<tr><th>Average ranking:</th><td>{point.y}g</td></tr>' +
                         '<tr><th>Popularity:</th><td>{point.z}</td></tr>',
@@ -130,17 +90,17 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 },
 
                 plotOptions: {
-                    series: {
+                    series: { 
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}'
                         }
                     }
                 },
-
+ 
                 series: [{
                     name: 'data',
-                    data: finalData
+                    data: response.data
                 }]
 
             });
