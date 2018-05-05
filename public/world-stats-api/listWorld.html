@@ -67,6 +67,11 @@
 
 </div>
     <!---botón que invoca a la funcion getSiguiente y getAnterior----PAGINACION--->
-     
-    <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
+    
+    <!---<p align="center"><button class="btn btn-success" ng-click="getAnterior()"></p> --->
+    <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <a href="/"><button class="btn btn-warning">Inicio</button></a> <button type="button" class="btn btn-warning" ng-click="getCompleto()">Api Completa</button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
 <div>{{status}}</div>
