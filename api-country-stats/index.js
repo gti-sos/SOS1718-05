@@ -153,9 +153,9 @@ var initialdata = [{
 
     }, {
         "country": "Spain",
-        "rank": 2,
-        "title": "Laura Pausini",
-        "year": 1994,
+        "rank": 6,
+        "title": "Thriller",
+        "year": 1982,
         "certification": "11× Platinum"
 
     }, {
@@ -233,18 +233,19 @@ countryApi.register = function(app, dbmanu) {
     ////////////////////GET ANALYTICS
 
     app.get(API_BASE_PATH + "country-stats/analytics", (req, res) => {
-        var name = req.params.name;
+        
         console.log(Date() + " - GET /country-stats/analytics");
         var graphData = [];
         var finalData = [];
         var countries = [];
-
+        
         dbmanu.find({}).toArray((err, records) => {
-            if (err) {
+            if (err || records.length == 0) {
                 console.error("Error accesing DB");
-                res.sendStatud(500);
                 return;
             }
+            else
+            
             for (var i = 0; i < records.length; i++) {
                 var item = records[i];
                 if (item in graphData) {
@@ -279,7 +280,6 @@ countryApi.register = function(app, dbmanu) {
 
             }  
             res.send(finalData);
-            console.log("sending final data! " + finalData[0].name + finalData[0].country + finalData[0].x  + finalData[0].y);
         });
 
     });

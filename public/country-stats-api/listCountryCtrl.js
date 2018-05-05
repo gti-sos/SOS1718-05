@@ -52,6 +52,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 },
 
                 yAxis: {
+                    reversed: true,
                     startOnTick: false,
                     endOnTick: false,
                     title: {
@@ -82,9 +83,9 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                     useHTML: true,
                     headerFormat: '<table>',
                     pointFormat: '<tr><th colspan="2"><h3>{point.name}</h3></th></tr>' +
-                        '<tr><th>Year of release:</th><td>{point.x}g</td></tr>' +
-                        '<tr><th>Average ranking:</th><td>{point.y}g</td></tr>' +
-                        '<tr><th>Popularity:</th><td>{point.z}</td></tr>',
+                        '<tr><th>Year of release:</th><td>{point.x}</td></tr>' +
+                        '<tr><th>Average ranking:</th><td>{point.y}</td></tr>' +
+                        '<tr><td>Ranked in {point.z} countries</td></tr>',
                     footerFormat: '</table>',
                     followPointer: true
                 },
