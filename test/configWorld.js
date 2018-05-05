@@ -4,7 +4,7 @@ exports.config = {//objeto de la configuracion del test, lo que va a cargar prot
     //ahora decir cuales son los test que voy a lanzar
     specs: ['T01-loadDataWorld.js'],
     //y ahora el tipo de navegador que voy a utilizar
-    capavilities: {
+    capabilities: {
         'browserName' : 'phantomjs'
     }
     
