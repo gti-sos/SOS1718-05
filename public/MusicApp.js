@@ -46,7 +46,12 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/world-stats/:country/:year", {
             templateUrl: "world-stats-api/editWorld.html",
             controller: "EditWorldCtrl"
+        })
+        .when("/analytics/highchartsWorld",{
+            templateUrl: "world-stats-api/analytics/hchartsWorld.html",
+            controller: "hchartsWorldCtrl"
         });
+        
 
     console.log("App inicializada con exito")
 
