@@ -106,7 +106,7 @@ var initialdata= [
         },{ 
             "country" : "Switzerland",
             "rank" : 2,
-            "title" : "	Brothers in Arms",
+            "title" : "Brothers in Arms",
             "year" : 1985 ,
             "certification" : "6xPlatinum"
             
@@ -120,14 +120,14 @@ var initialdata= [
         },{ 
             "country" : "Switzerland",
             "rank" : 4,
-            "title" : "	Thriller",
+            "title" : "Thriller",
             "year" : 1982 ,
             "certification" : "6× Platinum"
             
         },{ 
             "country" : "Switzerland",
             "rank" : 5,
-            "title" : "	Let's Talk About Love",
+            "title" : "Let's Talk About Love",
             "year" : 1997 ,
             "certification" : "6xPlatinum"
             
