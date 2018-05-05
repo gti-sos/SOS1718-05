@@ -151,7 +151,7 @@ bestStats.register = function(app,db) {
     console.log("C");//Pruebas
     });
     ///////////////////////////////////////////////////////////////////////////////////////////////
-    app.post(API_BASE_PATH + "best-stats", (req, res) => {
+   /* app.post(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new POST /best");
         var aux = req.body;
         
@@ -178,7 +178,38 @@ bestStats.register = function(app,db) {
         });
     //F
         console.log("F");//Pruebas
+    });*/
+    
+     app.post(API_BASE_PATH + "/best-stats", (req, res) => {
+        console.log(Date() + " - POST /best-an");
+        var aux = req.body;
+        if (aux.province == null || aux.year == null || aux.gender == null) {
+            console.error("Invalid fields");
+            res.sendStatus(400);
+            return;
+        }
+
+        db.find({ "province": aux.province, "year": aux.year, "gender": aux.gender }).toArray((err, results) => {
+            if (err) {
+                console.error("Error accesing DB");
+                process.exit(1);
+            }
+
+            if (results.length == 0) {
+                db.insert(aux);
+                console.log("Inserted element");
+                res.sendStatus(201);
+            }
+
+            else {
+                console.log("The resource already exists");
+                res.sendStatus(409);
+
+            }
+        });
+
     });
+    
 
     app.put(API_BASE_PATH + "best-stats", (req, res) => {
         console.log(Date() + " - new PUT /best");
