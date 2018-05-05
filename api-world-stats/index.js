@@ -6,7 +6,7 @@ var initialdato = [{   //Recursos iniciales
         "year": 1982,
         "album": "Thriller",
         "artist": "Michael Jackson",
-        "sale": "65 millons"
+        "sale": 65
 
     },
     {
@@ -14,119 +14,119 @@ var initialdato = [{   //Recursos iniciales
         "year":1980,
         "album":"Back in Black",
         "artist":"AC/DC",
-        "sale":"50 millions"
+        "sale":50
     },
     {
         "country": "UK",
         "year": 1973,
         "album": "The Dark Side of the Moon",
         "artist": "Pink Floyd",
-        "sale": "45 millions"
+        "sale": 45
     },
     {
         "country": "US",
         "year": 1992,
         "album": "The Bodyguard",
         "artist": "Whitney Houston",
-        "sale": "45 millions"
+        "sale": 45
     },
     {
         "country": "US",
         "year": 1976,
         "album": "Their Greatests Hits",
         "artist": "Eagles",
-        "sale": "42 millions"
+        "sale": 42
     },
     {
         "country":"UK",
         "year":1977,
         "album":"Rumours",
         "artist":"Fleetwood Mac",
-        "sale":"40 millions"
+        "sale":40
     },
     {
         "country":"UK",
         "year":1977,
         "album":"Saturday Night Fever",
         "artist":"Bee Gees ",
-        "sale":"40 millions"
+        "sale":40
     },
     {
         "country":"UK",
         "year":1986,
         "album":"El fantasma de la ópera",
         "artist":"Andrew Lloyd Webber",
-        "sale":"40 millions"
+        "sale":40
     },
     {
         "country":"Canada",
         "year":1997,
         "album":"Come on Over",
         "artist":"Shania Twain",
-        "sale":"40 millions"
+        "sale":40
     },
     {
         "country":"US",
         "year":	1999,
         "album":"Baby One More Time",
         "artist":"Britney Spears",
-        "sale":"40 millions"
+        "sale":40
     },
     {
         "country":"US",
         "year":2000,
         "album":"Oops!... I Did It Again",
         "artist":"Britney Spears",
-        "sale":"38 millions"
+        "sale":38
     },
     {
         "country":"US",
         "year":	1971,
         "album":"Led Zeppelin IV",
         "artist":"Led Zeppelin",
-        "sale":"27 millions"
+        "sale":27
     },
     {
         "country":"US",
         "year":2001,
         "album":"Britney",
         "artist":"Britney Spears",
-        "sale":"35 millions"
+        "sale":35
     },
     {
         "country":"US",
         "year":1977,
         "album":"Bat Out of Hell",
         "artist":"Meat Loaf",
-        "sale":"34 millions"
+        "sale":34
     },
     {
         "country":"US",
         "year":1979,
         "album":"The Wall",
         "artist":"Pink Floyd",
-        "sale":"33 millions"
+        "sale":33
     },
     {
         "country":"Canada",
         "year":	1995,
         "album":"Jagged Little Pill",
         "artist":"Alanis Morissette",
-        "sale":"33 millions"
+        "sale":33
     },
     {
         "country":"Canada",
         "year":2002,
         "album":"Let Go",
         "artist":"Avril Lavigne",
-        "sale":"32 millions"
+        "sale":32 
     },
     {
         "country":"US",
         "year":1967,
         "album":"Sgt. Pepper's Lonely Hearts Club Band",
         "artist":"The Beatles",
-        "sale":"32 millions"
+        "sale":32
     }
    
     //

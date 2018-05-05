@@ -9,11 +9,30 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     var limit=10; //la cantidad que cojo
     var offset=0; //donde empiezo
     
-    var data = [];
+    var datax = [];
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      $http.get("/api/v1/world-stats")
         .then(function(response) {
             
+  
+        response.data.forEach(p => {
+            var obj = {};
+            Object.keys(p).forEach(o => {
+                console.log(p["sale"]);
+               
+                if (o == "sale") {
+                     
+                    obj["y"] = p[o];
+                   
+            }else if(o == "album"){
+                obj["name"] = p[o]
+            }
+            })
+        datax.push(obj);
+            
+        });
+        
         Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
@@ -43,38 +62,10 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     series: [{
         name: 'Brands',
         colorByPoint: true,
-        data: [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
-        }]
+        data: datax
     }]
 });
+
      ///////
             
         });
