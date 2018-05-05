@@ -1,11 +1,13 @@
 /*global angular*/
+/*global Highcharts*/
+/*global google*/
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
-    
+
     var data = [];
-    
+
     $http.get("/api/v1/country-stats/analytics")
         .then(function(response) {
 
@@ -13,7 +15,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
                 chart: {
                     type: 'bubble',
-                    plotBorderWidth: 1,  
+                    plotBorderWidth: 1,
                     zoomType: 'xy'
                 },
 
@@ -22,7 +24,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 },
 
                 title: {
-                    text: 'Most popular albums'
+                    text: 'Average ranking and popularity of albums'
                 },
 
 
@@ -91,14 +93,14 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 },
 
                 plotOptions: {
-                    series: { 
+                    series: {
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}'
                         }
                     }
                 },
- 
+
                 series: [{
                     name: 'data',
                     data: response.data
@@ -106,8 +108,39 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
             });
 
-        })
 
+            
+        })
+        
+        
+    ////////////////////    
+    google.charts.load('current', {
+        'packages': ['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'mapCountries'
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable([
+            ['Country', 'Popularity'],
+            ['Germany', 200],
+            ['United States', 300],
+            ['Brazil', 400],
+            ['Canada', 500],
+            ['France', 600],
+            ['RU', 700]
+        ]);
+
+        var options = {};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+        chart.draw(data, options);
+    }
+
+////////////////////////
 
 
 
