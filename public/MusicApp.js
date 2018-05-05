@@ -33,4 +33,6 @@ angular.module("MusicApp",["ngRoute"]).config(function($routeProvider){
         controller: "EditWorldCtrl"
     });
     
+    console.log("App inicializada con exito")
+    
 });
