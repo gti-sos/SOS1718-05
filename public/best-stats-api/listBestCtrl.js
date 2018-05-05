@@ -3,8 +3,45 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
     var bests="/api/v1/best-stats";
     var limit=10;
     var offset=0;
-    
-     
+    console.log("List Best Controller inicializado.")
+      //////////////////////////////////////////////////////////////////////////////////////////////GET
+    function get(){    
+            
+            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
+                   $scope.bests=response.data;
+                   console.log(response.status);
+                }, function Error(response){
+                    $scope.bests=[];
+                });
+            }
+            
+           
+     ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
+    $scope.getSiguiente = function (){    
+            
+            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
+                  if((response.data).length==10){
+                      offset=offset+10;
+                  } 
+                $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
+                   $scope.bests=response.data; 
+                   
+                });
+                
+            });
+            
+            }
+            
+    $scope.getAnterior = function (){    
+            
+            if(offset>=10){
+            offset=offset-10;
+            }
+            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
+                   $scope.bests=response.data; 
+            });
+    }
+           
      $scope.seguro = function(apikey){
          $scope.status = "";
          if(apikey=="SOS1718-05"){
@@ -32,7 +69,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
             $http.delete(bests).then(function(response){
                    
                    $scope.status = "Se elimiaron los objetos con exito.";
-                   $scope.get();
+                   get();
                 
             });
     }
@@ -47,7 +84,7 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
                    }else{
                    
                    $scope.status = "Se ha eliminado el objeto con exito.";
-                   $scope.get(); 
+                   get(); 
             }});
               
             }
@@ -70,61 +107,25 @@ angular.module("MusicApp").controller("ListBestCtrl",["$scope","$http",function(
                 $http.post(bests, best).then(function(response){
                    
                   $scope.status= "Se ha creado el objeto con exito";
-                    $scope.get();
+                    get();
                 })
            }else{
                 $scope.status = "Error: El objeto debe contener todos los parametros."  
            }
             $scope.newBest={};    
     }
-    //////////////////////////////////////////////////////////////////////////////////////////////GET
-    $scope.get = function (){    
-            
-            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
-                   $scope.bests=response.data;
-                   console.log(response.status);
-                }, function Error(response){
-                    $scope.bests=[];
-                });
-            }
-     ///////////////////////////////////////////////////////////////////////////////////////////////PAGINACION       
-    $scope.getSiguiente = function (){    
-            
-            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
-                  if((response.data).length==10){
-                      offset=offset+10;
-                  } 
-                $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
-                   $scope.bests=response.data; 
-                   
-                });
-                
-            });
-            
-            }
-            
-    $scope.getAnterior = function (){    
-            
-            if(offset>=10){
-            offset=offset-10;
-            }
-            $http.get(bests+"?limit="+limit+"&offset="+offset).then(function(response){
-                   $scope.bests=response.data; 
-                });
-            }
-            $scope.get();
-           
+   
     $scope.inicializar = function(){
         $http.get(bests+"/loadInitialData").then(function(response){
-             $scope.get();
+             get();
              $scope.status = "Se han creado todos los objetos con exito."
         })
     
        
     }       
-           
+      get();     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////       
-            }]);
+    }]);
             
             
    

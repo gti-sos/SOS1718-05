@@ -27,7 +27,7 @@ angular.module("MusicApp").controller("EditCountryCtrl",["$scope","$http","$rout
             Object.keys(countryStat).forEach(p =>{
                 
                 if(countryStat[p]==""){
-                  $scope.status = "Status 400. El objeto debe contener todos los parametros."       
+                  $scope.status = "Status 400. Cant update items with blank parameters."       
                     put=false;    
                 }
             })
@@ -35,8 +35,9 @@ angular.module("MusicApp").controller("EditCountryCtrl",["$scope","$http","$rout
 ///Se hace un put en la base de datos con el nuevo objeto, es decir, editamos la base de datos          
             console.log(put)
                if(put){$http.put(country, countryStat).then(function(response){
-                   $scope.status= "Status "+response.status;
+                   
                     $location.path("/country-stats");
+                    $scope.status= "Status 200. Item ("+ country.country + ", " + country.rank + ") successfully updated.";
                 
             })
                }

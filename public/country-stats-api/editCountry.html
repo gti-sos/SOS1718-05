@@ -1,5 +1,15 @@
-<h1>Edit Most Popular Albums per Country</h1>
-<table class="table">
+<h1><p align="center">Edit Most Popular Albums per Country</p></h1>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/#!/country-stats">Country stats</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Update item</li>
+  </ol>
+</nav>
+
+<div align="center">{{status}}{{hola}}</div>
+<table class="table bg-dark text-white">
     <thead>
         <tr>
             <th>Country</th>
@@ -10,6 +20,7 @@
             
         </tr>
     </thead>
+    
     <tbody>
         <tr>
            
@@ -27,9 +38,4 @@
     </tbody>
 </table>
 <hr/>
-<div>
-    <a href="/"><button class="btn btn-secundary">Inicio</button></a>
 
-    <a href="/#!/country-stats"><button class="btn btn-danger">Back</button></a>
-</div>
-<div>{{status}}{{hola}}</div>
