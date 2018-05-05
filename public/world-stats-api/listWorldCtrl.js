@@ -14,7 +14,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      $http.get("/api/v1/world-stats")
         .then(function(response) {
-            
+            //
   
         response.data.forEach(v => {
             var vic= {};
