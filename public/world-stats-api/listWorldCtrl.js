@@ -14,9 +14,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      $http.get("/api/v1/world-stats")
         .then(function(response) {
             
-            data = response.data;
-            
-            Highcharts.chart('container', {
+        Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -77,7 +75,6 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         }]
     }]
 });
-           
      ///////
             
         });
