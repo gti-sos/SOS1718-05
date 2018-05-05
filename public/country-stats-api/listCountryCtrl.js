@@ -8,6 +8,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
     var data = [];
 
+
     $http.get("/api/v1/country-stats/analytics")
         .then(function(response) {
 
@@ -109,42 +110,47 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             });
 
 
-            
+
         })
-        
-        
+
+
     ////////////////////    
-    google.charts.load('current', {
-        'packages': ['geochart'],
-        // Note: you will need to get a mapsApiKey for your project.
-        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-        'mapsApiKey': 'mapCountries'
-    });
-    google.charts.setOnLoadCallback(drawRegionsMap);
 
-    function drawRegionsMap() {
-        var data = google.visualization.arrayToDataTable([
-            ['Country', 'Popularity'],
-            ['Germany', 200],
-            ['United States', 300],
-            ['Brazil', 400],
-            ['Canada', 500],
-            ['France', 600],
-            ['RU', 700]
-        ]);
+    $http.get("/api/v1/country-stats/analytics2")
+        .then(function(response) {
+            google.charts.load('current', {
+                'packages': ['geochart'],
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
+            console.log(response.data[0].toSource())
+            console.log(response.data[1].toSource())
+            console.log(response.data[2].toSource())
+            function drawRegionsMap() { 
+                var data = google.visualization.arrayToDataTable([
+                    ['Country', 'Popularity'], 
+                    [response.data[0].country, response.data[0].popularity],
+                    [response.data[1].country, response.data[1].popularity],
+                    [response.data[2].country, response.data[2].popularity],
+                    [response.data[3].country, response.data[3].popularity],
+                    [response.data[4].country, response.data[4].popularity],
+                    [response.data[5].country, response.data[5].popularity]
+                ]);
 
-        var options = {};
+                var options = {};
 
-        var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                var chart = new google.visualization.GeoChart(document.getElementById('mapCountries'));
 
-        chart.draw(data, options);
-    }
-
-////////////////////////
-
-
+                chart.draw(data, options);
+            }
 
 
+        })
+ 
+    
+
+
+
+    ////////////////////////
 
 
     $scope.seguro = function(apikey) {
