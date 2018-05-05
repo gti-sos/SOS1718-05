@@ -16,20 +16,19 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         .then(function(response) {
             
   
-        response.data.forEach(p => {
-            var obj = {};
-            Object.keys(p).forEach(o => {
-                console.log(p["sale"]);
+        response.data.forEach(v => {
+            var vic= {};
+            Object.keys(v).forEach(o => {
+                console.log(v["sale"]);
                
                 if (o == "sale") {
-                     
-                    obj["y"] = p[o];
+                    vic["y"] = v[o];
                    
             }else if(o == "album"){
-                obj["name"] = p[o]
+                vic["name"] = v[o]
             }
             })
-        datax.push(obj);
+        datax.push(vic);
             
         });
         
