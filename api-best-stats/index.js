@@ -180,32 +180,37 @@ bestStats.register = function(app,db) {
         console.log("F");//Pruebas
     });*/
     
-     app.post(API_BASE_PATH + "/best-stats", (req, res) => {
-        console.log(Date() + " - POST /best-an");
-        var aux = req.body;
-        if (aux.province == null || aux.year == null || aux.gender == null) {
-            console.error("Invalid fields");
-            res.sendStatus(400);
-            return;
-        }
+    app.post(API_BASE_PATH + "best-stats", (req, res) => {
 
-        db.find({ "province": aux.province, "year": aux.year, "gender": aux.gender }).toArray((err, results) => {
+        console.log(Date() + " - POST /best-stats");
+        var best = req.body;
+
+        db.find({ "country": best.country, "year": parseInt(best.year,0 )}).toArray((err, stats) => {
+
             if (err) {
-                console.error("Error accesing DB");
-                process.exit(1);
+                console.error(" Error accesing DB");
+                res.sendStatus(500);
+                return;
             }
 
-            if (results.length == 0) {
-                db.insert(aux);
-                console.log("Inserted element");
-                res.sendStatus(201);
-            }
 
-            else {
-                console.log("The resource already exists");
+            if (Object.keys(best).length !== 5) {
+
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
+
+            }
+            else if (stats.length !== 0) {
+
                 res.sendStatus(409);
 
             }
+            else {
+
+                db.insert(best);
+                res.sendStatus(201);
+            }
+
         });
 
     });
