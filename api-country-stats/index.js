@@ -85,7 +85,7 @@ var initialdata = [{
         "country": "Canada",
         "rank": 4,
         "title": "Let's Talk About Love",
-        "year": 1997,
+        "year": 1998,
         "certification": "Diamond"
 
     }, {
@@ -104,7 +104,7 @@ var initialdata = [{
 
     }, {
         "country": "Switzerland",
-        "rank": 2,
+        "rank": 2, 
         "title": "Brothers in Arms",
         "year": 1985,
         "certification": "6xPlatinum"
@@ -113,7 +113,7 @@ var initialdata = [{
         "country": "Switzerland",
         "rank": 3,
         "title": "Romanza",
-        "year": 1997,
+        "year": 1996,
         "certification": "7xPlatinum"
 
     }, {
@@ -284,7 +284,31 @@ countryApi.register = function(app, dbmanu) {
 
     });
 
+    ////////////////////GET ANALYTICS 3 TAUCHARTS
+    
+     app.get(API_BASE_PATH + "country-stats/analytics3", (req, res) => {
+        
+        console.log(Date() + " - GET /country-stats/analytics3");
+        var graphData = [];
+        
+        dbmanu.find({}).toArray((err, records) => {
+            if (err || records.length == 0) {
+                console.error("Error accesing DB");
+                return;
+            }
+            else
+            
+            for (var i = 0; i < records.length; i++) {
+                var item = records[i];
+                    graphData.push({ "date": item.year, "type": item.country, "count": item.rank });
+                
+            }
+            console.log(graphData.toString());
+            res.send(graphData);
+        });
 
+    });
+    
 
 
 
@@ -372,6 +396,62 @@ countryApi.register = function(app, dbmanu) {
 
     });
 
+    ////////GET ANALYTICS 2
+    
+    
+    app.get(API_BASE_PATH + "country-stats/analytics2", (req, res) => {
+        
+        console.log(Date() + " - GET /country-stats/analytics2");
+        var graphData = [];
+        var finalData = [];
+        var countries = [];
+        
+        dbmanu.find({}).toArray((err, records) => {
+            if (err || records.length == 0) {
+                console.error("Error accesing DB");
+                return;
+            }
+            else
+            
+            for (var i = 0; i < records.length; i++) {
+                var item = records[i];
+                if (item in graphData) {
+                    console.log("ocupado");
+                } 
+                else {
+                    graphData.push({"country": item.country, "z": 1});
+                }
+            }
+            
+            console.log("graphdata:" + graphData)
+            
+            for (var i = 0; i < graphData.length - 1; i++) {
+
+                var title = graphData[i].name;
+                var country = graphData[i].country;
+                var suma = graphData[i].z;
+ 
+                for (var j = i + 1; j < graphData.length; j++) {
+                    if (graphData[j].country == country) {
+                        suma++; 
+ 
+                    }
+                }
+                if (countries.includes(country)) {}
+                else {
+                    finalData.push({"country": country, "popularity": suma});
+                    countries.push(country)
+                }
+
+            }  
+            res.send(finalData);
+        });
+
+    });
+    
+
+
+    
     ////PUT TOTAL, DA ERROR    
     app.put(API_BASE_PATH + "country-stats", (req, res) => {
         console.log(Date() + " - PUT /country-stats");
