@@ -39,7 +39,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             $http.delete(worldStats).then(function(response){
                    
                    $scope.status = "Status: Eliminado todos los recursos correctamente"; //response.status
-                   $scope.get();
+                   get();
                 
             });
               
@@ -49,11 +49,12 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             
             $http.delete(worldStats+"/"+country+"/"+year.toString()).then(function(response){
                    $scope.status = "Status: Eliminado el recurso correctamente.";
-                    $scope.get();
+                    get();
             });
                
             }
           //
+    /*
     //Añadir un recurso
     $scope.addWorld = function(){    
         var world = {};
@@ -73,7 +74,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                 $http.post(worldStats, world).then(function(response){
                    
                   $scope.status= "Status: Añadido un nuevo recurso correctamente ";
-                    $scope.get();
+                    get();
                     
                 })
            }else{
@@ -81,7 +82,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
            }
             $scope.newWorld={};    
     }
-    /*
+  */
      $scope.addWorld = function() {
             $http.post(worldStats, $scope.newWorld).then(function successCallback(response) {
                 $scope.status = "Status: " + "All is ok";
@@ -104,14 +105,10 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
      
          $scope.newWorld={};
      } 
-    */
+
     
     
-    
-    
-    //funcion que muestra el contenido de la api
-    //scope.get nos permite leer los datos  
-    $scope.get = function (){    
+/*    $scope.get = function (){    
             
             $http.get(worldStats+"?limit="+limit+"&offset="+offset).then(function(response){
                    $scope.worldStats=response.data; 
@@ -120,6 +117,18 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                 $scope.worldStats = [];
                 });
             }
+  */  
+    //funcion que muestra el contenido de la api
+    //scope.get nos permite leer los datos  
+  function get() {
+
+        $http.get(worldStats + "?limit=" + limit + "&offset=" + offset).then(function(response) {
+            $scope.worldStats = response.data;
+            console.log(response.status);
+        }, function Error(response) {
+            $scope.worldStats = [];
+        });
+    }
     //funcion que mustra la api al completo
      $scope.getCompleto = function (){    
             
@@ -147,7 +156,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                    $scope.worldStats=response.data; //es el objeto que me llega (un array)
                 });
             }
-            $scope.get();
+            get();
             
             
             
@@ -157,7 +166,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
         $http.get("/api/v1/world-stats/loadInitialData").then(function(response){
                    
                    $scope.status = "Status: Se han creado todos los recursos iniciales.";
-                   $scope.get();
+                   get();
                 
             });
     }
