@@ -46,7 +46,7 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             controller: "highchartsCountryCtrl"
         })
 
-        //////////
+        //////////vicente
         .when("/world-stats", {
             templateUrl: "world-stats-api/listWorld.html",
             controller: "ListWorldCtrl"
@@ -66,6 +66,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/visWorld",{
             templateUrl:"world-stats-api/analytics/visWorld.html",
             controller: "visWorldCtrl"
+        })
+        .when("/analytics/GeoWorld",{
+            templateUrl:"world-stats-api/analytics/googleGeoWorld.html",
+            controller:"googleGeoWorldCtrl"
         });
         
 
