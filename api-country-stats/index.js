@@ -308,7 +308,6 @@ countryApi.register = function(app, dbmanu) {
                     graphData.push({ "cycleTime": item.year, "team": item.country, "effort": item.rank });
                 
             }
-            console.log(graphData.toString());
             res.send(graphData);
         });
 
@@ -428,7 +427,6 @@ countryApi.register = function(app, dbmanu) {
                 }
             }
             
-            console.log("graphdata:" + graphData)
             
             for (var i = 0; i < graphData.length - 1; i++) {
 
