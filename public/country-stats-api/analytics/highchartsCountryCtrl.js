@@ -171,8 +171,4 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
         })
 
 
-
-
-
-
 }]);

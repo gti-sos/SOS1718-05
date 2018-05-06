@@ -590,7 +590,7 @@ countryApi.register = function(app, dbmanu) {
         console.log(Date() + " - new PUT /country-stats/ " + country + " rank: " + rank);
 
 
-        if (country != album.country) {
+        if (country != album.country) { 
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
         }

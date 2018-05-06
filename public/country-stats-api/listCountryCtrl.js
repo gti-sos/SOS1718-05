@@ -113,8 +113,9 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
         $http.get(countryStats + "?limit=" + limit + "&offset=" + offset).then(function(response) {
             $scope.countryStats = response.data;
+            console.log("mostrando la api completa");
         });
-    }
+    } 
 
 
     $scope.getCompleto = function() {

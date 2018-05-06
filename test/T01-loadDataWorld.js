@@ -28,6 +28,5 @@ describe("Data is loaded", function(){ //compruebo que los datos se cargan
         });
     
         });
-        });
-        
+});
         
