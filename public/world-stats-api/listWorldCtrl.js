@@ -11,7 +11,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     
    
     ///////////
-    
+
      $scope.seguro = function(apikey){
          $scope.status = "";
          if(apikey=="SOS1718-05"){
@@ -53,7 +53,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             });
                
             }
-            //
+          //
     //Añadir un recurso
     $scope.addWorld = function(){    
         var world = {};
@@ -74,12 +74,41 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                    
                   $scope.status= "Status: Añadido un nuevo recurso correctamente ";
                     $scope.get();
+                    
                 })
            }else{
                 $scope.status = "Status: El objeto debe contener todos los parametros."  // status 400 
            }
             $scope.newWorld={};    
     }
+    /*
+     $scope.addWorld = function() {
+            $http.post(worldStats, $scope.newWorld).then(function successCallback(response) {
+                $scope.status = "Status: " + "All is ok";
+                get();
+                $scope.error = "";
+            }, function errorCallback(response) {
+                console.log(response.status)
+                switch (response.status) {
+                    case 400:
+                        $scope.status = "Error: debes introducir todos los parametros";
+                        break;
+                    case 409:
+                        $scope.status = "Error: el recurso ya existe.";
+                        break;
+                    
+                    default:
+                        $scope.status = "Error: algo no esta funcionando bien.";
+                }
+            });
+     
+         $scope.newWorld={};
+     } 
+    */
+    
+    
+    
+    
     //funcion que muestra el contenido de la api
     //scope.get nos permite leer los datos  
     $scope.get = function (){    
@@ -135,4 +164,3 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
             }]);
             
             
-   
