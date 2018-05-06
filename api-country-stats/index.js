@@ -71,7 +71,7 @@ var initialdata = [{
         "title": "Geld oder Leben!",
         "year": 1985,
         "certification": "5x Platinum"
-
+ 
     },
     {
         "country": "Canada",
@@ -252,7 +252,7 @@ countryApi.register = function(app, dbmanu) {
                     console.log("ocupado");
                 } 
                 else {
-                    graphData.push({ "x": item.year, "country": item.country, "name": item.title, "z": 1, "y": item.rank });
+                    graphData.push({ "x": item.year, "country": item.country, "name": item.title, "z": 1, "y": item.rank, "certification":item.certification });
                 }
             }
             for (var i = 0; i < graphData.length - 1; i++) {
@@ -263,18 +263,22 @@ countryApi.register = function(app, dbmanu) {
                 var popularity = graphData[i].z; 
                 var Avgrank = graphData[i].y; 
                 var sumRank = graphData[i].y;
+                
+                var sumCertifications = graphData[i].certification;
  
                 for (var j = i + 1; j < graphData.length; j++) {
                     if (graphData[j].name == title) {
                         popularity++;
                         sumRank = sumRank + graphData[j].y; 
                         Avgrank = parseInt(sumRank) / parseInt(popularity);
+                        
+                        sumCertifications = sumCertifications + ", "+ graphData[j].certification;
  
                     }
                 }
                 if (countries.includes(title)) {}
                 else {
-                    finalData.push({ "x": year, "country": country, "name": title, "z": popularity, "y": Avgrank });
+                    finalData.push({ "x": year, "country": country, "name": title, "z": popularity, "y": Avgrank , "certifications":sumCertifications});
                     countries.push(title)
                 }
 
@@ -287,9 +291,10 @@ countryApi.register = function(app, dbmanu) {
     ////////////////////GET ANALYTICS 3 TAUCHARTS
     
      app.get(API_BASE_PATH + "country-stats/analytics3", (req, res) => {
-        
+         
         console.log(Date() + " - GET /country-stats/analytics3");
         var graphData = [];
+         
         
         dbmanu.find({}).toArray((err, records) => {
             if (err || records.length == 0) {
@@ -300,7 +305,7 @@ countryApi.register = function(app, dbmanu) {
             
             for (var i = 0; i < records.length; i++) {
                 var item = records[i];
-                    graphData.push({ "date": item.year, "type": item.country, "count": item.rank });
+                    graphData.push({ "cycleTime": item.year, "team": item.country, "effort": item.rank });
                 
             }
             console.log(graphData.toString());

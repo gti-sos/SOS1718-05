@@ -45,10 +45,14 @@
             <td><a href="/#!/country-stats/{{country.country}}/{{country.rank}}"><button class="btn btn-secundary" >Update</button></a></td>
            
         </tr>
-       <tr >
-            <td>From: <input class="form-control" ng-model="from"/></td>
-            <td>To: <input class="form-control" ng-model="to"/> </td>
-            <td><button class="btn btn-secundary" ng-click="Busqueda(from,to)">Search</button></td>
+       <tr >  
+            <td><input class="form-control" ng-model="from" placeholder="From" /></td>
+            <td><input class="form-control" ng-model="to"   placeholder="To"/> </td>
+            <td class="btn-group" role="group" aria-label="Basic example">
+                <button class="btn btn-secundary" ng-click="getAnterior()"> < </button> 
+                <button class="btn btn-secundary" ng-click="Busqueda(from,to)"> Search </button>
+                <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></td>
+            
             <td></td>
             <td></td>
             <td><button class="btn btn-danger" ng-click="deleteAll()">Delete All Items</button></td>
@@ -57,25 +61,21 @@
            
         </tr>
     </tbody>
-</table>
+</table> 
 <hr/>
 <div>
     
       Password: <input  ng-model="apikey"/>   <button class="btn btn-secundary" ng-click="seguro(apikey)"> Ok </button>
-      
-      
-
+   
 </div>
-    
-     <p align="center"><button class="btn btn-secundary" ng-click="getAnterior()"> < </button> <button class="btn btn-secundary" ng-click="getSiguiente()"> > </button></p>
 
-        
-        
+<div>. </div>       
 <div id= "analytics"> </div>   
 
-<div id= "mapCountries"> </div> 
+<div id= "mapCountries"> </div>
 
-<div id='line'>
+<h1 ><p align="center">Ranking vs Year of release</h1>
+<div id='line'> </div> 
 
 
     <p>Tips:</p>

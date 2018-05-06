@@ -84,14 +84,16 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                         zIndex: 3
                     }]
                 },
-
+ 
                 tooltip: {
                     useHTML: true,
                     headerFormat: '<table>',
                     pointFormat: '<tr><th colspan="2"><h3>{point.name}</h3></th></tr>' +
                         '<tr><th>Year of release:</th><td>{point.x}</td></tr>' +
                         '<tr><th>Average ranking:</th><td>{point.y}</td></tr>' +
-                        '<tr><td>Ranked in {point.z} countries</td></tr>',
+                        '<tr><th>Certifications:</th><td>{point.certifications}</td></tr>'+
+                        '<tr><td>Ranked in {point.z} countries</td></tr>'
+                        ,
                     footerFormat: '</table>',
                     followPointer: true
                 },
@@ -128,7 +130,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
             function drawRegionsMap() {
                 var data = google.visualization.arrayToDataTable([
-                    ['Country', 'Popularity'],
+                    ['Country', 'Albums in database'],
                     [response.data[0].country, response.data[0].popularity],
                     [response.data[1].country, response.data[1].popularity],
                     [response.data[2].country, response.data[2].popularity],
@@ -150,14 +152,22 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
     $http.get("/api/v1/country-stats/analytics3")
         .then(function(response) {
             var datasource = response.data;
+
+            console.log("AHHHHHH" + response.data.toSource());
             var chart = new tauCharts.Chart({
+                guide: {
+                    x: { nice: false, padding : 20, label: { text: 'Years', padding: 35 }}, 
+                    y: { nice: false, padding : 20, label: { text: 'Rank' , padding : 35}}, 
+                    showGridLines: 'xy'
+                },
+                
                 data: datasource,
                 type: 'line',
-                x: 'date',
-                y: 'count',
-                color: 'type' // there will be two lines with different colors on the chart
-            }); 
-            
+                x: 'cycleTime',
+                y: 'effort',
+                color: 'team', // every team will be represented by different color
+            });
+
             chart.renderTo('#line');
 
 
