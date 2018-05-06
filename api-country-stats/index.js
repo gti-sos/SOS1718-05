@@ -372,6 +372,7 @@ countryApi.register = function(app, dbmanu) {
     //////////////////OPERACIONES CONJUNTO DATOS///////////////////
 
     ////POST TOTAL, CREA UN RECURSO NUEVO
+    /*
     app.post(API_BASE_PATH + "country-stats", (req, res) => {
         console.log(Date() + " - POST /country-stats");
         var contact = req.body;
@@ -395,6 +396,42 @@ countryApi.register = function(app, dbmanu) {
                 res.sendStatus(409);
             }
 
+
+        });
+
+    });*/
+    
+    
+    app.post(API_BASE_PATH + "country-stats", (req, res) => {
+
+        console.log(Date() + " - POST /country-stats");
+        var country = req.body;
+
+        dbmanu.find({ "country": country.country, "rank": parseInt(country.year,0 )}).toArray((err, countryStats) => {
+
+            if (err) {
+                console.error(" Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+
+
+            if (Object.keys(country).length !== 5) {
+
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
+
+            }
+            else if (countryStats.length !== 0) {
+
+                res.sendStatus(409);
+
+            }
+            else {
+
+                dbmanu.insert(country);
+                res.sendStatus(201);
+            }
 
         });
 
