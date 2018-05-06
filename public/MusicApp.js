@@ -37,6 +37,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "country-stats-api/editCountry.html",
             controller: "EditCountryCtrl"
         })
+        .when("/analytics/highchartsCountry", {
+            templateUrl: "country-stats-api/analytics/highchartsCountry.html",
+            controller: "highchartsCountryCtrl"
+        })
 
         //////////
         .when("/world-stats", {
