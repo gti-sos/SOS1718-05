@@ -27,6 +27,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"best-stats-api/analytics/visBest.html",
             controller: "visBestCtrl"
         })
+        .when("/analytics/GeoBest",{
+            templateUrl:"best-stats-api/analytics/googleGeoBest.html",
+            controller:"googleGeoBestCtrl"
+        })
         //////Cambios manu
 
         .when("/country-stats", {

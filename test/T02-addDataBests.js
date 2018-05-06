@@ -1,7 +1,7 @@
 /*global expect browser element by*/
 describe("Add best", function(){
     it("should add a new best",function(){
-        browser.get('https://sos171805jpr-sos171805jpr.c9users.io').
+        browser.get('https://sos1718-05.herokuapp.com').
         then(function(){
             element.all(by.buttonText("Best stats api")).last().click().then(function(){
                 
