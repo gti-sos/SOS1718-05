@@ -50,6 +50,14 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/highchartsWorld",{
             templateUrl: "world-stats-api/analytics/hchartsWorld.html",
             controller: "hchartsWorldCtrl"
+        })
+        .when("/analytics/googleWorld",{
+            templateUrl: "world-stats-api/analytics/googleWorld.html",
+            controller: "googleWorldCtrl"
+        })
+        .when("/analytics/visWorld",{
+            templateUrl:"world-stats-api/analytics/visWorld.html",
+            controller: "visWorldCtrl"
         });
         
 

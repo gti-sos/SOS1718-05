@@ -9,65 +9,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
     var limit=10; //la cantidad que cojo
     var offset=0; //donde empiezo
     
-    var datax = [];
-    
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     $http.get("/api/v1/world-stats")
-        .then(function(response) {
-            //
-  
-        response.data.forEach(v => {
-            var vic= {};
-            Object.keys(v).forEach(o => {
-                console.log(v["sale"]);
-               
-                if (o == "sale") {
-                    vic["y"] = v[o];
-                   
-            }else if(o == "album"){
-                vic["name"] = v[o]
-            }
-            })
-        datax.push(vic);
-            
-        });
-        
-        Highcharts.chart('container', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Browser market shares in January, 2018'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'Brands',
-        colorByPoint: true,
-        data: datax
-    }]
-});
-
-     ///////
-            
-        });
+   
     ///////////
     
      $scope.seguro = function(apikey){
