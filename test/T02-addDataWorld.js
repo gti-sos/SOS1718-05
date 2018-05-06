@@ -12,7 +12,7 @@ describe("Add recurso", function(){
                 browser.driver.sleep(2000); //duermo durante unos segundos para asegurarme que se ha cargado todo correctamente
                 
                 //tengo que cargar tantos element como input en la vista....(5)
-                element(by.model('newWorld.country')).sendKeys("Mtalascañas");
+                element(by.model('newWorld.country')).sendKeys("Matalascañas");
                                                     //sendkeys es como si el usuario escrbiera dentro del input
                 element(by.model('newWorld.year')).sendKeys("20");
                 
