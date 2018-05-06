@@ -1,3 +1,4 @@
+/*global expect browser element by*/
 describe("Add recurso", function(){
     it("should add a new recurso",function(){
         browser
@@ -11,13 +12,13 @@ describe("Add recurso", function(){
                 //tengo que cargar tantos element como input en la vista....(5)
                 element(by.model('newWorld.country')).sendKeys("Matalascañas");
                                                     //sendkeys es como si el usuario escrbiera dentro del input
-                element(by.model('newWorld.year')).sendKeys("2020");
+                element(by.model('newWorld.year')).sendKeys('2020');
                 
                 element(by.model('newWorld.album')).sendKeys("venao");
                 
                 element(by.model('newWorld.artist')).sendKeys("vicente");
                 
-                element(by.model('newWorld.sale')).sendKeys("50cent");
+                element(by.model('newWorld.sale')).sendKeys('50');
                 
                 //localizo el boton que tiene ADD y le digo click
                 element(by.buttonText('Add')).click().then(function(){ //verificamos que tenemos los recursos iniciales mas 1.

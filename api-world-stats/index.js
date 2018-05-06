@@ -152,12 +152,9 @@ world.register= function (app,dbvicen){
             dbvicen.insert(initialdato);//insertamos en la db todos los recuros iniciales.
             res.sendStatus(201);//CREATED
             console.log("DB initialized with " + initialdato.length + "contacts");
-
         }
         res.send(initialdato);
     });
-
-
 }); */
  app.get(API_BASE_PATH + "world-stats/loadInitialData", (req, res) => {
         console.log(Date() + " - new GET /world-stats/loadInitialData");
@@ -225,8 +222,6 @@ app.get(API_BASE_PATH + "best-sellers-stats", (req, res) => {
             return b;}));
             }
         });
-
-
     });
 */
 //GET GENERAL. DEVUELVE TODOS LOS RECURSOS. BUSQUEDA. PAGINACIÓN.
@@ -287,7 +282,7 @@ app.post(API_BASE_PATH+"world-stats",(req,res)=>{
         console.log(Date() + " - POST /world-stats");
         var contact = req.body;
         
-        dbvicen.find({"country": contact.country, "year":contact.year}).toArray((err, records) => {
+        dbvicen.find({"country": contact.country, "year":parseInt(contact.year,0)}).toArray((err, records) => {
             if (err) {
                 console.log("Error accesing DB");
                 res.sendStatus(500);
