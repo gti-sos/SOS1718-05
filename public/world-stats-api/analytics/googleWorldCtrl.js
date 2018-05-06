@@ -35,11 +35,7 @@ angular.module("MusicApp").controller("googleWorldCtrl", ["$scope", "$http", fun
           [datax[4].album, datax[4].sale],
           [datax[5].album, datax[5].sale],
           [datax[6].album, datax[6].sale],
-          [datax[7].album, datax[7].sale],
-          [datax[8].album, datax[8].sale],
-          [datax[9].album, datax[9].sale],
-          [datax[10].album, datax[10].sale],
-          [datax[11].album, datax[11].sale],
+        
         ]);
 
         var options = {

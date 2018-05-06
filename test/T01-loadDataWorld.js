@@ -13,16 +13,17 @@ describe("Data is loaded", function(){ //compruebo que los datos se cargan
             element //localizo una parte de la página..all te da todos. que cumplan una condicion (ngrepeat de la vista)
             .all(by.repeater('world in worldStats'))
             .then(function(worldStats){//aqui me devuelve un objeto worldStats que es un array con todos los recursos
-             console.log("porque sale vacio??");
-             console.log(worldStats);
+             
+             
              browser
                 .takeScreenshot()
                 .then(function (png){
-                     var stream = fs.createWriteStream(path.join(process.cwd(),'test','output','T0prueba-world.png'));
+                     var stream = fs.createWriteStream(path.join(process.cwd(),'test','output','T01-world.png'));
                      stream.write(new Buffer(png,'base64'));
                      stream.end();
                 });
                 expect(worldStats.length).toBeGreaterThan(0);
+                
             });        
             
         });

@@ -64,71 +64,7 @@ var initialdato = [{   //Recursos iniciales
         "album":"Come on Over",
         "artist":"Shania Twain",
         "sale":40
-    },
-    {
-        "country":"US",
-        "year":	1999,
-        "album":"Baby One More Time",
-        "artist":"Britney Spears",
-        "sale":40
-    },
-    {
-        "country":"US",
-        "year":2000,
-        "album":"Oops!... I Did It Again",
-        "artist":"Britney Spears",
-        "sale":38
-    },
-    {
-        "country":"US",
-        "year":	1971,
-        "album":"Led Zeppelin IV",
-        "artist":"Led Zeppelin",
-        "sale":27
-    },
-    {
-        "country":"US",
-        "year":2001,
-        "album":"Britney",
-        "artist":"Britney Spears",
-        "sale":35
-    },
-    {
-        "country":"US",
-        "year":1977,
-        "album":"Bat Out of Hell",
-        "artist":"Meat Loaf",
-        "sale":34
-    },
-    {
-        "country":"US",
-        "year":1979,
-        "album":"The Wall",
-        "artist":"Pink Floyd",
-        "sale":33
-    },
-    {
-        "country":"Canada",
-        "year":	1995,
-        "album":"Jagged Little Pill",
-        "artist":"Alanis Morissette",
-        "sale":33
-    },
-    {
-        "country":"Canada",
-        "year":2002,
-        "album":"Let Go",
-        "artist":"Avril Lavigne",
-        "sale":32 
-    },
-    {
-        "country":"US",
-        "year":1967,
-        "album":"Sgt. Pepper's Lonely Hearts Club Band",
-        "artist":"The Beatles",
-        "sale":32
     }
-   
     //
 ];
 
@@ -278,6 +214,7 @@ app.get(API_BASE_PATH + "world-stats", (req, res) => {
     });
 
     //Post al recurso inicial (crea un recurso concreto)
+    /*
 app.post(API_BASE_PATH+"world-stats",(req,res)=>{
         console.log(Date() + " - POST /world-stats");
         var contact = req.body;
@@ -300,6 +237,41 @@ app.post(API_BASE_PATH+"world-stats",(req,res)=>{
 
         });
         
+    });
+    */
+    app.post(API_BASE_PATH + "world-stats", (req, res) => {
+
+        console.log(Date() + " - POST /world-stats");
+        var contact = req.body;
+       
+        dbvicen.find({ "country": contact.country, "year": parseInt(contact.year,0 )}).toArray((err, stats) => {
+
+            if (err) {
+                console.error(" Error accesing DB");
+                res.sendStatus(500);
+                return;
+            }
+             if (Object.keys(contact).length!=5) {
+
+                console.warn("Stat does not have the expected fields");
+                res.sendStatus(400);
+
+            }
+
+            
+            else if (stats.length !== 0) {
+
+                res.sendStatus(409);
+
+            }
+            else {
+
+                dbvicen.insert(contact);
+                res.sendStatus(201);
+            }
+
+        });
+
     });
     
     //PUT al recurso inicial (erroneo, no se puede actualizar aqui)

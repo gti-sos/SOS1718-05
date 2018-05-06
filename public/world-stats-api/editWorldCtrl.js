@@ -17,20 +17,20 @@ angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeP
             
         //Se toma cada uno de los parámetros de entrada del recurso nuevo y los añade a un objeto nuevo countryStat, la actualización del primero.            
         $scope.UpdateWorld = function(){    
-            var worldStat = {};
+            var worlds = {};
             Object.keys($scope.UpdatedWorld).forEach(p =>{
             
                 try{
-                    worldStat[p] = JSON.parse($scope.UpdatedWorld[p]);
+                    worlds[p] = JSON.parse($scope.UpdatedWorld[p]);
                 }catch(e){
-                    worldStat[p] = $scope.UpdatedWorld[p];
+                    worlds[p] = $scope.UpdatedWorld[p];
                 }
             });
             
-            console.log(worldStat);
+            console.log(worlds);
             ///Restricción que da error si hay un parámetro vacío dentro dela nueva variable que creamos
-            Object.keys(worldStat).forEach(p =>{
-                if(worldStat[p]==""){
+            Object.keys(worlds).forEach(p =>{
+                if(worlds[p]==""){
                   $scope.status = "Status: El objeto debe contener todos los parametros."    //status 409   
                     put=false;    
                 }
@@ -38,14 +38,14 @@ angular.module("MusicApp").controller("EditWorldCtrl",["$scope","$http","$routeP
             
             //Se hace un put en la base de datos con el nuevo objeto, es decir, editamos la base de datos  
             console.log(put)
-               if(put){$http.put(world, worldStat).then(function(response){
+               if(put){$http.put(world, worlds).then(function(response){
                    $scope.status= "Status se ha modificado correctamente ";
                     $location.path("/world-stats");
                 
             })
                }
         put=true;  
-        worldStat={};    //Se reinicia la variable para futuras llamadas
+        worlds={};    //Se reinicia la variable para futuras llamadas
            
         }    
             
