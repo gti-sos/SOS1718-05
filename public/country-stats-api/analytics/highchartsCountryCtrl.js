@@ -136,7 +136,7 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
                     [response.data[5].country, response.data[5].popularity]
                 ]);
 
-                var options = {};
+                var options = {}; 
 
                 var chart = new google.visualization.GeoChart(document.getElementById('mapCountries'));
 
@@ -144,13 +144,14 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
             }
 
 
-        })
+        }) 
 
     $http.get("/api/v1/country-stats/analytics3")
+
         .then(function(response) {
             var datasource = response.data;
 
-            console.log("AHHHHHH" + response.data.toSource());
+            console.log("AHHHHHH" + response.data);
             var chart = new tauCharts.Chart({
                 guide: {
                     x: { nice: false, padding: 20, label: { text: 'Years', padding: 35 } },
@@ -169,10 +170,6 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
 
 
         })
-
-
-
-
 
 
 }]);

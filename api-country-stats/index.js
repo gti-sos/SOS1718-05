@@ -308,7 +308,6 @@ countryApi.register = function(app, dbmanu) {
                     graphData.push({ "cycleTime": item.year, "team": item.country, "effort": item.rank });
                 
             }
-            console.log(graphData.toString());
             res.send(graphData);
         });
 
@@ -428,7 +427,6 @@ countryApi.register = function(app, dbmanu) {
                 }
             }
             
-            console.log("graphdata:" + graphData)
             
             for (var i = 0; i < graphData.length - 1; i++) {
 
@@ -590,7 +588,7 @@ countryApi.register = function(app, dbmanu) {
         console.log(Date() + " - new PUT /country-stats/ " + country + " rank: " + rank);
 
 
-        if (country != album.country) {
+        if (country != album.country) { 
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
         }

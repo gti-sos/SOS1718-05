@@ -3,14 +3,14 @@
 /*global google*/
 /*global tauCharts*/
 
-
+ 
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
 
     var data = [];
-
+      
 
 
     $scope.seguro = function(apikey) {
@@ -113,6 +113,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
         $http.get(countryStats + "?limit=" + limit + "&offset=" + offset).then(function(response) {
             $scope.countryStats = response.data;
+            console.log("mostrando la api completa");
         });
     }
 
@@ -142,7 +143,30 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
     }
     $scope.get();
 
+    $http.get("/api/v1/country-stats/analytics3")
 
+        .then(function(response) {
+            var datasource = response.data;
+
+            console.log("AHHHHHH" + response.data);
+            var chart = new tauCharts.Chart({
+                guide: {
+                    x: { nice: false, padding: 20, label: { text: 'Years', padding: 35 } },
+                    y: { nice: false, padding: 20, label: { text: 'Rank', padding: 35 } },
+                    showGridLines: 'xy'
+                },
+
+                data: datasource,
+                type: 'line',
+                x: 'cycleTime',
+                y: 'effort',
+                color: 'team', // every team will be represented by different color
+            });
+
+            chart.renderTo('#line');
+
+
+        })
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////       
 }]);
