@@ -157,11 +157,9 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                 });
             }
             get();
-            
-            
+            //
             
              //LOAD INITIAL DATA
-    //
     $scope.loadInitialData = function(){
         $http.get("/api/v1/world-stats/loadInitialData").then(function(response){
                    
