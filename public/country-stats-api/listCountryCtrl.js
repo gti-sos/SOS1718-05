@@ -66,7 +66,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
-    $scope.addCountry = function() {
+    /*$scope.addCountry = function() {
         var newAlbum = {};
         Object.keys($scope.newCountry).forEach(p => {
 
@@ -93,7 +93,33 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             $scope.status = "Status 400. New items cant have blank parameters."
         }
         $scope.newAlbum = {};
-    }
+    }*/
+
+    $scope.addCountry = function() {
+            $http.post(countryStats, $scope.newAlbum).then(function successCallback(response) {
+                $scope.status = "El objeto se creo con exito.";
+                $scope.get();
+                $scope.error = "";
+            }, function errorCallback(response) {
+                console.log(response.status)
+                switch (response.status) {
+                    case 400:
+                        $scope.status = "Error: debes introducir todos los parametros";
+                        break;
+                    case 409:
+                        $scope.status = "Error: el recurso ya existe.";
+                        break;
+                    
+                    default:
+                        $scope.status = "Error: algo no esta funcionando bien.";
+                }
+            });
+     
+         $scope.newAlbum={};
+     } 
+
+
+
 
     //////////////////////////////////////////LOAD INITIAL DATA
 

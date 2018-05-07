@@ -101,7 +101,7 @@ angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", functi
 
      $scope.addBest = function() {
             $http.post(bests, $scope.newBest).then(function successCallback(response) {
-                $scope.status = "El objeto se creo con exito.";
+                $scope.status = "Status: " + "All is ok";
                 get();
                 $scope.error = "";
             }, function errorCallback(response) {
