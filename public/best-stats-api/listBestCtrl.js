@@ -99,29 +99,29 @@ angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", functi
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
 
-     $scope.addBest = function() {
-            $http.post(bests, $scope.newBest).then(function successCallback(response) {
-                $scope.status = "Status: " + "All is ok";
-                get();
-                $scope.error = "";
-            }, function errorCallback(response) {
-                console.log(response.status)
-                switch (response.status) {
-                    case 400:
-                        $scope.status = "Error: debes introducir todos los parametros";
-                        break;
-                    case 409:
-                        $scope.status = "Error: el recurso ya existe.";
-                        break;
-                    
-                    default:
-                        $scope.status = "Error: algo no esta funcionando bien.";
-                }
-            });
-     
-         $scope.newBest={};
-     } 
-       
+    $scope.addBest = function() {
+        $http.post(bests, $scope.newBest).then(function successCallback(response) {
+            $scope.status = "El objeto se creo con exito.";
+            get();
+            $scope.error = "";
+        }, function errorCallback(response) {
+            console.log(response.status)
+            switch (response.status) {
+                case 400:
+                    $scope.status = "Error: debes introducir todos los parametros";
+                    break;
+                case 409:
+                    $scope.status = "Error: el recurso ya existe.";
+                    break;
+
+                default:
+                    $scope.status = "Error: algo no esta funcionando bien.";
+            }
+        });
+
+        $scope.newBest = {};
+    }
+
     $scope.inicializar = function() {
         $http.get(bests + "/loadInitialData").then(function(response) {
             get();
