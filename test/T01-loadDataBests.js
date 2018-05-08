@@ -6,7 +6,7 @@ describe("Data is loaded", function() {
         browser.get('https://sos1718-05.herokuapp.com/#!/best-stats').
         then(function() {
             element.all(by.repeater('best in bests')).then(function(bests) {
-                console.log(bests);
+                
                 browser
                     .takeScreenshot()
                     .then(function(png) {

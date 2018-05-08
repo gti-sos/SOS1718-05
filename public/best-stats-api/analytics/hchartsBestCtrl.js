@@ -8,7 +8,7 @@ angular.module("MusicApp").controller("hchartsBestCtrl", ["$scope", "$http", fun
             var s = "";
             Object.keys(p).forEach(o => {
                 
-                console.log(p["year"]);
+                
 
                 if (o == "year") {
                     obj["value"] = p[o];
