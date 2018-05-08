@@ -3,14 +3,14 @@
 /*global google*/
 /*global tauCharts*/
 
-
+ 
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
 
     var data = [];
-
+      
 
 
     $scope.seguro = function(apikey) {
@@ -66,7 +66,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
-    $scope.addCountry = function() {
+    /*$scope.addCountry = function() {
         var newAlbum = {};
         Object.keys($scope.newCountry).forEach(p => {
 
@@ -93,7 +93,33 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             $scope.status = "Status 400. New items cant have blank parameters."
         }
         $scope.newAlbum = {};
-    }
+    }*/
+
+    $scope.addCountry = function() {
+            $http.post(countryStats, $scope.newAlbum).then(function successCallback(response) {
+                $scope.status = "El objeto se creo con exito.";
+                $scope.get();
+                $scope.error = "";
+            }, function errorCallback(response) {
+                console.log(response.status)
+                switch (response.status) {
+                    case 400:
+                        $scope.status = "Error: debes introducir todos los parametros";
+                        break;
+                    case 409:
+                        $scope.status = "Error: el recurso ya existe.";
+                        break;
+                    
+                    default:
+                        $scope.status = "Error: algo no esta funcionando bien.";
+                }
+            });
+     
+         $scope.newAlbum={};
+     } 
+
+
+
 
     //////////////////////////////////////////LOAD INITIAL DATA
 
@@ -113,6 +139,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
         $http.get(countryStats + "?limit=" + limit + "&offset=" + offset).then(function(response) {
             $scope.countryStats = response.data;
+            console.log("mostrando la api completa");
         });
     }
 
@@ -142,7 +169,30 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
     }
     $scope.get();
 
+    $http.get("/api/v1/country-stats/analytics3")
 
+        .then(function(response) {
+            var datasource = response.data;
+
+            console.log("AHHHHHH" + response.data);
+            var chart = new tauCharts.Chart({
+                guide: {
+                    x: { nice: false, padding: 20, label: { text: 'Years', padding: 35 } },
+                    y: { nice: false, padding: 20, label: { text: 'Rank', padding: 35 } },
+                    showGridLines: 'xy'
+                },
+
+                data: datasource,
+                type: 'line',
+                x: 'cycleTime',
+                y: 'effort',
+                color: 'team', // every team will be represented by different color
+            });
+
+            chart.renderTo('#line');
+
+
+        })
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////       
 }]);
