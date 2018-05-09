@@ -4,7 +4,7 @@ angular.module("MusicApp").controller("hchartsVGCtrl", ["$scope", "$http", funct
     $http.get("proxyVG/api/v1/builders").then(function(build) {
             
             var datax = [];
-  
+  //
   world.data.forEach(v => {
             var vic= {};
             Object.keys(v).forEach(o => {
