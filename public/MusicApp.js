@@ -37,6 +37,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"best-stats-api/analyticsProxy/hchartsGS.html",
             controller: "hchartsGSCtrl"
         })
+        .when("/analytics/highchartsMA",{
+            templateUrl:"best-stats-api/analyticsProxy/hchartsMA.html",
+            controller:"hchartsMACtrl"
+        })
         //////Cambios manu
 
         .when("/country-stats", {
