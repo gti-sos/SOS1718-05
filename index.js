@@ -2,7 +2,6 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var MongoClient = require("mongodb").MongoClient;
 var cors = require("cors");
-
 var port = (process.env.PORT || 1607);
 var app = express();
 
@@ -18,7 +17,9 @@ var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jp
 
 app.use(bodyParser.json());
 app.use("/", express.static(__dirname + "/public"));//direccion donde vamos a usar el servidos.
+
 app.use(cors());
+
 var API_BASE_PATH = "/api/v1/"; 
 
 
