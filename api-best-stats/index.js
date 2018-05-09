@@ -1,5 +1,6 @@
 var bestStats = {};
 var API_BASE_PATH = "/api/v1/";
+var request = require("request");
 var initialBests = [
     
         {
@@ -54,6 +55,21 @@ var initialBests = [
 module.exports = bestStats;
 
 bestStats.register = function(app,db) {
+
+////////////////////////////////////////////////////////////////////////PROXYS
+
+
+////////////////////////////////////////////////////////////////////////PROXY GOAL STATS.
+var apiServerHostGS = "https://sos1718-01.herokuapp.com";
+app.use("/proxyGS",function(req,res){
+    var url = apiServerHostGS + req.url;
+    req.pipe(request(url)).pipe(res);
+});
+/////////////////////////////////////////////////////////////////////
+
+
+
+
 
 ////////////////////////////////////////////////////////////////////////AUTENTICACION
     app.get(API_BASE_PATH + "secure/best-stats", (req, res) => {

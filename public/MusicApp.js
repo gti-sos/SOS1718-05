@@ -7,6 +7,8 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics",{
             templateUrl: "analytics.html"
         })
+        
+        ////Julio
         .when("/best-stats", {
             templateUrl: "best-stats-api/listBest.html",
             controller: "ListBestCtrl"
@@ -30,6 +32,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/GeoBest",{
             templateUrl:"best-stats-api/analytics/googleGeoBest.html",
             controller:"googleGeoBestCtrl"
+        })
+        .when("/analytics/highchartsGS",{
+            templateUrl:"best-stats-api/analyticsProxy/hchartsGS.html",
+            controller: "hchartsGSCtrl"
         })
         //////Cambios manu
 

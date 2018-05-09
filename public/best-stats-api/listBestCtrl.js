@@ -1,14 +1,15 @@
 /*global angular*/
 angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", function($scope, $http) {
-    var bests = "/api/v1/best-stats";
+    var bests = "api/v1/best-stats";
     var limit = 10;
     var offset = 0;
     console.log("List Best Controller inicializado.")
     //////////////////////////////////////////////////////////////////////////////////////////////GET
+   
     function get() {
 
         $http.get(bests + "?limit=" + limit + "&offset=" + offset).then(function(response) {
-            $scope.bests = response.data;
+           $scope.bests = response.data;
             console.log(response.status);
         }, function Error(response) {
             $scope.bests = [];
