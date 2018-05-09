@@ -20,6 +20,7 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         datax.push(vic);
             
         });
+        console.log("aaaaaaaaaaaaaaaaaa");
         console.log(datax);
         Highcharts.chart('hchartsWorld', {
     chart: {

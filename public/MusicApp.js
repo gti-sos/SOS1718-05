@@ -76,6 +76,14 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/GeoWorld",{
             templateUrl:"world-stats-api/analytics/googleGeoWorld.html",
             controller:"googleGeoWorldCtrl"
+        })
+        .when("/analytics/highchartsVG",{
+            templateUrl:"world-stats-api/analyticsProxy/hchartsVG.html",
+            controller: "hchartsVGCtrl"
+        })
+        .when("/analytics/VG",{
+            templateUrl:"world-stats-api/analyticsProxy/vg.html",
+            controller: "vgCtrl"
         });
         
 
