@@ -17,7 +17,7 @@ var mdbURL = "mongodb://julperrod1:zxcvbnm123@ds129939.mlab.com:29939/sos1718-jp
 ///////////////////////////////////////////////////////////////////////
 
 app.use(bodyParser.json());
-//app.use("/", express.static(__dirname + "/public"));//direccion donde vamos a usar el servidos.
+app.use("/", express.static(__dirname + "/public"));//direccion donde vamos a usar el servidos.
 app.use(cors());
 var API_BASE_PATH = "/api/v1/"; 
 
