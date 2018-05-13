@@ -39,7 +39,7 @@ angular.module("MusicApp").controller("googleWorldCtrl", ["$scope", "$http", fun
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'World google analytics'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('googleWorld'));

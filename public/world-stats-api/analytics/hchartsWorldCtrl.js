@@ -30,7 +30,7 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         type: 'pie'
     },
     title: {
-        text: 'Browser market shares in January, 2018'
+        text: 'World hcharts analytics'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -49,7 +49,7 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'Album-Sale',
         colorByPoint: true,
         data: datax
     }]

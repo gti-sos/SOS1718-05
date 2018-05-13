@@ -51,7 +51,7 @@ angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", func
         }
     },
     title: {
-        text: 'Browser market shares at a specific website, 2014'
+        text: 'terrorism and world hcharts analytics'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -69,7 +69,7 @@ angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", func
     },
     series: [{
         type: 'pie',
-        name: 'Browser share',
+        name: 'Country-Sale / Country-terrorism',
         data: datax
     }]
 });

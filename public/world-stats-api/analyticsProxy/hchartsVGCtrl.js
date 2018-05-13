@@ -43,7 +43,7 @@ angular.module("MusicApp").controller("hchartsVGCtrl", ["$scope", "$http", funct
         type: 'funnel'
     },
     title: {
-        text: 'Sales funnel'
+        text: 'builder and world hcharts analytics'
     },
     plotOptions: {
         series: {
@@ -63,7 +63,7 @@ angular.module("MusicApp").controller("hchartsVGCtrl", ["$scope", "$http", funct
         enabled: false
     },
     series: [{
-        name: 'Unique users',
+        name: 'Country-Sale / Country-Pole',
         data: datax
     }]
 
