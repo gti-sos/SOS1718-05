@@ -11,6 +11,7 @@
 
 var countryApi = {};
 var API_BASE_PATH = "/api/v1/";
+var request = require("request");
 
 module.exports = countryApi;
 
@@ -71,7 +72,7 @@ var initialdata = [{
         "title": "Geld oder Leben!",
         "year": 1985,
         "certification": "5x Platinum"
- 
+
     },
     {
         "country": "Canada",
@@ -104,7 +105,7 @@ var initialdata = [{
 
     }, {
         "country": "Switzerland",
-        "rank": 2, 
+        "rank": 2,
         "title": "Brothers in Arms",
         "year": 1985,
         "certification": "6xPlatinum"
@@ -233,86 +234,86 @@ countryApi.register = function(app, dbmanu) {
     ////////////////////GET ANALYTICS
 
     app.get(API_BASE_PATH + "country-stats/analytics", (req, res) => {
-        
+
         console.log(Date() + " - GET /country-stats/analytics");
         var graphData = [];
         var finalData = [];
         var countries = [];
-        
+
         dbmanu.find({}).toArray((err, records) => {
             if (err || records.length == 0) {
                 console.error("Error accesing DB");
                 return;
             }
             else
-            
-            for (var i = 0; i < records.length; i++) {
-                var item = records[i];
-                if (item in graphData) {
-                    console.log("ocupado");
-                } 
-                else {
-                    graphData.push({ "x": item.year, "country": item.country, "name": item.title, "z": 1, "y": item.rank, "certification":item.certification });
+
+                for (var i = 0; i < records.length; i++) {
+                    var item = records[i];
+                    if (item in graphData) {
+                        console.log("ocupado");
+                    }
+                    else {
+                        graphData.push({ "x": item.year, "country": item.country, "name": item.title, "z": 1, "y": item.rank, "certification": item.certification });
+                    }
                 }
-            }
             for (var i = 0; i < graphData.length - 1; i++) {
 
                 var title = graphData[i].name;
                 var country = graphData[i].country;
                 var year = graphData[i].x;
-                var popularity = graphData[i].z; 
-                var Avgrank = graphData[i].y; 
+                var popularity = graphData[i].z;
+                var Avgrank = graphData[i].y;
                 var sumRank = graphData[i].y;
-                
+
                 var sumCertifications = graphData[i].certification;
- 
+
                 for (var j = i + 1; j < graphData.length; j++) {
                     if (graphData[j].name == title) {
                         popularity++;
-                        sumRank = sumRank + graphData[j].y; 
+                        sumRank = sumRank + graphData[j].y;
                         Avgrank = parseInt(sumRank) / parseInt(popularity);
-                        
-                        sumCertifications = sumCertifications + ", "+ graphData[j].certification;
- 
+
+                        sumCertifications = sumCertifications + ", " + graphData[j].certification;
+
                     }
                 }
                 if (countries.includes(title)) {}
                 else {
-                    finalData.push({ "x": year, "country": country, "name": title, "z": popularity, "y": Avgrank , "certifications":sumCertifications});
+                    finalData.push({ "x": year, "country": country, "name": title, "z": popularity, "y": Avgrank, "certifications": sumCertifications });
                     countries.push(title)
                 }
 
-            }  
+            }
             res.send(finalData);
         });
 
     });
 
     ////////////////////GET ANALYTICS 3 TAUCHARTS
-    
-     app.get(API_BASE_PATH + "country-stats/analytics3", (req, res) => {
-         
+
+    app.get(API_BASE_PATH + "country-stats/analytics3", (req, res) => {
+
         console.log(Date() + " - GET /country-stats/analytics3");
         var graphData = [];
-         
-        
+
+
         dbmanu.find({}).toArray((err, records) => {
             if (err || records.length == 0) {
                 console.error("Error accesing DB");
                 return;
             }
             else
-            
-            for (var i = 0; i < records.length; i++) {
-                var item = records[i];
+
+                for (var i = 0; i < records.length; i++) {
+                    var item = records[i];
                     graphData.push({ "cycleTime": item.year, "team": item.country, "effort": item.rank });
-                
-            }
+
+                }
             res.send(graphData);
         });
 
     });
-    
+
 
 
 
@@ -400,14 +401,14 @@ countryApi.register = function(app, dbmanu) {
         });
 
     });*/
-    
-    
+
+
     app.post(API_BASE_PATH + "country-stats", (req, res) => {
 
         console.log(Date() + " - POST /country-stats");
         var country = req.body;
 
-        dbmanu.find({ "country": country.country, "rank": parseInt(country.year,0 )}).toArray((err, countryStats) => {
+        dbmanu.find({ "country": country.country, "rank": parseInt(country.year, 0) }).toArray((err, countryStats) => {
 
             if (err) {
                 console.error(" Error accesing DB");
@@ -438,60 +439,60 @@ countryApi.register = function(app, dbmanu) {
     });
 
     ////////GET ANALYTICS 2
-    
-    
+
+
     app.get(API_BASE_PATH + "country-stats/analytics2", (req, res) => {
-        
+
         console.log(Date() + " - GET /country-stats/analytics2");
         var graphData = [];
         var finalData = [];
         var countries = [];
-        
+
         dbmanu.find({}).toArray((err, records) => {
             if (err || records.length == 0) {
                 console.error("Error accesing DB");
                 return;
             }
             else
-            
-            for (var i = 0; i < records.length; i++) {
-                var item = records[i];
-                if (item in graphData) {
-                    console.log("ocupado");
-                } 
-                else {
-                    graphData.push({"country": item.country, "z": 1});
+
+                for (var i = 0; i < records.length; i++) {
+                    var item = records[i];
+                    if (item in graphData) {
+                        console.log("ocupado");
+                    }
+                    else {
+                        graphData.push({ "country": item.country, "z": 1 });
+                    }
                 }
-            }
-            
-            
+
+
             for (var i = 0; i < graphData.length - 1; i++) {
 
                 var title = graphData[i].name;
                 var country = graphData[i].country;
                 var suma = graphData[i].z;
- 
+
                 for (var j = i + 1; j < graphData.length; j++) {
                     if (graphData[j].country == country) {
-                        suma++; 
- 
+                        suma++;
+
                     }
                 }
                 if (countries.includes(country)) {}
                 else {
-                    finalData.push({"country": country, "popularity": suma});
+                    finalData.push({ "country": country, "popularity": suma });
                     countries.push(country)
                 }
 
-            }  
+            }
             res.send(finalData);
         });
 
     });
-    
 
 
-    
+
+
     ////PUT TOTAL, DA ERROR    
     app.put(API_BASE_PATH + "country-stats", (req, res) => {
         console.log(Date() + " - PUT /country-stats");
@@ -581,6 +582,17 @@ countryApi.register = function(app, dbmanu) {
 
     });
 
+    /////PROXY
+    var apiServerHostGR = "https://sos1718-04.herokuapp.com";
+    app.use("/proxyGR", function(req, res) {
+        var url = apiServerHostGR + req.url;
+        req.pipe(request(url)).pipe(res);
+    });
+
+
+
+
+
     ////BORRA UN ÁLBUM DE UN PAÍS EN UN RANGO    
     app.delete(API_BASE_PATH + "country-stats/:name/:rank", (req, res) => {
         var name = req.params.name;
@@ -625,7 +637,7 @@ countryApi.register = function(app, dbmanu) {
         console.log(Date() + " - new PUT /country-stats/ " + country + " rank: " + rank);
 
 
-        if (country != album.country) { 
+        if (country != album.country) {
             res.sendStatus(400);
             console.warn(Date() + " - Hacking attempt!");
         }
