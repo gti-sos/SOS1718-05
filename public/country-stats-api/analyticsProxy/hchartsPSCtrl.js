@@ -11,8 +11,19 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                 return true;
             }
         }
-        return false;
+        return false; 
     }
+    
+    var myItem = []    
+      
+    $http.get("api/v1/country-stats").then(function(best) {
+            console.log("mines:" + best.data)
+            myItem.push( best.data.filter(a => a.rank == 1).map(x => {return x}))
+            console.log("item: "+ myItem)  
+            
+        
+    })
+     
     
     $http.get("api/v1/country-stats").then(function(best) {
         $http.get("https://sos1718-04.herokuapp.com/api/v2/graduation-rates").then(function(response) {
@@ -31,10 +42,12 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
 
             console.log(yearsFin)
             console.log(provinciasFin)
-
+  
             yearsFin.forEach(y => {
                 var obj = {};
-                obj["name"] = "year " + y;
+                var album = (best.data.filter(d => d.year == y).map(py =>{return py.title})[0])
+                if(album == null){album = "no ranking album"}
+                obj["name"] = "year " + y + "(" + album +  " was released)";
                 var rates = [] 
                     var provinciasYear = response.data.filter(d => d.year == y ).map(py =>{return py.province})
                     provinciasFin.forEach(p =>{
@@ -59,7 +72,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                     type: 'bar'
                 },
                 title: {
-                    text: 'Public school graduation rates by region and year'
+                    text: 'Public school graduation rates by region and ranking albums released that year'
                 },
                 subtitle: {
                     text: 'Empty bars mean no data stored'
@@ -91,6 +104,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                     }
                 }, 
                 legend: {
+                    title: { text: "hihi"},
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'top',

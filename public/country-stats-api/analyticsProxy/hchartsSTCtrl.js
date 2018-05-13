@@ -32,31 +32,63 @@ angular.module("MusicApp").controller("hchartsSTCtrl", ["$scope", "$http", funct
     }
 
     $http.get("api/v1/country-stats").then(function(best) {
-        $http.get("https://sos1718-08.herokuapp.com/api/v2/students-an").then(function(response) {
+        $http.get("proxyST/api/v2/students-an").then(function(response) {
 
-            console.log(response.data.sort(sort_by('province', false, function(a) { return a.toUpperCase() })));
 
             var datos = [];
             var datosYear = [];
             var datosMale = [];
             var datosFemale = [];
-
+            var datosMale = [];
+            var datosBoth = [];
+            var yearsAlbums = []; 
+ 
             datosYear = response.data.map(function(student) { if (!contains(datosYear, student.year)) { return student.year } })
             var yearsFin = datosYear.filter(function(item, pos) {
                 return datosYear.indexOf(item) == pos;
             })
 
             yearsFin.sort(sortNumber);
-
-            for (var i = 0; i < yearsFin.length; i++) {
-                response.data.filter(student => student.year == yearsFin[i] && student.gender == "male").map(d => { datosMale.push(d.popinuniversity) })
-                response.data.filter(student => student.year == yearsFin[i] && student.gender == "female").map(d => { datosFemale.push(d.popinuniversity) })
-            }
-
-            console.log("datamale: " + datosMale);
-            console.log("datafemale: " + datosFemale);
-            console.log("years: " + yearsFin)
-
+            yearsFin.forEach(y => {
+                var obj = "";
+                var album = (best.data.filter(d => d.year == y).map(py =>{return py.title})[0])
+                if(album == null){album = "no ranking album"}
+                obj = "year " + y + "(" + album +  " was released)";
+                
+                var datoMale = response.data.filter(student => student.year == y && student.gender == "male").map(d => { return d.popinuniversity })
+                
+                if(datoMale == ""){
+                    console.log("no male data for year " + y)
+                    datoMale = 0;}
+                console.log("male data for year " + y + " = " + datoMale)
+                
+                var datoFemale = response.data.filter(student => student.year == y && student.gender == "female").map(d => { return d.popinuniversity })
+                
+                if(datoFemale == ""){ 
+                    console.log("no female data for year " + y)
+                    datoFemale = 0;}
+                console.log("female data for year " + y + " = " + datoFemale)
+                
+                var datoBoth = response.data.filter(student => student.year == y && student.gender == "both").map(d => { return d.popinuniversity })
+                
+                if(datoBoth == ""){
+                    console.log("no both data for year " + y)
+                    datoBoth = 0;}
+                console.log("both data for year " + y + " = " + datoBoth)
+                
+                datosMale.push( Math.round(datoMale * 100) / 100)
+                datosFemale.push(Math.round(datoFemale * 100) / 100)
+                datosBoth.push(Math.round(datoBoth * 100) / 100)
+                
+                yearsAlbums.push(obj);
+                
+            })
+            
+            console.log("años a usar: " + yearsAlbums + " len : " + yearsAlbums.length)
+            console.log("datos male: " + datosMale + " len : " + datosMale.length)
+            console.log("datos female: " + datosFemale  + " len : " + datosFemale.length)
+            console.log("datos both: " + datosBoth  + " len : " + datosBoth.length)
+            
 
             Highcharts.chart('container', {
                 chart: {
@@ -84,7 +116,7 @@ angular.module("MusicApp").controller("hchartsSTCtrl", ["$scope", "$http", funct
                     backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
                 },
                 xAxis: {
-                    categories: datosYear
+                    categories: yearsAlbums
                 },
                 yAxis: {
                     title: {
@@ -104,7 +136,8 @@ angular.module("MusicApp").controller("hchartsSTCtrl", ["$scope", "$http", funct
                 }, {
                     name: 'Female',
                     data: datosFemale
-                }]
+                } , {name: 'Both', data: datosBoth}
+                ]
             });
 
 

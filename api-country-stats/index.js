@@ -15,6 +15,8 @@ var request = require("request");
 
 module.exports = countryApi;
 
+
+
 ////////////RECURSOS INICIALES//////////////
 
 var initialdata = [{
@@ -269,7 +271,7 @@ countryApi.register = function(app, dbmanu) {
 
                 for (var j = i + 1; j < graphData.length; j++) {
                     if (graphData[j].name == title) {
-                        popularity++;
+                        popularity++; 
                         sumRank = sumRank + graphData[j].y;
                         Avgrank = parseInt(sumRank) / parseInt(popularity);
 
@@ -429,7 +431,6 @@ countryApi.register = function(app, dbmanu) {
 
             }
             else {
-
                 dbmanu.insert(country);
                 res.sendStatus(201);
             }
@@ -583,13 +584,13 @@ countryApi.register = function(app, dbmanu) {
     });
 
     /////PROXY
-    var apiServerHostGR = "https://sos1718-04.herokuapp.com";
-    app.use("/proxyGR", function(req, res) {
-        var url = apiServerHostGR + req.url;
+    var apiServerHostST = "https://sos1718-08.herokuapp.com";
+    app.use("/proxyST", function(req, res) {
+        var url = apiServerHostST + req.url;
         req.pipe(request(url)).pipe(res);
     });
 
-
+    
 
 
 
