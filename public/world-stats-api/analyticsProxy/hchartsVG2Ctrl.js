@@ -20,7 +20,7 @@ angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", func
         datax.push(vic);
             
         });
-  
+  //
         transfer.data.forEach(v => {
             var vic= {};
             Object.keys(v).forEach(o => {
