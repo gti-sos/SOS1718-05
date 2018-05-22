@@ -1,6 +1,7 @@
 /*global angular Highcharts */
 /*global google*/
 angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", function($scope, $http) {
+    
     function sortNumber(a, b) {
         return a - b;
     }
@@ -26,7 +27,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
      
     
     $http.get("api/v1/country-stats").then(function(best) {
-        $http.get("https://sos1718-04.herokuapp.com/api/v2/graduation-rates").then(function(response) {
+        $http.get("proxyPS/api/v2/graduation-rates").then(function(response) {
             var data = [];
 
             var datosYear = response.data.map(function(d) { return d.year })

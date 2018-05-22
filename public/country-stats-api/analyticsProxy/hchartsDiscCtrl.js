@@ -1,0 +1,129 @@
+/*global angular Highcharts */
+/*global google*/
+
+angular.module("MusicApp").controller("hchartsDiscCtrl", ["$scope", "$http", function($scope, $http) {
+
+
+    var newData = [];
+    var newData2 = [];
+    var countriesData = [];
+
+
+
+    function contains(a, obj) {
+        for (var i = 0; i < a.length; i++) {
+            if (a[i] === obj) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    $http.get("api/v1/country-stats").then(function(myStats) {
+
+        for (var iter = 0; iter < myStats.data.length; iter++) {
+            var country = myStats.data[iter].country
+            if (!contains(countriesData, country)) {
+                countriesData.push(country);
+            }
+        }
+        for (var iter = 0; iter < countriesData.length; iter++) {
+            $http.get("https://api.discogs.com/database/search?q={?country==" + countriesData[iter] + " }&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
+                var obj = [];
+                var country = countriesData[iter]
+                var items;
+                var itemsCountry = 0;
+
+
+                items = response.data.pagination.items;
+                var str = "";
+                obj.push(country);
+                obj.push(items);
+                for (var J = 0; J < myStats.data.length; J++) {
+
+                    if (myStats.data[J].country == countriesData[iter]) {
+                        itemsCountry++;
+                        str += myStats.data[J].title + ", ";
+                    }
+                }
+                obj.push(itemsCountry);
+                var str2 = str.substring(0, str.length - 2);
+                obj.push(str2);
+
+                newData.push(obj);
+            }) 
+        }
+
+
+        $http.get("https://api.discogs.com/database/search?q={?artist==all}&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
+            for (var iter = 0; iter < countriesData.length; iter++) {
+                var obj = {};
+                var country = countriesData[iter]
+                var str = "";
+                var itemsCountry = 0;
+                obj['name'] = country
+                for (var J = 0; J < myStats.data.length; J++) {
+
+                    if (myStats.data[J].country == country) {
+                        itemsCountry++;
+                        str += myStats.data[J].title + ", ";
+                    }
+                }
+                var str2 = str.substring(0, str.length - 2);
+                obj['z'] = itemsCountry
+                obj['y'] = newData[iter][1]  
+                obj['rank'] = str2
+                newData2.push(obj);
+
+            }
+            console.log("reeee" + newData2)
+
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'variablepie'
+                },
+                title: {
+                    text: 'Correlation of items stored in Discogs API and Country-stats API + ranking albums (per country)'
+                },
+                tooltip: {
+                    headerFormat: '',
+                    pointFormat: '<span style="color:{point.color}">●</span> <b> {point.name}</b><br/>' +
+                        'Ranking albums: <b>{point.rank}</b><br/>' +
+                        'Items in Discogs db: <b>{point.y}</b><br/>' +
+                        'Items in Country-stats db: <b>{point.z}</b><br/>'
+                },
+                series: [{
+                    minPointSize: 10,
+                    innerSize: '20%',
+                    zMin: 0,
+                    name: 'countries',
+                    data: newData2
+                }]
+            }); 
+
+
+
+
+
+
+        })
+
+
+        $http.get("https://api.discogs.com/database/search?q={?artist==drake}&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
+
+            console.log("Discogs has " + response.data.pagination.items + " items in the database related to the artist.")
+            console.log("hey")
+
+        })
+
+    })
+
+
+
+
+
+
+
+
+}])

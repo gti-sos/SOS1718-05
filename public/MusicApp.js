@@ -63,6 +63,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"country-stats-api/analyticsProxy/hchartsPS.html",
             controller: "hchartsPSCtrl"
         })
+        .when("/analytics/highchartsDisc",{
+            templateUrl:"country-stats-api/analyticsProxy/hchartsDisc.html",
+            controller: "hchartsDiscCtrl"
+        })
 
         //////////vicente
         .when("/world-stats", {

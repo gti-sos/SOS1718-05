@@ -590,8 +590,18 @@ countryApi.register = function(app, dbmanu) {
         req.pipe(request(url)).pipe(res);
     });
 
-    
+    var apiServerHostPS = "https://sos1718-04.herokuapp.com";
+    app.use("/proxyPS", function(req, res) {
+        var url = apiServerHostPS + req.url;
+        req.pipe(request(url)).pipe(res);
+    });
 
+
+    var apiServerHostPS = "https://api.discogs.com/database";
+    app.use("/proxyDisc", function(req, res) {
+        var url = apiServerHostPS + req.url;
+        req.pipe(request(url)).pipe(res);
+    });
 
 
     ////BORRA UN ÁLBUM DE UN PAÍS EN UN RANGO    
