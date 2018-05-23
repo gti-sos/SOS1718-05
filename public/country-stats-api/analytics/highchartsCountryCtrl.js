@@ -14,7 +14,7 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
 
     $http.get("/api/v1/country-stats/analytics")
         .then(function(response) {
-
+            console.log(response.data)
             Highcharts.chart('analytics', {
 
                 chart: {
@@ -151,7 +151,6 @@ angular.module("MusicApp").controller("highchartsCountryCtrl", ["$scope", "$http
         .then(function(response) {
             var datasource = response.data;
 
-            console.log("AHHHHHH" + response.data);
             var chart = new tauCharts.Chart({
                 guide: {
                     x: { nice: false, padding: 20, label: { text: 'Years', padding: 35 } },
