@@ -5,7 +5,6 @@ angular.module("MusicApp").controller("hchartsDiscCtrl", ["$scope", "$http", fun
 
 
     var newData = [];
-    var newData2 = [];
     var countriesData = [];
 
 
@@ -28,41 +27,18 @@ angular.module("MusicApp").controller("hchartsDiscCtrl", ["$scope", "$http", fun
                 countriesData.push(country);
             }
         }
-        for (var iter = 0; iter < countriesData.length; iter++) {
-            $http.get("https://api.discogs.com/database/search?q={?country==" + countriesData[iter] + " }&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
-                var obj = [];
-                var country = countriesData[iter]
-                var items;
-                var itemsCountry = 0;
+        console.log("len: " + countriesData.length)
 
+        function getCountryData(country) {
+            var obj = {};
+            var items;
+            var itemsCountry = 0;
+            $http.get("https://api.discogs.com/database/search?q={?country==" + country + " }&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
 
                 items = response.data.pagination.items;
                 var str = "";
-                obj.push(country);
-                obj.push(items);
-                for (var J = 0; J < myStats.data.length; J++) {
 
-                    if (myStats.data[J].country == countriesData[iter]) {
-                        itemsCountry++;
-                        str += myStats.data[J].title + ", ";
-                    }
-                }
-                obj.push(itemsCountry);
-                var str2 = str.substring(0, str.length - 2);
-                obj.push(str2);
-
-                newData.push(obj);
-            }) 
-        }
-
-
-        $http.get("https://api.discogs.com/database/search?q={?artist==all}&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
-            for (var iter = 0; iter < countriesData.length; iter++) {
-                var obj = {};
-                var country = countriesData[iter]
-                var str = "";
-                var itemsCountry = 0;
-                obj['name'] = country
+                obj['name'] = country;
                 for (var J = 0; J < myStats.data.length; J++) {
 
                     if (myStats.data[J].country == country) {
@@ -71,43 +47,50 @@ angular.module("MusicApp").controller("hchartsDiscCtrl", ["$scope", "$http", fun
                     }
                 }
                 var str2 = str.substring(0, str.length - 2);
-                obj['z'] = itemsCountry
-                obj['y'] = newData[iter][1]  
-                obj['rank'] = str2
-                newData2.push(obj);
+                obj['z'] = itemsCountry;
+                obj['y'] = items;
+                obj['rank'] = str2;
 
-            }
-            console.log("reeee" + newData2)
+                newData.push(obj);
+                console.log("new obj : (" + obj.name + ", " + obj.z + ", " + obj.y + ", " + obj.rank + ")");
+                if (newData.length == countriesData.length) {
+                    console.log("ehhh");
+                    Highcharts.chart('container', {
+                        chart: {
+                            type: 'variablepie'
+                        },
+                        title: {
+                            text: 'Correlation of items stored in Discogs API and Country-stats API + ranking albums (per country)'
+                        },
+                        tooltip: {
+                            headerFormat: '',
+                            pointFormat: '<span style="color:{point.color}">●</span> <b> {point.name}</b><br/>' +
+                                'Ranking albums: <b>{point.rank}</b><br/>' +
+                                'Items in Discogs db: <b>{point.y}</b><br/>' +
+                                'Items in Country-stats db: <b>{point.z}</b><br/>'
+                        },
+                        series: [{
+                            minPointSize: 10,
+                            innerSize: '20%',
+                            zMin: 0,
+                            name: 'countries',
+                            data: newData
+                        }]
+                    });
+                }
+            });
+        }
 
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'variablepie'
-                },
-                title: {
-                    text: 'Correlation of items stored in Discogs API and Country-stats API + ranking albums (per country)'
-                },
-                tooltip: {
-                    headerFormat: '',
-                    pointFormat: '<span style="color:{point.color}">●</span> <b> {point.name}</b><br/>' +
-                        'Ranking albums: <b>{point.rank}</b><br/>' +
-                        'Items in Discogs db: <b>{point.y}</b><br/>' +
-                        'Items in Country-stats db: <b>{point.z}</b><br/>'
-                },
-                series: [{
-                    minPointSize: 10,
-                    innerSize: '20%',
-                    zMin: 0,
-                    name: 'countries',
-                    data: newData2
-                }]
-            }); 
+        for (var iter = 0; iter < countriesData.length; iter++) {
+            var countryNew = countriesData[iter];
+            getCountryData(countryNew);
+
+        }
 
 
 
 
 
-
-        })
 
 
         $http.get("https://api.discogs.com/database/search?q={?artist==drake}&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
