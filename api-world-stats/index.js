@@ -1,6 +1,6 @@
 var world = {};
 var API_BASE_PATH = "/api/v1/";
-
+var request = require("request");
 var initialdato = [{   //Recursos iniciales
         "country": "US",
         "year": 1982,
@@ -72,7 +72,12 @@ module.exports = world;
 
 world.register= function (app,dbvicen){
     console.log("register..");
-    
+    ////////////////7777
+    var apiServerHostVG = "https://SOS1718-10.herokuapp.com";
+app.use("/proxyVG",function(req,res){
+    var url = apiServerHostVG + req.url;
+    req.pipe(request(url)).pipe(res);
+});
    
  /*  
                                         //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.

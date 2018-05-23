@@ -63,11 +63,12 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             $scope.status = "Status 200. All " + country + " items were successfully deleted.";
             $scope.get();
         });
-
+ 
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
-    /*$scope.addCountry = function() {
+    $scope.addCountry = function() {
         var newAlbum = {};
+        var error = true
         Object.keys($scope.newCountry).forEach(p => {
 
             try {
@@ -77,25 +78,28 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
                 newAlbum[p] = $scope.newCountry[p];
             }
         });
+        
         ($scope.countryStats).forEach(p => {
             if ((p.country == newAlbum.country) && (p.rank == newAlbum.rank)) {
+                error = false
                 $scope.status = "Status 409. Another item already exists with the same keys (" + newAlbum.country + ", " + newAlbum.rank + ")."
             }
-        });
-        if (Object.keys(newAlbum).length == 5) {
+        }); 
+        if (error == true && !(newAlbum.country == "" || newAlbum.rank == "" || newAlbum.title == "")) {
             $http.post(countryStats, newAlbum).then(function(response) {
 
                 $scope.status = "Status 201. New item created  (" + newAlbum.country + ", " + newAlbum.rank + ").";
                 $scope.get();
             })
         }
-        else {
+        else if (error == true) {
             $scope.status = "Status 400. New items cant have blank parameters."
         }
         $scope.newAlbum = {};
-    }*/
+        error = true;
+    }
 
-    $scope.addCountry = function() {
+    /*$scope.addCountry = function() {
             $http.post(countryStats, $scope.newAlbum).then(function successCallback(response) {
                 $scope.status = "El objeto se creo con exito.";
                 $scope.get();
@@ -116,7 +120,7 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             });
      
          $scope.newAlbum={};
-     } 
+     } */
 
 
 

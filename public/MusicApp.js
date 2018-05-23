@@ -55,6 +55,18 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "country-stats-api/analytics/highchartsCountry.html",
             controller: "highchartsCountryCtrl"
         })
+        .when("/analytics/highchartsST",{
+            templateUrl:"country-stats-api/analyticsProxy/hchartsST.html",
+            controller: "hchartsSTCtrl"
+        })
+        .when("/analytics/highchartsPS",{
+            templateUrl:"country-stats-api/analyticsProxy/hchartsPS.html",
+            controller: "hchartsPSCtrl"
+        })
+        .when("/analytics/highchartsDisc",{
+            templateUrl:"country-stats-api/analyticsProxy/hchartsDisc.html",
+            controller: "hchartsDiscCtrl"
+        })
 
         //////////vicente
         .when("/world-stats", {
@@ -80,6 +92,14 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/GeoWorld",{
             templateUrl:"world-stats-api/analytics/googleGeoWorld.html",
             controller:"googleGeoWorldCtrl"
+        })
+        .when("/analytics/highchartsVG",{
+            templateUrl:"world-stats-api/analyticsProxy/hchartsVG.html",
+            controller: "hchartsVGCtrl"
+        })
+        .when("/analytics/highchartsVG2",{
+            templateUrl:"world-stats-api/analyticsProxy/hchartsVG2.html",
+            controller: "hchartsVG2Ctrl"
         });
         
 
