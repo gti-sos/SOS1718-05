@@ -20,7 +20,6 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
     $http.get("api/v1/country-stats").then(function(best) {
             console.log("mines:" + best.data)
             myItem.push( best.data.filter(a => a.rank == 1).map(x => {return x}))
-            console.log("item: "+ myItem)  
             
         
     })
@@ -57,7 +56,6 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                         }
                         else{
                             rates.push(0);
-                            console.log("aggg")
                         }
                     })
                 
@@ -65,6 +63,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                 obj["data"] = rates;
                 data.push(obj);
             })
+            console.log("data: " + data)
 
             console.log(data);
 
