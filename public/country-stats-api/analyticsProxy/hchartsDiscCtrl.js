@@ -92,7 +92,6 @@ angular.module("MusicApp").controller("hchartsDiscCtrl", ["$scope", "$http", fun
 
 
 
-
         $http.get("https://api.discogs.com/database/search?q={?artist==drake}&token=zwxZExVZTenjPTKumVeTDVRuniqhQLAxymdzSxUQ").then(function(response) {
 
             console.log("Discogs has " + response.data.pagination.items + " items in the database related to the artist.")
