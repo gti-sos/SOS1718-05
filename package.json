@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "pretest": "test/runPhantomjs.sh",
-    "test": "protractor test/config.js",
+    "test": "protractor test/configCountry.js",
     "posttest": "killall phantomjs",
+    
+    
+    
     "start": "node index.js"
   },
   "author": "julperrod1",
