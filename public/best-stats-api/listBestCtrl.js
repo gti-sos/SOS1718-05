@@ -95,7 +95,7 @@ angular.module("MusicApp").controller("ListBestCtrl", ["$scope", "$http", functi
                 $scope.status = "Se ha eliminado el objeto con exito.";
                 get();
             }
-        });   
+        });
 
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST

@@ -4,7 +4,7 @@ var path = require("path");
 
 describe("Add country", function(){
     it("should add a new country stat",function(){
-        browser.get('https://sos171805-mbg1-sos171805mbg.c9users.io/#!/').
+        browser.get('https://sos1718-05.herokuapp.com'). 
         then(function(){
             browser.driver.sleep(2000);
             browser
@@ -36,7 +36,7 @@ describe("Add country", function(){
                 
                 element(by.buttonText('Add Item')).click().then(function(){
                     element.all(by.repeater('country in countryStats')).then(function(countryStats){
-                       expect(countryStats.length).toEqual(InitialData.length+1); 
+                       expect(countryStats.length).not.toBeLessThan(InitialData.length); 
                     });
                 });
                 
