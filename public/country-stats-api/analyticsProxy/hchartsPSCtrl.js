@@ -1,6 +1,7 @@
 /*global angular Highcharts */
 /*global google*/
 angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", function($scope, $http) {
+    
     function sortNumber(a, b) {
         return a - b;
     }
@@ -19,14 +20,13 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
     $http.get("api/v1/country-stats").then(function(best) {
             console.log("mines:" + best.data)
             myItem.push( best.data.filter(a => a.rank == 1).map(x => {return x}))
-            console.log("item: "+ myItem)  
             
         
     })
      
     
     $http.get("api/v1/country-stats").then(function(best) {
-        $http.get("https://sos1718-04.herokuapp.com/api/v2/graduation-rates").then(function(response) {
+        $http.get("proxyPS/api/v2/graduation-rates").then(function(response) {
             var data = [];
 
             var datosYear = response.data.map(function(d) { return d.year })
@@ -56,7 +56,6 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                         }
                         else{
                             rates.push(0);
-                            console.log("aggg")
                         }
                     })
                 
@@ -64,6 +63,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
                 obj["data"] = rates;
                 data.push(obj);
             })
+            console.log("data: " + data)
 
             console.log(data);
 
