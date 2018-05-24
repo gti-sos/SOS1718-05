@@ -96,6 +96,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/highchartsVG2",{
             templateUrl:"world-stats-api/analyticsProxy/hchartsVG2.html",
             controller: "hchartsVG2Ctrl"
+        })
+        .when("/analytics/highchartsVG3",{
+            templateUrl:"world-stats-api/analyticsProxy/hchartsVG3.html",
+            controller: "hchartsVG3Ctrl"
         });
         
 

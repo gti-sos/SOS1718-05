@@ -1,8 +1,8 @@
 /*global angular Highcharts*/
 angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(transfer) {
-            
+    $http.get("http://countryapi.gear.host/v1/Country/getCountries").then(function(transfer) {
+       console.log(transfer.data);     
             var datax = [];
   //
   world.data.forEach(v => {
@@ -21,21 +21,7 @@ angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", func
             
         });
   //
-        transfer.data.forEach(v => {
-            var vic= {};
-            Object.keys(v).forEach(o => {
-                console.log(v["sale"]);
-               
-                if (o == "iday") {
-                    vic["y"] = v[o];
-                   
-                }else if(o == "country_txt"){
-                vic["name"] = v[o]
-                 }
-                })
-        datax.push(vic);
-            
-        });
+       
         console.log("aaaaaaaaaaaaaaaaaa");
         console.log(datax);
       
