@@ -410,7 +410,7 @@ countryApi.register = function(app, dbmanu) {
         console.log(Date() + " - POST /country-stats");
         var country = req.body;
 
-        dbmanu.find({ "country": country.country, "rank": parseInt(country.year, 0) }).toArray((err, countryStats) => {
+        dbmanu.find({ "country": country.country, "rank": parseInt(country.rank, 0) }).toArray((err, countryStats) => {
 
             if (err) {
                 console.error(" Error accesing DB");

@@ -194,7 +194,7 @@ app.use("/proxyGS",function(req,res){
         });
     //F
         console.log("F");//Pruebas
-    });*/
+    });*/ 
     
     app.post(API_BASE_PATH + "best-stats", (req, res) => {
 

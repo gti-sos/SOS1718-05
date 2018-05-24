@@ -3,14 +3,14 @@
 /*global google*/
 /*global tauCharts*/
 
- 
+
 angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", function($scope, $http) {
     var countryStats = "/api/v1/country-stats";
     var limit = 10;
     var offset = 0;
 
     var data = [];
-      
+
 
 
     $scope.seguro = function(apikey) {
@@ -63,66 +63,69 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             $scope.status = "Status 200. All " + country + " items were successfully deleted.";
             $scope.get();
         });
- 
+
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////POST
-    $scope.addCountry = function() {
-        var newAlbum = {};
-        var error = true
-        Object.keys($scope.newCountry).forEach(p => {
 
-            try {
-                newAlbum[p] = JSON.parse($scope.newCountry[p]);
-            }
-            catch (e) {
-                newAlbum[p] = $scope.newCountry[p];
-            }
-        });
-        
-        ($scope.countryStats).forEach(p => {
-            if ((p.country == newAlbum.country) && (p.rank == newAlbum.rank)) {
-                error = false
-                $scope.status = "Status 409. Another item already exists with the same keys (" + newAlbum.country + ", " + newAlbum.rank + ")."
-            }
-        }); 
-        if (error == true && !(newAlbum.country == "" || newAlbum.rank == "" || newAlbum.title == "")) {
-            $http.post(countryStats, newAlbum).then(function(response) {
+    /*
+        $scope.addCountry = function() {
+            var newAlbum = {};
+            var error = true
+            Object.keys($scope.newCountry).forEach(p => {
 
-                $scope.status = "Status 201. New item created  (" + newAlbum.country + ", " + newAlbum.rank + ").";
-                $scope.get();
-            })
-        }
-        else if (error == true) {
-            $scope.status = "Status 400. New items cant have blank parameters."
-        }
-        $scope.newAlbum = {};
-        error = true;
-    }
-
-    /*$scope.addCountry = function() {
-            $http.post(countryStats, $scope.newAlbum).then(function successCallback(response) {
-                $scope.status = "El objeto se creo con exito.";
-                $scope.get();
-                $scope.error = "";
-            }, function errorCallback(response) {
-                console.log(response.status)
-                switch (response.status) {
-                    case 400:
-                        $scope.status = "Error: debes introducir todos los parametros";
-                        break;
-                    case 409:
-                        $scope.status = "Error: el recurso ya existe.";
-                        break;
-                    
-                    default:
-                        $scope.status = "Error: algo no esta funcionando bien.";
+                try {
+                    newAlbum[p] = JSON.parse($scope.newCountry[p]);
+                }
+                catch (e) {
+                    newAlbum[p] = $scope.newCountry[p];
                 }
             });
-     
-         $scope.newAlbum={};
-     } */
+            
+            ($scope.countryStats).forEach(p => {
+                if ((p.country == newAlbum.country) && (p.rank == newAlbum.rank)) {
+                    error = false
+                    $scope.status = "Status 409. Another item already exists with the same keys (" + newAlbum.country + ", " + newAlbum.rank + ")."
+                }
+            }); 
+            if (error == true && !(newAlbum.country == "" || newAlbum.rank == "" || newAlbum.title == "")) {
+                $http.post(countryStats, newAlbum).then(function(response) {
+
+                    $scope.status = "Status 201. New item created  (" + newAlbum.country + ", " + newAlbum.rank + ").";
+                    $scope.get();
+                })
+            }
+            else if (error == true) {
+                $scope.status = "Status 400. New items cant have blank parameters."
+            }
+            $scope.newAlbum = {};
+            error = true;
+        }
+    */
 
 
+    $scope.addCountry = function() {
+
+        $http.post(countryStats, $scope.newCountry).then(function successCallback(response) {
+            $scope.status = "Status 201. New item created  (" + $scope.newCountry.country + ", " + $scope.newCountry.rank + ").";
+            $scope.get();
+            $scope.error = "";
+        }, function errorCallback(response) {
+            console.log(response.status)
+            switch (response.status) {
+                case 400:
+                    $scope.status = "Status 400. New items cant have blank parameters.";
+                    break;
+                case 409:
+                    $scope.status =  $scope.status = "Status 409. Another item already exists with the same keys (" + $scope.newCountry.country + ", " + $scope.newCountry.rank + ")."
+                    break;
+
+                default:
+                    $scope.status = "Something went wrong.";
+            }
+        });
+
+        $scope.newAlbum = {};
+    }
 
 
     //////////////////////////////////////////LOAD INITIAL DATA

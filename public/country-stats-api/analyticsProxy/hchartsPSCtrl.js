@@ -4,7 +4,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
     
     function sortNumber(a, b) {
         return a - b;
-    }
+    }  
     
     function contains(a, obj) {
         for (var i = 0; i < a.length; i++) {
@@ -26,7 +26,7 @@ angular.module("MusicApp").controller("hchartsPSCtrl", ["$scope", "$http", funct
      
     
     $http.get("api/v1/country-stats").then(function(best) {
-        $http.get("proxyPS/api/v2/graduation-rates").then(function(response) {
+        $http.get("https://sos1718-04.herokuapp.com/api/v2/graduation-rates").then(function(response) {
             var data = [];
 
             var datosYear = response.data.map(function(d) { return d.year })
