@@ -4,12 +4,12 @@
     <li class="breadcrumb-item active text-white" aria-current="page">Last.fm analytics</li>
   </ol>
 </nav>
-
-
-<div id="container" style=" height: 900px "></div>
+<div>Treemap of album's average ranking + search of possible artists</div>
+<div id="chart_div" style="height: 500px;"></div>
 
 
 
     <p>How it works:</p>
-    <p>    - Country-stats API has no data for the artist behind each album. This graph searchs each album title in Last.fm API and maps it to the artist.</p>
-    <p>    - The resulting map is represented in a TreeMap with levels for the average ranking, meaning smaller spaces indicate a better ranking.</p>
+    <p>    - Country-stats API has no data for the artist behind each album. The implemented function searchs each album title in Last.fm API and maps it to the possible artists.</p>
+    <p>    - The resulting data is represented in a TreeMap with levels for the average ranking, meaning red coloured spaces indicate a better ranking.</p>
+    <p>    - Left click on each album will lead to a subdivision of the treemap, where the possible artists are stored.Right click closes the sub-treemap</p>
