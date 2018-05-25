@@ -38,7 +38,7 @@
 						"type": "text/javascript",
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
-							"tests[\"Should have less than 25\"] = jsonData.length > 10;"
+							"tests[\"Should have more than 10\"] = jsonData.length > 10;"
 						]
 					}
 				}
