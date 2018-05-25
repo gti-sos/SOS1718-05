@@ -8,7 +8,7 @@ describe("Data is loaded", function(){ //compruebo que los datos se cargan
     it("tiene que mostrar mas de 6",function(){
      
                                 //coloco la dirección del cloud9
-        browser.get('https://sos1718vgm-sos171805vgm.c9users.io/#!/world-stats'). //mepermite acceder al navegador donde esta el desplegado
+        browser.get('https://sos1718-05.herokuapp.com/#!/world-stats'). //mepermite acceder al navegador donde esta el desplegado
         then(function(){
             element //localizo una parte de la página..all te da todos. que cumplan una condicion (ngrepeat de la vista)
             .all(by.repeater('world in worldStats'))

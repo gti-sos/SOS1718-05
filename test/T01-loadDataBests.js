@@ -3,7 +3,7 @@ var fs = require("fs");
 var path = require("path");
 describe("Data is loaded", function() {
     it("should show 5 best", function() {
-        browser.get('https://sos171805jpr-sos171805jpr.c9users.io/#!/best-stats').
+        browser.get('https://sos1718-05.herokuapp.com/#!/best-stats').
         then(function() {
             element.all(by.repeater('best in bests')).then(function(bests) {
                 

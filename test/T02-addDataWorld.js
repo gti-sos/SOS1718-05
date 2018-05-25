@@ -4,7 +4,7 @@
 describe("Add recurso", function(){
     it("should add a new recurso",function(){
         browser
-            .get('https://sos1718vgm-sos171805vgm.c9users.io/#!/world-stats').
+            .get('https://sos1718-05.herokuapp.com/#!/world-stats').
             then(function(){
             
             element

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "test/runPhantomjs.sh",
-    "test": "protractor test/configCountry.js",
+    "test": "protractor test/config.js",
     "posttest": "killall phantomjs",
     
     
