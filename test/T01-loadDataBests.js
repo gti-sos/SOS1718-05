@@ -14,7 +14,7 @@ describe("Data is loaded", function() {
                         stream.write(new Buffer(png, 'base64'));
                         stream.end();
                     });
-                expect(bests.length).toEqual(5);
+                expect(bests.length).toEqual(6);
             });
         });
     });

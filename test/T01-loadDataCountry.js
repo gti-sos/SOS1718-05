@@ -7,7 +7,7 @@ describe("Data is loaded", function() {
         browser.get('https://sos1718-05.herokuapp.com/#!/country-stats').
         then(function() {
             element.all(by.repeater('country in countryStats')).then(function(countryStats) {
-                console.log(countryStats);
+               // console.log(countryStats);
                 browser 
                     .takeScreenshot()
                     .then(function(png) {

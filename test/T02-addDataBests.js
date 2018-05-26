@@ -9,7 +9,7 @@ describe("Add best", function(){
                 browser.driver.sleep(2000);
                 
                 element(by.model('newBest.country')).sendKeys("Spain");
-                element(by.model('newBest.year')).sendKeys("2018");
+                element(by.model('newBest.year')).sendKeys("2019");
                 element(by.model('newBest.album')).sendKeys("hola");
                 element(by.model('newBest.radio')).sendKeys("que");
                 element(by.model('newBest.song')).sendKeys("tal");
