@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "70c1bc9a-ed1e-4c5b-8a97-133c57aa7d96",
+		"name": "sos1718-05-jpr-back-end",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "best-api == 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9956f12-ec8f-438a-a980-b853969b1bf0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"El get devuelve 5 objetos\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(5);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "https://sos1718-05.herokuapp.com/api/v1/best-stats"
+			},
+			"response": []
+		},
+		{
+			"name": "best-stats == 5+1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e6af0b81-8f9d-4821-bb8e-e7e5d2992cb6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"El codigo de estado es 201 created\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n        \"country\": \"Spain\",\n        \"year\": 2018,\n        \"album\": \"Julio\",\n        \"radio\": \"Cheap Thrills - Sia & Sean Paul\",\n        \"song\": \"Duele el corazón - Enrique Iglesias & Wisin\"\n    }"
+				},
+				"url": "https://sos1718-05.herokuapp.com/api/v1/best-stats/"
+			},
+			"response": []
+		}
+	]
+}

@@ -5,11 +5,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "test/runPhantomjs.sh",
-    "test": "protractor test/configCountry.js",
+    "test": "protractor test/config.js",
     "posttest": "killall phantomjs",
-    
-    
-    
     "start": "node index.js"
   },
   "author": "julperrod1",
@@ -21,11 +18,7 @@
     "mongodb": "^3.0.5",
     "ndb": "^0.2.4",
     "nedb": "^1.8.0",
-<<<<<<<<< saved version
-
-=========
-
->>>>>>>>> local version
+    "newman": "^3.9.4",
     "request": "^2.85.0",
     "url": "^0.11.0",
     "vis": "^4.21.0"
