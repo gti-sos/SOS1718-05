@@ -1,13 +1,19 @@
+<pre>  <!---solo es un espacio en blanco--->  </pre>
+<h1>
+ <p align="center" class="text-white">LastFM analytics (Treemap)</h1>
+
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-dark" >
     <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active text-white" aria-current="page">Last.fm analytics</li>
+    <li class="breadcrumb-item"><a href="/#!/analytics">Analytics</a></li>
+    <li class="breadcrumb-item active text-white" aria-current="page">LastFM analytics</li>
   </ol>
 </nav>
 <div>Treemap of album's average ranking + search of possible artists</div>
 <div id="chart_div" style="height: 500px;"></div>
 
-
+    
 
     <p>How it works:</p>
     <p>    - Country-stats API has no data for the artist behind each album. The implemented function searchs each album title in Last.fm API and maps it to the possible artists.</p>
