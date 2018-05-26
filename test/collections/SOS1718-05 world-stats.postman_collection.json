@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "8f790bae-8636-4799-8a70-c89aff19b403",
+		"name": "SOS1718-05 world-stats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://sos1718-05.herokuapp.com/api/v1/world-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0863022-f678-4306-be5b-fc20892e192c",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Sould have more than 2\"] = jsonData.length > 2;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "http://sos1718-05.herokuapp.com/api/v1/world-stats"
+			},
+			"response": []
+		},
+		{
+			"name": "http://sos1718-05.herokuapp.com/api/v1/world-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da4fc3f9-c97f-45b8-aaa1-7bbb098dcbd9",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Sould have more than 20\"] = jsonData.length > 20;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "http://sos1718-05.herokuapp.com/api/v1/world-stats"
+			},
+			"response": []
+		}
+	]
+}
