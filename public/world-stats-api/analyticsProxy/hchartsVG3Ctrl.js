@@ -1,7 +1,7 @@
 /*global angular Highcharts*/
 angular.module("MusicApp").controller("hchartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("proxyVG/api/v1/builders").then(function(build) {
+    $http.get("https://api.maas2.jiinxt.com/").then(function(build) {
             
             var datax = [];
   //
@@ -22,23 +22,7 @@ angular.module("MusicApp").controller("hchartsVG3Ctrl", ["$scope", "$http", func
             
         });
         
-        build.data.forEach(v => {
-            var vic= [];
-            Object.keys(v).forEach(o => {
-                console.log(v["sale"]);
-               
-                if (o == "country") {
-                    vic.push(v[o]);
-                   
-                }else if(o == "pole"){
-                vic.push(v[o]);
-                 }else if(o == "year"){
-                vic.push(v[o]);
-                 }
-                })
-        datax.push(vic);
-            
-        });
+      
   console.log(datax);
  Highcharts.chart('container', {
 
