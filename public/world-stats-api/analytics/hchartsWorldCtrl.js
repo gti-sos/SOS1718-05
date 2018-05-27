@@ -10,11 +10,11 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
             Object.keys(v).forEach(o => {
                 console.log(v["sale"]);
                
-                if (o == "sale") {
-                    vic["y"] = v[o];
+                if (o == "album") {
+                    vic["name"] = v[o];
                    
-                }else if(o == "album"){
-                vic["name"] = v[o]
+                }else if(o == "sale"){
+                vic["y"] = v[o]
                  }
                 })
         datax.push(vic);
@@ -22,7 +22,7 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         });
         console.log("aaaaaaaaaaaaaaaaaa");
         console.log(datax);
-        Highcharts.chart('hchartsWorld', {
+Highcharts.chart('hchartsWorld', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -30,7 +30,7 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         type: 'pie'
     },
     title: {
-        text: 'World hcharts analytics'
+        text: 'Browser market shares in January, 2018'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -49,12 +49,11 @@ angular.module("MusicApp").controller("hchartsWorldCtrl", ["$scope", "$http", fu
         }
     },
     series: [{
-        name: 'Album-Sale',
+        name: 'Brands',
         colorByPoint: true,
         data: datax
     }]
 });
-
      ///////
             
         });

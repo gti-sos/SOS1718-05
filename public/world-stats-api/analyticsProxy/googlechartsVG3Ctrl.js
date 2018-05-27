@@ -2,7 +2,7 @@
 angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
     $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(build) {
-            
+            ////////////////////CAMBIARLO POR UNA API FUERA DE SOS
             var datax = [];
   //
   world.data.forEach(v => {
@@ -29,11 +29,7 @@ angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http",
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
+          datax
         ]);
 
         var options = {
