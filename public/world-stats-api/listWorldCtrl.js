@@ -51,7 +51,7 @@ angular.module("MusicApp").controller("ListWorldCtrl",["$scope","$http",function
                    $scope.status = "Status: Eliminado el recurso correctamente.";
                     get();
             });
-               
+              
             }
           //
     /*
