@@ -109,17 +109,17 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"world-stats-api/analytics/googleGeoWorld.html",
             controller:"googleGeoWorldCtrl"
         })
-        .when("/analytics/highchartsVG",{
-            templateUrl:"world-stats-api/analyticsProxy/hchartsVG.html",
-            controller: "hchartsVGCtrl"
+        .when("/analytics/highchartsVG1",{
+            templateUrl:"world-stats-api/analyticsProxy/hchartsVG1.html",
+            controller: "hchartsVG1Ctrl"
         })
         .when("/analytics/highchartsVG2",{
             templateUrl:"world-stats-api/analyticsProxy/hchartsVG2.html",
             controller: "hchartsVG2Ctrl"
         })
-        .when("/analytics/highchartsVG3",{
-            templateUrl:"world-stats-api/analyticsProxy/hchartsVG3.html",
-            controller: "hchartsVG3Ctrl"
+        .when("/analytics/googlechartsVG3",{
+            templateUrl:"world-stats-api/analyticsProxy/googlechartsVG3.html",
+            controller: "googlechartsVG3Ctrl"
         });
         
 

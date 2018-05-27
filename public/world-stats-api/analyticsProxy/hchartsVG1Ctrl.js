@@ -1,5 +1,5 @@
 /*global angular Highcharts*/
-angular.module("MusicApp").controller("hchartsVGCtrl", ["$scope", "$http", function($scope, $http) {
+angular.module("MusicApp").controller("hchartsVG1Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
     $http.get("proxyVG/api/v1/builders").then(function(build) {
             

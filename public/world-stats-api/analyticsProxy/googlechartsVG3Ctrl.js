@@ -1,5 +1,5 @@
 /*global google angular Highcharts*/
-angular.module("MusicApp").controller("hchartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
+angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
     $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(build) {
             
