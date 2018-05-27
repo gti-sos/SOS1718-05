@@ -7,6 +7,9 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics",{
             templateUrl: "analytics.html"
         })
+        .when("/integrations",{
+            templateUrl:"integrations.html"
+        })
         
         ////Julio
         .when("/best-stats", {
@@ -21,10 +24,6 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "best-stats-api/analytics/hchartsBest.html",
             controller: "hchartsBestCtrl"
         })
-        .when("/analytics/googleBest",{
-            templateUrl: "best-stats-api/analytics/googleBest.html",
-            controller: "googleBestCtrl"
-        })
         .when("/analytics/visBest",{
             templateUrl:"best-stats-api/analytics/visBest.html",
             controller: "visBestCtrl"
@@ -34,12 +33,21 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             controller:"googleGeoBestCtrl"
         })
         .when("/analytics/highchartsGS",{
-            templateUrl:"best-stats-api/analyticsProxy/hchartsGS.html",
+            templateUrl:"best-stats-api/Integrations/hchartsGS.html",
             controller: "hchartsGSCtrl"
         })
         .when("/analytics/highchartsMA",{
-            templateUrl:"best-stats-api/analyticsProxy/hchartsMA.html",
+            templateUrl:"best-stats-api/Integrations/hchartsMA.html",
             controller:"hchartsMACtrl"
+        })
+        .when("/analytics/googleChartsF",{
+            templateUrl:"best-stats-api/Integrations/googleChartsF.html",
+            controller:"googleChartsFCtrl"
+        })
+        .when("/analytics/googleChartsS",{
+            templateUrl:"best-stats-api/Integrations/googleChartsS.html",
+            controller:"googleChartsSCtrl"
+            
         })
         //////Cambios manu
 
