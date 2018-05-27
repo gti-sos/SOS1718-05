@@ -43,35 +43,33 @@ angular.module("MusicApp").controller("hchartsVG2Ctrl", ["$scope", "$http", func
       
 
      ///////
-     Highcharts.chart('container', {
+    
+
+Highcharts.chart('container', {
     chart: {
-        type: 'pie',
-        options3d: {
-            enabled: true,
-            alpha: 45,
-            beta: 0
-        }
+        type: 'pyramid'
     },
     title: {
-        text: 'terrorism and world hcharts analytics'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        text: 'Sales pyramid',
+        x: -50
     },
     plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            depth: 35,
+        series: {
             dataLabels: {
                 enabled: true,
-                format: '{point.name}'
-            }
+                format: '<b>{point.name}</b> ({point.y:,.0f})',
+                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+                softConnector: true
+            },
+            center: ['40%', '50%'],
+            width: '80%'
         }
     },
+    legend: {
+        enabled: false
+    },
     series: [{
-        type: 'pie',
-        name: 'Country-Sale / Country-terrorism',
+        name: 'Unique users',
         data: datax
     }]
 });
