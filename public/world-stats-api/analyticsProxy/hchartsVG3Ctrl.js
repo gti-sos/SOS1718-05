@@ -1,7 +1,7 @@
-/*global angular Highcharts*/
+/*global google angular Highcharts*/
 angular.module("MusicApp").controller("hchartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("https://api.maas2.jiinxt.com/").then(function(build) {
+    $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(build) {
             
             var datax = [];
   //
@@ -24,47 +24,27 @@ angular.module("MusicApp").controller("hchartsVG3Ctrl", ["$scope", "$http", func
         
       
   console.log(datax);
- Highcharts.chart('container', {
+ google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-    chart: {
-        type: 'variwide'
-    },
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+        ]);
 
-    title: {
-        text: 'Labor Costs in Europe, 2016'
-    },
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
 
-    subtitle: {
-        text: 'Source: <a href="http://ec.europa.eu/eurostat/web/' +
-            'labour-market/labour-costs/main-tables">eurostat</a>'
-    },
-
-    xAxis: {
-        type: 'category',
-        title: {
-            text: 'Column widths are proportional to GDP'
-        }
-    },
-
-    legend: {
-        enabled: false
-    },
-
-    series: [{
-        name: 'Labor Costs',
-        data: datax,
-        dataLabels: {
-            enabled: true,
-            format: 'year{point.y:.0f}'
-        },
-        tooltip: {
-            pointFormat: 'Labor Costs: <b>€ {point.y}/h</b><br>' +
-                'GDP: <b>€ {point.z} million</b><br>'
-        },
-        colorByPoint: true
-    }]
-
-});
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
 
 
      ///////
