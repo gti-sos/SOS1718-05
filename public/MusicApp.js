@@ -128,7 +128,7 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         
         //////////grupal
         .when("/analytics/highchartsGrupal",{
-            templateUrl:"highchartsGrupal.html",
+            templateUrl:"grupal-analytic/highchartsGrupal.html",
             controller: "highchartsGrupalCtrl"
         })
         ;
