@@ -26,7 +26,7 @@ google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawBackgroundColor);
 
 function drawBackgroundColor() {
-      var data = new google.visualization.DataTable();
+      var data = new google.visualization.DataTable(datax);
       data.addColumn('number', 'X');
       data.addColumn('number', 'Dogs');
 
