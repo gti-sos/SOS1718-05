@@ -124,7 +124,14 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/googlechartsVG4",{
             templateUrl:"world-stats-api/analyticsProxy/googlechartsVG4.html",
             controller: "googlechartsVG4Ctrl"
-        });
+        })
+        
+        //////////grupal
+        .when("/analytics/highchartsGrupal",{
+            templateUrl:"highchartsGrupal.html",
+            controller: "highchartsGrupalCtrl"
+        })
+        ;
         
 
     console.log("App inicializada con exito")
