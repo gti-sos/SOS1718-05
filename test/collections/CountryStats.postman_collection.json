@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "89fd76f8-da3a-4e2f-b632-7b0d82da88a5",
+		"name": "SOS1718-05 CountryStats BackendTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get CountryStas (< 25)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "02a3ac62-5bcb-41ed-93d0-4b435d4a1961",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Should have less than 25\"] = jsonData.length < 25;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "http://sos1718-05.herokuapp.com/api/v1/country-stats"
+			},
+			"response": []
+		},
+		{
+			"name": "Get CountryStas (> 10)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb183a0a-5cc7-4da0-a0b4-2c1817d451de",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Should have less than 25\"] = jsonData.length > 10;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "http://sos1718-05.herokuapp.com/api/v1/country-stats"
+			},
+			"response": []
+		}
+	]
+}
