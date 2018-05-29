@@ -1,9 +1,13 @@
 /*global google angular Highcharts*/
 angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(build) {
+    $http.get("/proxyVG1").then(function(build) {
             ////////////////////CAMBIARLO POR UNA API FUERA DE SOS
-            var datax = [];
+            var datax = [['Year', 'Year-Rank', 'Sale-TeamId']];
+            
+            var obj = build.data["standings"];
+            var obj2 = obj["A"];
+            console.log(obj2);
   //
   world.data.forEach(v => {
             var vic= [];
@@ -21,16 +25,30 @@ angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http",
         datax.push(vic);
             
         });
-        
+         obj2.forEach(v => {
+            var vic= [];
+            Object.keys(v).forEach(o => {
+                
+                if (o == "team") {
+                   vic.unshift(v[o]);
+                   
+                }else if(o == "teamId"){
+                vic.push(v[o]);
+                
+                 }else if(o == "rank"){
+                vic.push(v[o]);
+                 }
+                })
+        datax.push(vic);
+            
+        });
       
   console.log(datax);
  google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          datax
-        ]);
+        var data = google.visualization.arrayToDataTable(datax);
 
         var options = {
           title: 'Company Performance',
