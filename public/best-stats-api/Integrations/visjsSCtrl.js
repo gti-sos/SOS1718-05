@@ -9,7 +9,7 @@ angular.module("MusicApp").controller("visjsSCtrl", ["$scope", "$http", function
            var uno = 1;
            Object.keys(b).forEach(o=>{
                if(o=="year"){
-                   obj["value"]=uno;
+                   obj["chapter/song"]=uno;
                    obj["year"]=(b[o]).toString();
                    
                }
@@ -24,7 +24,7 @@ angular.module("MusicApp").controller("visjsSCtrl", ["$scope", "$http", function
                 if(o=="airdate"){
                     obj["year"]=s[o];
                 }else if(o=="number"){
-                    obj["value"]=s[o];
+                    obj["chapter/song"]=s[o];
                 }
             })
         arr.push(obj);
@@ -42,10 +42,10 @@ angular.module("MusicApp").controller("visjsSCtrl", ["$scope", "$http", function
   // The name of the data record attribute that contains x-values.
   xkey: 'year',
   // A list of names of data record attributes that contain y-values.
-  ykeys: ['value'],
+  ykeys: ['chapter/song'],
   // Labels for the ykeys -- will be displayed when you hover over the
   // chart.
-  labels: ['Value']
+  labels: ['chapter/song']
 });
             
         })
