@@ -38,14 +38,12 @@ angular.module("MusicApp").controller("anychartsIMDBCtrl", ["$scope", "$http", f
 
                 items = response.data.total_results;
                 year = response.data.results[0].year;
-                console.log(items);
                 obj["country"] = country;
                 obj["index"] = newData.length;
                 obj["numItems"] = items;
                 obj["size"] = items;
                 obj["priority"] = "low";
                 newData.push(obj);
-                console.log("new obj : (country   =" + obj.country + "year = " + obj.index + ", effort  = " + obj.numItems + ")");
                 if (newData.length == countriesData.length) {
                     console.log(newData);
 
@@ -54,7 +52,7 @@ angular.module("MusicApp").controller("anychartsIMDBCtrl", ["$scope", "$http", f
 
                     var chart = new tauCharts.Chart({
                         guide: {
-                            x: { label: 'Year of release' }, // custom label for X axis
+                            x: { label: 'Index' }, // custom label for X axis
                             y: { label: 'Number or items in IMVDB' }, // custom label for Y axis
                             
                         },
