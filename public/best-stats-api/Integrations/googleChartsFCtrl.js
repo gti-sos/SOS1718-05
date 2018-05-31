@@ -1,4 +1,6 @@
 /*global angular tree google*/
+
+
 angular.module("MusicApp").controller("googleChartsFCtrl", ["$scope", "$http", function($scope, $http) {
     $http.get("api/v1/best-stats").then(function(best) {
         $http.get("https://soccer.sportsopendata.net/v1/leagues").then(function(futbol) {

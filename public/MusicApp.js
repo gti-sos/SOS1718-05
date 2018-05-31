@@ -49,6 +49,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             controller:"googleChartsSCtrl"
             
         })
+        .when("/analytics/visjsS",{
+            templateUrl:"best-stats-api/Integrations/visjsS.html",
+            controller:"visjsSCtrl"
+        })
         //////Cambios manu
 
         .when("/country-stats", {
