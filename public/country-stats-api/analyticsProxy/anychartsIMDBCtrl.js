@@ -1,5 +1,6 @@
 /*global angular Highcharts */
 /*global google*/
+/*global tauCharts*/
 
 angular.module("MusicApp").controller("anychartsIMDBCtrl", ["$scope", "$http", function($scope, $http) {
 
@@ -28,21 +29,44 @@ angular.module("MusicApp").controller("anychartsIMDBCtrl", ["$scope", "$http", f
             }
         }
         console.log("countries: " + countriesData)
-        
+
         function getCountryData(country) {
             var obj = {};
             var items;
-            var itemsCountry = 0;
+            var year;
             $http.get("https://imvdb.com/api/v1/search/videos?q=" + country).then(function(response) {
 
                 items = response.data.total_results;
+                year = response.data.results[0].year;
                 console.log(items);
                 obj["country"] = country;
-                obj["items"] = items;
+                obj["index"] = newData.length;
+                obj["numItems"] = items;
+                obj["size"] = items;
+                obj["priority"] = "low";
                 newData.push(obj);
-                console.log("new obj : (" + obj.country + ", " + obj.items + ")");
+                console.log("new obj : (country   =" + obj.country + "year = " + obj.index + ", effort  = " + obj.numItems + ")");
                 if (newData.length == countriesData.length) {
                     console.log(newData);
+
+
+                    var defData = newData;
+
+                    var chart = new tauCharts.Chart({
+                        guide: {
+                            x: { label: 'Year of release' }, // custom label for X axis
+                            y: { label: 'Number or items in IMVDB' }, // custom label for Y axis
+                            
+                        },
+                        data: defData,
+                        type: 'scatterplot',
+                        x: 'index',
+                        y: 'numItems',
+                        color: 'country',
+                        size: 'size'
+                    });
+
+                    chart.renderTo('#scatter');
                 }
             });
         }
@@ -52,8 +76,8 @@ angular.module("MusicApp").controller("anychartsIMDBCtrl", ["$scope", "$http", f
             getCountryData(countryNew);
 
         }
-        
-        
+
+
 
 
 
