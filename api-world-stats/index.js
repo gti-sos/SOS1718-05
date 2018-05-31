@@ -68,6 +68,7 @@ var initialdato = [{   //Recursos iniciales
     //
 ];
 
+//////////////////////////////////////////////////////////////////////////
 module.exports = world;
 
 world.register= function (app,dbvicen){
@@ -78,6 +79,15 @@ app.use("/proxyVG",function(req,res){
     var url = apiServerHostVG + req.url;
     req.pipe(request(url)).pipe(res);
 });
+    
+      var apiServerHostVG1 = "http://api.football-data.org/v1/competitions/467/leagueTable";
+app.use("/proxyVG1",function(req,res){
+    var url1 = apiServerHostVG1 + req.url;
+    req.pipe(request(url1)).pipe(res);
+    
+});
+
+//////////////////////////////////////////////////////////////////////////
    
  /*  
                                         //LoadInitialData----->cuando esta la lista vacia, al llamarle crea los ejemplos de arriba.

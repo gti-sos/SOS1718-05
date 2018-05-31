@@ -1,19 +1,38 @@
 /*global google angular Highcharts*/
 angular.module("MusicApp").controller("googlechartsVG4Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("https://sos1718-07.herokuapp.com/api/v1/global-terrorism-data").then(function(build) {
+    $http.get("/proxyVG1").then(function(build) {
             ////////////////////CAMBIARLO POR UNA API FUERA DE SOS
+           //console.log(build.data);
             var datax = [];
+            var obj = build.data["standings"];
+            var obj2 = obj["A"];
+            console.log(obj2);
   //
    world.data.forEach(v => {
-            var vic= {};
+            var vic= [];
             Object.keys(v).forEach(o => {
                 
                 if (o == "sale") {
-                    vic["name"] = v[o];
+                   vic.push(v[o]);
                    
                 }else if(o == "year"){
-                vic["y"] = v[o];
+                vic.push(v[o]);
+                 }
+                })
+        datax.push(vic);
+            
+        });
+       
+        obj2.forEach(v => {
+            var vic= [];
+            Object.keys(v).forEach(o => {
+                
+                if (o == "rank") {
+                   vic.push(v[o]);
+                   
+                }else if(o == "teamId"){
+                vic.push(v[o]);
                  }
                 })
         datax.push(vic);
@@ -30,10 +49,7 @@ function drawBackgroundColor() {
       data.addColumn('number', 'X');
       data.addColumn('number', 'Dogs');
 
-      data.addRows([
-        [datax[0].y, datax[0].name],   [datax[1].y, datax[1].name] ,
-        [datax[2].y, datax[2].name],   [datax[3].y, datax[3].name] 
-      ]);
+      data.addRows(datax);
 
    /*  //
         [0, 0],   [1, 10],  [2, 23],  [3, 17],  [4, 18],  [5, 9],
