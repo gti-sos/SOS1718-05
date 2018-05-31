@@ -8,15 +8,15 @@ angular.module("MusicApp").controller("googleChartsFCtrl", ["$scope", "$http", f
         var aux = futbol.data["data"];
         fut= aux["leagues"];
         
-        var arr = [['Location', 'year', 'year', 'League/song']]; 
-        var cont = 2000;
+        var arr = [['Location', 'year', 'year/level', 'League/song']]; 
+        var cont = 2010;
         fut.forEach(f=>{
             var arr2 = [];
             
             Object.keys(f).forEach(p=>{
                 if(p == "league_slug"){
                     arr2.push(cont);
-                    arr2.push(cont);
+                    arr2.push(parseInt(f["level"]));
                     arr2.push(f[p]);
             }else if(p == "nation"){
                     arr2.unshift(f[p]);

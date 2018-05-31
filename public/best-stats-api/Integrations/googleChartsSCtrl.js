@@ -6,7 +6,7 @@ angular.module("MusicApp").controller("googleChartsSCtrl", ["$scope", "$http", f
         st = star.data["results"];
         console.log(st)
     
-        var arr = [['Song/vehicles', 'Year', 'Year']]
+        var arr = [['Song/vehicles', 'Year', 'Price']]
             var cont = 1976;
             st.forEach(f=>{
             var arr2 = [];
@@ -14,10 +14,13 @@ angular.module("MusicApp").controller("googleChartsSCtrl", ["$scope", "$http", f
             Object.keys(f).forEach(p=>{
                 if(p == "name"){
                     arr2.push(f[p]);
-                    arr2.push(cont);
-                    arr2.push(cont);
+                }
+                if(p == "cost_in_credits"){
+                    arr2.push(0);
+                    arr2.push(parseInt(f[p],0));
+                }
                     
-           }})
+           })
             
             cont = cont + 1;
             arr.push(arr2);
@@ -33,17 +36,17 @@ angular.module("MusicApp").controller("googleChartsSCtrl", ["$scope", "$http", f
                 
                 if(o=="year"){
                     obj.push(p[o]);
-                    obj.push(p[o]);
+                    obj.push(0);
                 }else if(o=="song"){
                     obj.unshift(p[o]);
                 }
 
             })
-           console.log(obj);
+           
            arr.push(obj);
 
         });
-    
+    console.log(arr);
     
     
     
@@ -57,7 +60,7 @@ angular.module("MusicApp").controller("googleChartsSCtrl", ["$scope", "$http", f
         title: 'Star wars vehicles and song',
         chartArea: {height: '80%'},
         hAxis: {
-          title: 'Years',
+          title: 'Years/Price',
           minValue: 0
         },
         vAxis: {
