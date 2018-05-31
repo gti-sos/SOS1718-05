@@ -87,6 +87,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"country-stats-api/analyticsProxy/zingchartsDisc.html",
             controller: "zingchartsDiscCtrl"
         })
+        .when("/analytics/anychartsIMDB",{
+            templateUrl:"country-stats-api/analyticsProxy/anychartsIMDB.html",
+            controller: "anychartsIMDBCtrl"
+        })
 
         //////////vicente
         .when("/world-stats", {
