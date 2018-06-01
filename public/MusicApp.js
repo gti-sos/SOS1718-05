@@ -10,6 +10,9 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/integrations",{
             templateUrl:"integrations.html"
         })
+        .when("/about",{
+            templateUrl:"about.html"
+        })
         
         ////Julio
         .when("/best-stats", {
