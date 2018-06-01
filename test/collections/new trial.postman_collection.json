@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "2b8aa80a-0063-45ed-8a7f-4dd4757fe165",
+		"name": "new trial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get CountryStas (> 10)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bb183a0a-5cc7-4da0-a0b4-2c1817d451de",
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Should have less than 25\"] = jsonData.length > 10;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-key",
+						"value": "ffc0375e62b13eaf8e3b951362d5bea8"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json;odata=verbose"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://api-endpoint.igdb.com/characters/?fields=*&limit=10",
+					"protocol": "https",
+					"host": [
+						"api-endpoint",
+						"igdb",
+						"com"
+					],
+					"path": [
+						"characters",
+						""
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "*"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

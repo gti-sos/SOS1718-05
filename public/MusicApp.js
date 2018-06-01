@@ -91,6 +91,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"country-stats-api/analyticsProxy/anychartsIMDB.html",
             controller: "anychartsIMDBCtrl"
         })
+        .when("/analytics/anychartsfanburst",{
+            templateUrl:"country-stats-api/analyticsProxy/anychartsfanburst.html",
+            controller: "anychartsfanburstCtrl"
+        })
 
         //////////vicente
         .when("/world-stats", {
