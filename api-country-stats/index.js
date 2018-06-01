@@ -173,6 +173,9 @@ var initialdata = [{
 
 module.exports = countryApi;
 
+
+function isNumber(n) { return /^-?[\d.]+(?:e-?\d+)?$/.test(n); };
+
 countryApi.register = function(app, dbmanu) {
     console.log("Resgistering roots for country-stats api");
 
@@ -400,16 +403,16 @@ countryApi.register = function(app, dbmanu) {
             }
 
 
-        });
+        }); 
 
     });*/
-
+  
 
     app.post(API_BASE_PATH + "country-stats", (req, res) => {
 
         console.log(Date() + " - POST /country-stats");
         var country = req.body;
-
+        console.log("is Number tank? =" +     isNumber (country.rank) + ", is Number year? = " +  isNumber (country.year) );
         dbmanu.find({ "country": country.country, "rank": parseInt(country.rank, 0) }).toArray((err, countryStats) => {
 
             if (err) {
@@ -419,12 +422,17 @@ countryApi.register = function(app, dbmanu) {
             }
 
 
-            if (Object.keys(country).length !== 5) {
+            
+
+            if (Object.keys(country).length !== 5 ||  !isNumber (country.rank) || !isNumber (country.year)) {
 
                 console.warn("Stat does not have the expected fields");
                 res.sendStatus(400);
 
             }
+            
+            
+            
             else if (countryStats.length !== 0) {
 
                 res.sendStatus(409);
