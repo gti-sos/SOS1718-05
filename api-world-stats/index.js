@@ -133,7 +133,7 @@ app.use("/proxyVG1",function(req,res){
   
      //Enlace donde se encuentra la colección de postman                
 app.get(API_BASE_PATH + "world-stats/docs",(req,res)=>{
-        res.redirect("https://documenter.getpostman.com/view/3897742/collection/RVu1HqZr");
+        res.redirect("https://documenter.getpostman.com/view/3897742/collection/RW8FFmBE");
     });
     
     //////////////////IDENTIFICACION
