@@ -101,9 +101,9 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "world-stats-api/analytics/googleWorld.html",
             controller: "googleWorldCtrl"
         })
-        .when("/analytics/visWorld",{
-            templateUrl:"world-stats-api/analytics/visWorld.html",
-            controller: "visWorldCtrl"
+        .when("/analytics/morrisWorld",{
+            templateUrl:"world-stats-api/analytics/morrisWorld.html",
+            controller: "morrisWorldCtrl"
         })
         .when("/analytics/GeoWorld",{
             templateUrl:"world-stats-api/analytics/googleGeoWorld.html",
@@ -124,6 +124,15 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/googlechartsVG4",{
             templateUrl:"world-stats-api/analyticsProxy/googlechartsVG4.html",
             controller: "googlechartsVG4Ctrl"
+        })
+        .when("/analytics/morrisVG5",{
+            templateUrl:"world-stats-api/analyticsProxy/morrisVG5.html",
+            controller: "morrisVG5Ctrl"
+        })
+        .when("/analytics/tauChartsVG6",{
+            templateUrl:"world-stats-api/analyticsProxy/tauChartsVG6.html",
+            controller: "tauChartsVG6Ctrl",
+            //css: "tauCharts.css"
         })
         
         //////////grupal

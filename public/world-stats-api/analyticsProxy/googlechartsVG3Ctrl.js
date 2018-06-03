@@ -51,7 +51,7 @@ angular.module("MusicApp").controller("googlechartsVG3Ctrl", ["$scope", "$http",
         var data = google.visualization.arrayToDataTable(datax);
 
         var options = {
-          title: 'Company Performance',
+          title: 'World Cup 2018 Russia and world-stats',
           hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };

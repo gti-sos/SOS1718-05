@@ -1,6 +1,6 @@
 /*global angular google */
 /*global Morris*/
-angular.module("MusicApp").controller("visWorldCtrl", ["$scope", "$http", function($scope, $http) {
+angular.module("MusicApp").controller("morrisWorldCtrl", ["$scope", "$http", function($scope, $http) {
     $http.get("api/v1/world-stats").then(function(response) {
    var datax = []
   

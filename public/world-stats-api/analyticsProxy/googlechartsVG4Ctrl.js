@@ -1,13 +1,30 @@
 /*global google angular Highcharts*/
 angular.module("MusicApp").controller("googlechartsVG4Ctrl", ["$scope", "$http", function($scope, $http) {
      $http.get("api/v1/world-stats").then(function(world) {
-    $http.get("/proxyVG1").then(function(build) {
+   
+        //https://market.mashape.com/community/urban-dictionary
+        
+        var mashape = {
+            method: 'GET',
+            url: "https://mashape-community-urban-dictionary.p.mashape.com/define?term=wat",
+            headers: {
+                "X-Mashape-Key": "iMzh0QJkkqmshRi6MZpCKCym7oSJp1Zw0rfjsn6vshBK8Nsljf",
+                "Accept":"application/json" 
+            }
+        };
+        
+        $http(mashape).then(function(build1){
+        
+            var arr = build1.data["list"];
+        console.log(arr);    
+            
+            
+            
+        
             ////////////////////CAMBIARLO POR UNA API FUERA DE SOS
            //console.log(build.data);
             var datax = [];
-            var obj = build.data["standings"];
-            var obj2 = obj["A"];
-            console.log(obj2);
+            
   //
    world.data.forEach(v => {
             var vic= [];
@@ -24,14 +41,14 @@ angular.module("MusicApp").controller("googlechartsVG4Ctrl", ["$scope", "$http",
             
         });
        
-        obj2.forEach(v => {
+        arr.forEach(v => {
             var vic= [];
             Object.keys(v).forEach(o => {
                 
-                if (o == "rank") {
+                if (o == "thumbs_down") {
                    vic.push(v[o]);
                    
-                }else if(o == "teamId"){
+                }else if(o == "thumbs_up"){
                 vic.push(v[o]);
                  }
                 })
@@ -78,10 +95,10 @@ function drawBackgroundColor() {
       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
-
+});
 
      ///////
-            
-        });
+          
+
      });
 }]);
