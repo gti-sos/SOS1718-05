@@ -13,7 +13,7 @@ describe("API should work", function() {
             throw(err);
         }
         else{
-            console.log("Collection run complete");
+            console.log("Country-stats collection run complete");
         }
     });
 });

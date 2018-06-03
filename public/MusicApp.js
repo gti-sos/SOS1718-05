@@ -10,6 +10,9 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/integrations",{
             templateUrl:"integrations.html"
         })
+        .when("/about",{
+            templateUrl:"about.html"
+        })
         
         ////Julio
         .when("/best-stats", {
@@ -49,6 +52,10 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
             controller:"googleChartsSCtrl"
             
         })
+        .when("/analytics/visjsS",{
+            templateUrl:"best-stats-api/Integrations/visjsS.html",
+            controller:"visjsSCtrl"
+        })
         //////Cambios manu
 
         .when("/country-stats", {
@@ -82,6 +89,14 @@ angular.module("MusicApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/analytics/zingchartsDisc",{
             templateUrl:"country-stats-api/analyticsProxy/zingchartsDisc.html",
             controller: "zingchartsDiscCtrl"
+        })
+        .when("/analytics/anychartsIMDB",{
+            templateUrl:"country-stats-api/analyticsProxy/anychartsIMDB.html",
+            controller: "anychartsIMDBCtrl"
+        })
+        .when("/analytics/anychartsfanburst",{
+            templateUrl:"country-stats-api/analyticsProxy/anychartsfanburst.html",
+            controller: "anychartsfanburstCtrl"
         })
 
         //////////vicente

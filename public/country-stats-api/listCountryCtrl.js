@@ -11,8 +11,8 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
 
     var data = [];
 
-
-
+    
+    
     $scope.seguro = function(apikey) {
         $scope.status = "";
         if (apikey == "SOS1718-05") {
@@ -111,6 +111,9 @@ angular.module("MusicApp").controller("ListCountryCtrl", ["$scope", "$http", fun
             $scope.error = "";
         }, function errorCallback(response) {
             console.log(response.status)
+            
+            
+            
             switch (response.status) {
                 case 400:
                     $scope.status = "Status 400. New items cant have blank parameters.";

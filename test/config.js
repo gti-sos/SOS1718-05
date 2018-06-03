@@ -6,4 +6,4 @@ exports.config = {
         "browserName": "phantomjs"//navegador
     }
     
-}
+}  
