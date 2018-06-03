@@ -11,7 +11,7 @@ angular.module("MusicApp").controller("tauChartsVG6Ctrl", ["$scope", "$http", fu
                 "Accept":"application/json" 
             }
         };
-    
+    //
      $http(mashape).then(function(build1){
         
         var v = build1.data["items"];
